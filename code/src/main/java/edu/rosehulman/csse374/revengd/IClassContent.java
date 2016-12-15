@@ -19,5 +19,5 @@ public interface IClassContent {
 	
 	public List<String> getField();
 	
-	public List<String> getName();
+	public String getName();
 }
