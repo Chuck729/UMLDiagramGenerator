@@ -3,6 +3,7 @@ package edu.rosehulman.csse374.revengd;
 import java.util.List;
 
 import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.ClassNode;
 
 public class ClassContent implements IClassContent {
@@ -15,18 +16,23 @@ public class ClassContent implements IClassContent {
 	private List<String> composition;
 	private List<String> method;
 	private List<String> field;
-	private List<String> name;
+	private String name;
 	
 	private ClassReader classReader;
 	
+	//takes in a class reader and populates all the needed fields
 	public ClassContent(ClassReader classReader) {
 		this.classReader = classReader;
 		populateFields();
 	}
 	
+	//populates classNode and gets all the needed fields
 	private void populateFields() {
 		ClassNode classNode = new ClassNode();
 		classReader.accept(classNode, ClassReader.EXPAND_FRAMES);
+		this.name = classNode.name.substring(classNode.name.lastIndexOf('/'));
+		this.field = classNode.fields;
+		this.method = classNode.methods;
 	}
 	
 	
@@ -71,7 +77,7 @@ public class ClassContent implements IClassContent {
 	}
 
 	@Override
-	public List<String> getName() {
+	public String getName() {
 		return this.name;
 	}
 
