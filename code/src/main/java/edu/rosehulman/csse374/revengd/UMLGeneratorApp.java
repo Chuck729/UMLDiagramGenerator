@@ -10,7 +10,7 @@ public class UMLGeneratorApp {
 		
 		ICodeGenerator generator = new GraphVizGenerator();
 		
-		String out = "../Input-Output/output.txt";
+		String out = "./Input-Output/output.txt";
 		
 		List<String> arguments = new ArrayList<String>();
 		

@@ -27,9 +27,9 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	public void write(String file) throws IOException {
 		String code = concatCode();
 		System.out.println(code);
-		/*OutputStream out = new FileOutputStream(file);
+		OutputStream out = new FileOutputStream(file);
 		byte[] b = code.getBytes();
-		out.write(b);*/
+		out.write(b);
 	}
 	
 	private String concatCode() {
@@ -122,6 +122,7 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	private String escape(String in){
 		in = in.replace(">", "\\>");
 		in = in.replace("<", "\\<");
+		in = in.replace("$", "\\$");
 		return in;
 		
 	}
