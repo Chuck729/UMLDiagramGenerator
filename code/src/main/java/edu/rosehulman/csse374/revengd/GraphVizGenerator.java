@@ -61,7 +61,16 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		
 		// Name
 		// TODO check if it is an interface or abstract class
+		if (classContent.isInterface()) {
+			list.add("\\<\\<Interface\\>\\>\\l");
+		}
+		if (classContent.isAbstract()) {
+			list.add("<I>");
+		}
 		list.add(escape(classContent.getName()));
+		if (classContent.isAbstract()) {
+			list.add("</I>");
+		}
 		list.add("|");
 		
 		// fields

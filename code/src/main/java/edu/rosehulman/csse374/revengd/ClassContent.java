@@ -126,14 +126,12 @@ public class ClassContent implements IClassContent {
 
 	@Override
 	public boolean isInterface() {
-		System.out.println(this.classNode.access);  // just a check
-		return this.classNode.access == Opcodes.ACC_INTERFACE;
+		return this.classNode.access == 1537;  // Opcodes.ACC_INTERFACE;
 	}
 
 	@Override
 	public boolean isAbstract() {
-		System.out.println(this.classNode.access);  // just a check
-		return this.classNode.access == Opcodes.ACC_ABSTRACT;
+		return this.classNode.access == 1057;  // Opcodes.ACC_ABSTRACT;
 	}
 
 	@Override
