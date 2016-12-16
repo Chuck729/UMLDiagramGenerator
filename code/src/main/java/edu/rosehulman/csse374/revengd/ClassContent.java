@@ -22,6 +22,8 @@ public class ClassContent implements IClassContent {
 	private List<String> method;
 	private List<String> field;
 	private ClassNode classNode;
+	private boolean isInterface;
+	private boolean isAbstract;
 	
 	private ClassReader classReader;
 	
@@ -137,26 +139,24 @@ public class ClassContent implements IClassContent {
 
 	@Override
 	public boolean isInterface() {
-		// TODO Auto-generated method stub
-		return false;
+		System.out.println(this.classNode.access);  // just a check
+		return this.classNode.access == Opcodes.ACC_INTERFACE;
 	}
 
 	@Override
 	public boolean isAbstract() {
-		// TODO Auto-generated method stub
-		return false;
+		System.out.println(this.classNode.access);  // just a check
+		return this.classNode.access == Opcodes.ACC_ABSTRACT;
 	}
 
 	@Override
 	public String getParent() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.classNode.superName;
 	}
 
 	@Override
 	public List<String> getInterfaces() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.classNode.interfaces;
 	}
 
 }

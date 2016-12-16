@@ -78,6 +78,21 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		}
 		list.add("}\",");
 		
+		//relationships and dependency arrows
+		list.add(classContent.getName());
+		list.add("->");
+		if(classContent.getParent() != null){
+			list.add(classContent.getParent());
+			list.add("[arrowhead=\"onormal\", style=\"solid\"];");
+		}
+		for (String inter : classContent.getInterfaces()){
+			list.add(classContent.getName());
+			list.add("->");
+			list.add(inter);
+			list.add("[arrowhead=\"onormal\", style=\"dashed\"];");
+		}
+		
+		
 		this.code.add(list);
 		
 	}
