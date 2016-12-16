@@ -2,6 +2,8 @@ package edu.rosehulman.csse374.revengd;
 
 import java.util.List;
 
+import org.objectweb.asm.tree.ClassNode;
+
 public interface IClassContent {
 	public List<String> getAssociation();
 	
@@ -18,6 +20,7 @@ public interface IClassContent {
 	public List<String> getMethod();
 	
 	public List<String> getField();
+
+	public ClassNode getClassNode();
 	
-	public String getName();
 }
