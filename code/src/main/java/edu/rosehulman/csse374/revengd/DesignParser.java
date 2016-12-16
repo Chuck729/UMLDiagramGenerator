@@ -18,13 +18,15 @@ public class DesignParser implements IDesignParser {
 	private String outFile;
 	private ClassReader reader;
 	private List<String> classNames;
+	private boolean recursive;
 
 	// TODO add parameter for recursiveParsing and accessLevel
 	
-	public DesignParser(ICodeGenerator codeGenerator, String outFile, List<String> classNames) {
+	public DesignParser(ICodeGenerator codeGenerator, String outFile, List<String> classNames, boolean recursive) {
 		this.codeGenerator = codeGenerator;
 		this.outFile = outFile;
 		this.classNames = classNames;
+		this.recursive = recursive;
 		this.classes = new LinkedList<IClassContent>();
 	}
 
@@ -211,6 +213,7 @@ public class DesignParser implements IDesignParser {
 				String parts[] = method.split(" ");
 				if(foundDependencyInReturnType(parts[parts.length - 1], c))
 					dependencies.add(parts[parts.length - 1]);
+				parts = getParams(method);
 				int index = foundDependencyInParams(getParams(method), c);
 					if(index != -1 && !dependencies.contains(parts[index]))
 						dependencies.add(parts[index]);

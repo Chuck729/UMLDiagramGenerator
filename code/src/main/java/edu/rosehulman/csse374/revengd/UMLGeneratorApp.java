@@ -14,11 +14,17 @@ public class UMLGeneratorApp {
 		
 		List<String> arguments = new ArrayList<String>();
 		
+		boolean recursive = false;
+		
 		for(int i = 0; i < args.length; i++){
-			arguments.add(args[i]);
+			if (args[i].equals("-r")) {
+				recursive = true;
+			} else {
+				arguments.add(args[i]);
+			}
 		}
 		
-		IDesignParser parser = new DesignParser(generator, out, arguments);
+		IDesignParser parser = new DesignParser(generator, out, arguments, recursive);
 		
 		parser.parseProject();
 		
