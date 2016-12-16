@@ -108,6 +108,12 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 			list.add(assoc);
 			list.add("[arrowhead=\"vee\", style=\"solid\"];");
 		}
+		for (String dep : classContent.getDependency()){
+			list.add(classContent.getName());
+			list.add("->");
+			list.add(dep);
+			list.add("[arrowhead=\"vee\", style=\"dashed\"];");
+		}
 		
 		this.code.add(list);
 		
