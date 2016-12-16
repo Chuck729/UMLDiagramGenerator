@@ -7,10 +7,16 @@ specified (private, protected or public).
 M1 Contributions
 
 Chuck:
-  Worked on UML design.
+  Worked on parsing classes to match UML format and get 
+  other needed interfaces and superclasses and making 
+  the access level flag work.
 
 Eric:
-  Worked on UML design.
+  Worked on creating graphViz code form ClassContent and the 
+  recursive addition of new classes (recursive flag).
 
 Logan:
-  Worked on UML design.
+  Updated and cleared up UML design and worked on 
+  creating graphviz code form CLassContent.  Set up
+  main.  Began implementing code to execute graphViz
+  to automattically generate a png.  
