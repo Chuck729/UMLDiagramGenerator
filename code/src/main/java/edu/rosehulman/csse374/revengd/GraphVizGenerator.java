@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,12 +19,12 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 
 	@Override
 	public void generateCode(List<IClassContent> classes) {
+		sort(classes);
 		for (IClassContent c : classes) {
 			this.format(c);
 		}
 	}
 
-	@Override
 	public void write(String file) throws IOException {
 		String code = concatCode();
 		OutputStream out = new FileOutputStream(file);
@@ -79,6 +80,19 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		
 		this.code.add(list);
 		
+	}
+	//We need to rearranged our strings so the classes will be generated in the right order.
+	private void sort(List<IClassContent> classes){
+		List<IClassContent> rearranged = new ArrayList<IClassContent>();
+		for (IClassContent content : classes){
+			//adds main to our rearranged list of classes
+			for (String method : content.getMethod()){
+				if(method.contains("main")){
+					rearranged.add(content);
+				}
+			}
+			//for loop for adding interfaces to 
+		}
 	}
 
 }
