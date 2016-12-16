@@ -33,6 +33,7 @@ public class DesignParser implements IDesignParser {
 			ClassContent classContent = new ClassContent(name);
 			classContent.setField(parseFields(classContent.getField()));
 			classContent.setMethod(parseMethods(classContent.getMethod()));
+			this.classes.add(classContent);
 		}
 	}
 	
