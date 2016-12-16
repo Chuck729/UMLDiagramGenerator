@@ -30,12 +30,13 @@ public class UMLGeneratorApp {
 		for(int i = 0; i < args.length; i++){
 			if (args[i].equals("-r")) {
 				recursive = true;
+			} 
+			else if (args[i].contains("-a")) {
+				accessLevel = args[i].split("=");
 			} else {
 				arguments.add(args[i]);
 			}
-			if (args[i].contains("-a")) {
-				accessLevel = args[i].split("=");
-			}
+		}
 			if (accessLevel != null) {
 				if(accessLevel.length == 1) {
 					modifications.add(modificationMap.get("private"));
@@ -44,7 +45,7 @@ public class UMLGeneratorApp {
 					modifications.add(modificationMap.get(accessLevel[1]));
 				}
 			}
-		}
+		
 		
 		IDesignParser parser = new DesignParser(generator, out, arguments, recursive, modifications);
 		
