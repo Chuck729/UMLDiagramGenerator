@@ -61,9 +61,9 @@ public class OldBadDesignParser {
 			// Now we can navigate the classNode and look for things we are
 			// interested in.
 			
-			//printClass(classNode);
+			printClass(classNode);
 
-			printFields(classNode);
+			//printFields(classNode);
 
 			//printMethods(classNode);
 
@@ -81,6 +81,7 @@ public class OldBadDesignParser {
 				+ ((classNode.access & Opcodes.ACC_PUBLIC) > 0));
 		System.out.println("Extends: " + classNode.superName);
 		System.out.println("Implements: " + classNode.interfaces);
+		System.out.println(classNode.signature);
 
 	}
 
