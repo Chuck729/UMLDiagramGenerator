@@ -20,32 +20,45 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// This text will be stored with each diagram;  use it for notes.</help_text><zoom_level>8</zoom_level><element><type>com.umlet.element.base.Class</type><coordinates><x>376</x><y>496</y><w>176</w><h>104</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
+// This text will be stored with each diagram;  use it for notes.</help_text><zoom_level>8</zoom_level><element><type>com.umlet.element.base.Class</type><coordinates><x>472</x><y>496</y><w>176</w><h>48</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
 /IGraphVizGenerator/
---</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>232</x><y>688</y><w>176</w><h>72</h></coordinates><panel_attributes>GraphVizGenerator
+--</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>256</x><y>664</y><w>264</w><h>72</h></coordinates><panel_attributes>GraphVizGenerator
 --
-- code: List&lt;List&lt;Object&gt; &gt;</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>536</x><y>688</y><w>152</w><h>72</h></coordinates><panel_attributes>&lt;&lt;abstract&gt;&gt;
+- code: List&lt;List&lt;Object&gt;&gt;
+--
++ generateCode(List&lt;IClassContent&gt; classes): void
++ write(String file): void
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>528</x><y>656</y><w>152</w><h>72</h></coordinates><panel_attributes>&lt;&lt;abstract&gt;&gt;
 /GraphVizDecorator/
 --
-# generator: ICodeGenerator </panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1056</x><y>624</y><w>96</w><h>24</h></coordinates><panel_attributes>ClassNode
-</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>552</x><y>128</y><w>176</w><h>40</h></coordinates><panel_attributes>App
+# generator: ICodeGenerator </panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1080</x><y>616</y><w>96</w><h>24</h></coordinates><panel_attributes>ClassNode
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>488</x><y>120</y><w>176</w><h>40</h></coordinates><panel_attributes>App
 --
-+ main(args: String[]): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>880</x><y>208</y><w>256</w><h>80</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
++ main(args: String[]): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>816</x><y>200</y><w>256</w><h>80</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
 /IDesignParser/
 --
 + parseProject(): void
 + generate(): void
-</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>880</x><y>344</y><w>256</w><h>88</h></coordinates><panel_attributes>DesignParser
++ findPattern(): void
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>816</x><y>336</y><w>256</w><h>168</h></coordinates><panel_attributes>DesignParser
 --
 - classes: List&lt;IClassContent&gt;
 - codeGenerator: ICodeGenerator
 - outFile: String
 - recursiveParsing: boolean
 - accessLevel: enum
+- isRecursive: boolean
+- methodConvert: MethodConvert
+- fieldConvert: FieldConvert
+--
++ parseProject(): void
++ generate(): void
++ findPattern(): void
 
 
-</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1056</x><y>664</y><w>96</w><h>24</h></coordinates><panel_attributes>ClassReader
-</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>984</x><y>264</y><w>40</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;80</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1184</x><y>344</y><w>256</w><h>176</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
+
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1080</x><y>656</y><w>96</w><h>24</h></coordinates><panel_attributes>ClassReader
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>920</x><y>256</y><w>40</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;80</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1216</x><y>336</y><w>256</w><h>176</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
 /IClassContent/
 --
 + getAssociation(): List&lt;String&gt;
@@ -58,25 +71,54 @@
 + getField(): List&lt;String&gt;
 + getName: List&lt;String&gt;
 ...
-</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1184</x><y>576</y><w>256</w><h>168</h></coordinates><panel_attributes>ClassContent
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1216</x><y>568</y><w>256</w><h>184</h></coordinates><panel_attributes>ClassContent
 --
-- association: List&lt;String&gt;
+- associations: List&lt;String&gt;
 - inheritance: List&lt;String&gt;
 - implementation: List&lt;String&gt;
-- dependency: List&lt;String&gt;
-- aggregation: List&lt;String&gt;
-- composition: List&lt;String&gt;
+- dependencies: List&lt;String&gt;
 - method: List&lt;String&gt;
 - field: List&lt;String&gt;
-- name: List&lt;String&gt;
+- classNode: ClassNode
+- isInterface: boolean
+- isAbstract: boolean
+- classReader: ClassReader
+--
++ getInheritance(): List&lt;String&gt;
 ...
-</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1288</x><y>496</y><w>40</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;80</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1112</x><y>376</y><w>88</w><h>40</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>72;24;24;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1128</x><y>616</y><w>72</w><h>40</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;24;56;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1128</x><y>648</y><w>72</w><h>40</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;24;56;24</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>56</x><y>408</y><w>176</w><h>104</h></coordinates><panel_attributes>DisplayJavaFX
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1320</x><y>488</y><w>40</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;80</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1048</x><y>368</y><w>184</w><h>40</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>168;24;24;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1152</x><y>608</y><w>80</w><h>40</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;24;64;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1152</x><y>640</y><w>80</w><h>40</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;24;64;24</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>0</x><y>360</y><w>176</w><h>104</h></coordinates><panel_attributes>DisplayJavaFX
 --
 - file: String
-</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>56</x><y>264</y><w>176</w><h>104</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>0</x><y>216</y><w>176</w><h>104</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
 /IDisplay/
 --
-+ display(): void </panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>120</x><y>344</y><w>40</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;64</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>288</x><y>352</y><w>344</w><h>80</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
++ display(): void </panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>64</x><y>296</y><w>40</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;64</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>464</x><y>352</y><w>264</w><h>64</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
 /ICodeGenerator/
 --
-+ generateCode(classes: List&lt;IClassContent&gt;): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>440</x><y>408</y><w>40</w><h>104</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;88</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>608</x><y>368</y><w>288</w><h>40</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;24;272;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>176</x><y>144</y><w>416</w><h>136</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>24;120;400;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>680</x><y>144</y><w>216</w><h>96</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>200;80;24;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>448</x><y>144</y><w>200</w><h>224</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>24;208;184;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>296</x><y>576</y><w>152</w><h>128</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>136;24;24;112</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>464</x><y>576</y><w>136</w><h>128</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;120;112</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>496</x><y>576</y><w>144</w><h>128</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;24;128;112</additional_attributes></element></umlet_diagram>
++ generateCode(classes: List&lt;IClassContent&gt;): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>536</x><y>392</y><w>40</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;104</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>704</x><y>368</y><w>128</w><h>40</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;24;112;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>120</x><y>120</y><w>384</w><h>112</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>24;96;368;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>616</x><y>136</y><w>216</w><h>96</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>200;80;24;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>544</x><y>136</y><w>40</w><h>232</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>24;216;24;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>464</x><y>520</y><w>40</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;144</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>552</x><y>520</y><w>40</w><h>152</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;136</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>592</x><y>520</y><w>40</w><h>152</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;24;24;136</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>776</x><y>608</y><w>272</w><h>80</h></coordinates><panel_attributes>&lt;&lt;abstract&gt;&gt;
+/ConvertInternalType/
+--
++ abstract convert(List&lt;String&gt; string): List&lt;String&gt;
+# getFriendlyName(String type): String
+# convertType(String type): String
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>928</x><y>752</y><w>264</w><h>64</h></coordinates><panel_attributes>MethodCovert
+--
++ convert(List&lt;String&gt; methods): List&lt;String&gt;
+- parseMethods(List&lt;String method): List&lt;String&gt;
+- transformMethod(String method): String
+
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>680</x><y>752</y><w>232</w><h>72</h></coordinates><panel_attributes>FieldConvert
+--
++ convert(List&lt;String&gt; fields): List&lt;String&gt;
+- parseFields(List&lt;String&gt; field): List&lt;String&gt;
+- transformField(String field): String
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>696</x><y>480</y><w>144</w><h>288</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;272;24;80;128;80;128;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1032</x><y>480</y><w>40</w><h>288</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;272;24;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>840</x><y>664</y><w>40</w><h>104</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;88</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>936</x><y>664</y><w>40</w><h>104</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;88</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>208</x><y>256</y><w>288</w><h>64</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
+/IModification/
+--
++ modify(List&lt;String&gt; parsedClassContent): List&lt;String&gt;</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>352</x><y>136</y><w>168</w><h>136</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>24;120;152;24</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>32</x><y>496</y><w>288</w><h>40</h></coordinates><panel_attributes>PrivateOnly
+--
++ modify(List&lt;String&gt; parsedClassContent): List&lt;String&gt;</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>168</x><y>592</y><w>288</w><h>40</h></coordinates><panel_attributes>PublicOnly
+--
++ modify(List&lt;String&gt; parsedClassContent): List&lt;String&gt;</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>88</x><y>544</y><w>288</w><h>40</h></coordinates><panel_attributes>ProtectedOnly
+--
++ modify(List&lt;String&gt; parsedClassContent): List&lt;String&gt;</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>216</x><y>296</y><w>40</w><h>216</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;200</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>312</x><y>296</y><w>40</w><h>264</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;248</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>392</x><y>296</y><w>40</w><h>312</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;296</additional_attributes></element></umlet_diagram>
