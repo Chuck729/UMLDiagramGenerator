@@ -42,6 +42,7 @@ public class OldBadDesignParser {
 			// Java class.
 			// TODO: verify you have your JavaDocs set up so Eclipse can load
 			// ASM's JavaDocs and tell you what this is.
+			System.out.println("class: " + className);
 			ClassReader reader = new ClassReader(className);
 
 			// There are NO ASM ClassVisitors, MethodVisitors, or FieldVisitors
@@ -73,7 +74,7 @@ public class OldBadDesignParser {
 			// TODO: Use GOOD DESIGN to parse the classes of interest and store
 			// them.
 		}
-		DesignParser dp = new DesignParser(new GraphVizGenerator(), "", names);
+		DesignParser dp = new DesignParser(new GraphVizGenerator(), "", names, false);
 		dp.parseProject();
 	}
 

@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.directory.ModificationItem;
+
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldNode;
@@ -21,6 +23,7 @@ public class DesignParser implements IDesignParser {
 	private boolean isRecursive;
 	private MethodConvert methodConvert;
 	private FieldConvert fieldConvert;
+	private List<IModification> modifications;
 
 	// TODO add parameter for recursiveParsing and accessLevel
 	
@@ -32,6 +35,7 @@ public class DesignParser implements IDesignParser {
 		this.classes = new LinkedList<IClassContent>();
 		this.methodConvert = new MethodConvert();
 		this.fieldConvert = new FieldConvert();
+		this.modifications = new ArrayList<IModification>();
 	}
 
 	//for each class name passed in, create a classContent to get the content from the class
