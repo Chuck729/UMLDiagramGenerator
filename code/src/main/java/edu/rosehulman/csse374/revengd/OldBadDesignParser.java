@@ -60,11 +60,12 @@ public class OldBadDesignParser {
 
 			// Now we can navigate the classNode and look for things we are
 			// interested in.
-			printClass(classNode);
+			
+			//printClass(classNode);
 
 			printFields(classNode);
 
-			printMethods(classNode);
+			//printMethods(classNode);
 
 			// TODO: Use GOOD DESIGN to parse the classes of interest and store
 			// them.
