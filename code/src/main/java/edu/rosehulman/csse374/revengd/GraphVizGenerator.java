@@ -122,7 +122,7 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	private String escape(String in){
 		in = in.replace(">", "\\>");
 		in = in.replace("<", "\\<");
-		in = in.replace("$", "\\$");
+		in = in.replace("$", "");
 		String[] split = in.split("\\.");
 		return split[split.length-1];
 		

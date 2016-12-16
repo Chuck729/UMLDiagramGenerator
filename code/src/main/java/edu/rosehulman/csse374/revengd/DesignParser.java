@@ -41,35 +41,36 @@ public class DesignParser implements IDesignParser {
 	public void parseProject() {
 		
 		for (String name: classNames) {
-			ClassContent classContent = new ClassContent(name);
+			IClassContent classContent = new ClassContent(name);
 			classContent.setField(fieldConvert.convert(classContent.getField()));
 			classContent.setMethod(methodConvert.convert(classContent.getMethod()));
 			this.classes.add(classContent);
 		}
 		
-		if (isRecursive) {
-			for(int i = 0; i < this.classes.size(); i++) {
-				for(String intName : this.classes.get(i).getInterfaces()) {
-					if (!this.classNames.contains(intName)) {
-						System.out.println("added");
-						ClassContent classContent = new ClassContent(intName);
-						classContent.setField(fieldConvert.convert(classContent.getField()));
-						classContent.setMethod(methodConvert.convert(classContent.getMethod()));
-						this.classes.add(classContent);
-						this.classNames.add(intName);
-					}
-				}
-				String p = this.classes.get(i).getParent();
-				if (!this.classNames.contains(p) && p != null) {
-					System.out.println("added");
-					ClassContent classContent = new ClassContent(p);
+		for(int i = 0; i < this.classes.size(); i++) {
+			for(String intName : this.classes.get(i).getInterfaces()) {
+				if (!this.classNames.contains(intName) && isRecursive) {
+					ClassContent classContent = new ClassContent(intName);
 					classContent.setField(fieldConvert.convert(classContent.getField()));
 					classContent.setMethod(methodConvert.convert(classContent.getMethod()));
 					this.classes.add(classContent);
-					this.classNames.add(p);
-					
+					this.classNames.add(intName);
+				} else if (!this.classNames.contains(intName)) {
+					this.classes.get(i).removeInterface(intName);
 				}
 			}
+			String p = this.classes.get(i).getParent();
+			if (!this.classNames.contains(p) && p != null && isRecursive) {
+				ClassContent classContent = new ClassContent(p);
+				classContent.setField(fieldConvert.convert(classContent.getField()));
+				classContent.setMethod(methodConvert.convert(classContent.getMethod()));
+				this.classes.add(classContent);
+				this.classNames.add(p);
+				
+			} else if (!this.classNames.contains(p)) {
+				this.classes.get(i).removeParent();
+			}
+			
 		}
 		
 		/*findAssociations();

@@ -34,4 +34,12 @@ public interface IClassContent {
 	
 	public List<String> getInterfaces();
 	
+	public void setMethod(List<String> methods);
+	
+	public void setField(List<String> fields);
+
+	public void removeInterface(String intName);
+
+	public void removeParent();
+	
 }

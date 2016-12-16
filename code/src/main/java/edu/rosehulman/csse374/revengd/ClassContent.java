@@ -23,6 +23,7 @@ public class ClassContent implements IClassContent {
 	private ClassNode classNode;
 	private boolean isInterface;
 	private boolean isAbstract;
+	private List<String> removedInterfaces;
 	
 	private ClassReader classReader;
 	
@@ -33,6 +34,7 @@ public class ClassContent implements IClassContent {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.removedInterfaces = new LinkedList<String>();
 		populateFields();
 	}
 	
@@ -111,10 +113,12 @@ public class ClassContent implements IClassContent {
 		return this.classNode;
 	}
 	
+	@Override
 	public void setMethod(List<String> methods) {
 		this.method = methods;
 	}
 	
+	@Override
 	public void setField(List<String> fields) {
 		this.field = fields;
 	}
@@ -150,7 +154,10 @@ public class ClassContent implements IClassContent {
 		List<String> newInters = new LinkedList<String>();
 		for (String inter : inters) {
 			//newInters.add(this.cutPath(inter));
-			newInters.add(Type.getObjectType(inter).getClassName());
+			String name = Type.getObjectType(inter).getClassName();
+			if(!this.removedInterfaces.contains(name)) {
+				newInters.add(name);
+			}
 		}
 		return newInters;
 		//return this.classNode.interfaces;
@@ -178,6 +185,18 @@ public class ClassContent implements IClassContent {
 	private String cutPath(String text) {
 		String[] name = text.split("/");
 		return name[name.length-1];
+	}
+
+	@Override
+	public void removeInterface(String intName) {
+		this.removedInterfaces.add(intName);
+		
+	}
+
+	@Override
+	public void removeParent() {
+		this.classNode.superName = null;
+		
 	}
 
 }
