@@ -32,8 +32,9 @@ public class UMLGeneratorApp {
 		
 		generator.write(out);
 		
-		//lab1_1.MicrosoftLineParser lab1_1.DataStandardizer lab1_1.AmazonLineParser lab1_1.GoogleLineParser lab1_1.GrouponLineParser lab1_1.ILineParser
-
+		// problem.AmazonLineParser problem.GrouponLineParser problem.GoogleLineParser problem.MicrosoftLineParser problem.ILineParser problem.DataStandardizer
+		// javax.swing.JComponent -r
+		// java.lang.String
 	}
 
 }

@@ -65,11 +65,11 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 			list.add("\\<\\<Interface\\>\\>\\l");
 		}
 		if (classContent.isAbstract()) {
-			list.add("<I>");
+			//list.add("<I>");
 		}
 		list.add(escape(classContent.getName()));
 		if (classContent.isAbstract()) {
-			list.add("</I>");
+			//list.add("</I>");
 		}
 		list.add("|");
 		
