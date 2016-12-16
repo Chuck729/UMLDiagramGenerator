@@ -1,11 +1,14 @@
 package edu.rosehulman.csse374.revengd;
 
 import java.util.List;
+import java.util.Map;
 
 import org.objectweb.asm.tree.ClassNode;
 
 public interface IClassContent {
 	public List<String> getAssociation();
+	
+	public void setAssociation(List<String> associations);
 	
 	public List<String> getInheritance();
 	
@@ -13,9 +16,7 @@ public interface IClassContent {
 	
 	public List<String> getDependency();
 	
-	public List<String> getAggregation();
-	
-	public List<String> getComposition();
+	public void setDependency(List<String> dependencies);
 	
 	public List<String> getMethod();
 	

@@ -19,7 +19,6 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 
 	@Override
 	public void generateCode(List<IClassContent> classes) {
-		sort(classes);
 		for (IClassContent c : classes) {
 			this.format(c);
 		}
@@ -27,26 +26,27 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 
 	public void write(String file) throws IOException {
 		String code = concatCode();
-		OutputStream out = new FileOutputStream(file);
+		System.out.println(code);
+		/*OutputStream out = new FileOutputStream(file);
 		byte[] b = code.getBytes();
-		out.write(b);
+		out.write(b);*/
 	}
 	
 	private String concatCode() {
-		String text = "";
+		String text = "digraph uml { rankdir=BT; ";
 		for (List<String> block : code) {
 			for (String s : block) {
 				text = text + s + " ";
 			}
 		}
-		return text;
+		return text + " }";
 	}
 	
 	private void format(IClassContent classContent) {
 		List<String> list = new LinkedList<String>();
 		
 		// add class name
-		list.add(classContent.getName());
+		list.add(escape(classContent.getName()));
 		list.add("[");
 		
 		// make shape
@@ -61,53 +61,69 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		
 		// Name
 		// TODO check if it is an interface or abstract class
-		list.add(classContent.getName());
+		if (classContent.isInterface()) {
+			list.add("\\<\\<Interface\\>\\>\\l");
+		}
+		if (classContent.isAbstract()) {
+			list.add("<I>");
+		}
+		list.add(escape(classContent.getName()));
+		if (classContent.isAbstract()) {
+			list.add("</I>");
+		}
 		list.add("|");
 		
 		// fields
 		for (String field : classContent.getField()) {
-			list.add(field);
+			list.add(escape(field));
 			list.add("\\l");
 		}
 		list.add("|");
 		
 		// methods
 		for (String method : classContent.getMethod()) {
-			list.add(method);
+			list.add(escape(method));
 			list.add("\\l");
 		}
 		list.add("}\",");
 		
+		list.add("];");
+		
 		//relationships and dependency arrows
-		list.add(classContent.getName());
-		list.add("->");
-		if(classContent.getParent() != null){
-			list.add(classContent.getParent());
+		if(classContent.getParent() != null && !classContent.getParent().equals("Object")){
+			list.add(escape(classContent.getName()));
+			list.add("->");
+			list.add(escape(classContent.getParent()));
 			list.add("[arrowhead=\"onormal\", style=\"solid\"];");
 		}
 		for (String inter : classContent.getInterfaces()){
 			list.add(classContent.getName());
 			list.add("->");
-			list.add(inter);
+			list.add(escape(inter));
 			list.add("[arrowhead=\"onormal\", style=\"dashed\"];");
 		}
-		
+		for (String assoc : classContent.getAssociation()){
+			list.add(escape(classContent.getName()));
+			list.add("->");
+			list.add(escape(assoc));
+			list.add("[arrowhead=\"vee\", style=\"solid\"];");
+		}
+		for (String dep : classContent.getDependency()){
+			list.add(escape(classContent.getName()));
+			list.add("->");
+			list.add(escape(dep));
+			list.add("[arrowhead=\"vee\", style=\"dashed\"];");
+		}
 		
 		this.code.add(list);
 		
 	}
-	//We need to rearranged our strings so the classes will be generated in the right order.
-	private void sort(List<IClassContent> classes){
-		List<IClassContent> rearranged = new ArrayList<IClassContent>();
-		for (IClassContent content : classes){
-			//adds main to our rearranged list of classes
-			for (String method : content.getMethod()){
-				if(method.contains("main")){
-					rearranged.add(content);
-				}
-			}
-			//for loop for adding interfaces to 
-		}
+	
+	private String escape(String in){
+		in = in.replace(">", "\\>");
+		in = in.replace("<", "\\<");
+		return in;
+		
 	}
 
 }

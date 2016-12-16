@@ -2,6 +2,7 @@ package edu.rosehulman.csse374.revengd;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.objectweb.asm.ClassReader;
@@ -13,12 +14,10 @@ import org.objectweb.asm.tree.MethodNode;
 
 public class ClassContent implements IClassContent {
 
-	private List<String> association;
+	private List<String> dependencies;
+	private List<String> associations;
 	private List<String> inheritance; 
 	private List<String> implementation;
-	private List<String> dependency;
-	private List<String> aggregation;
-	private List<String> composition;
 	private List<String> method;
 	private List<String> field;
 	private ClassNode classNode;
@@ -49,39 +48,42 @@ public class ClassContent implements IClassContent {
 		createMethodList((List<MethodNode>)classNode.methods);
 	}
 	
+	//puts all the fields in a list after parsing
 	private void createFieldList(List<FieldNode> fNodes) {
 		for(FieldNode fn: fNodes) {
 			this.field.add(parseField(fn));
 		}
 	}
 	
-	
+	//gets true or false value for whether field is public
+	//the field name
+	//and the field type
 	private String parseField(FieldNode fn) {
 		return ((fn.access & Opcodes.ACC_PUBLIC) > 0) + " " + fn.name + " " + Type.getType(fn.desc);
 	}
 	
+	//puts all the methods in a list after parsing
 	private void createMethodList(List<MethodNode> mNodes) {
 		for(MethodNode mn: mNodes) {
 			this.method.add(parseMethod(mn));
 		}
 	}
 	
-	
+	//gets true of fase value for whether field is public
+	//the method name
+	//the parameter types
+	//and the return type
 	private String parseMethod(MethodNode mn) {
 		return ((mn.access & Opcodes.ACC_PUBLIC) > 0) + " "+ mn.name + " " + parseArgs(mn) + " " + (Type.getReturnType(mn.desc).getClassName());
 	}
 	
+	//gets the type of each parameter
 	private List<String> parseArgs(MethodNode mn) {
 		List<String> args = new ArrayList<String>();
 		for (Type argType : Type.getArgumentTypes(mn.desc)) {
 			args.add(argType.getClassName());
 		}
 		return args;
-	}
-
-	@Override
-	public List<String> getAssociation() {
-		return this.association;
 	}
 
 	@Override
@@ -92,21 +94,6 @@ public class ClassContent implements IClassContent {
 	@Override
 	public List<String> getImplementation() {
 		return this.implementation;
-	}
-
-	@Override
-	public List<String> getDependency() {
-		return this.dependency;
-	}
-
-	@Override
-	public List<String> getAggregation() {
-		return this.aggregation;
-	}
-
-	@Override
-	public List<String> getComposition() {
-		return this.composition;
 	}
 
 	@Override
@@ -134,29 +121,56 @@ public class ClassContent implements IClassContent {
 
 	@Override
 	public String getName() {
-		return this.classNode.name;
+		return this.cutPath(this.classNode.name);
 	}
 
 	@Override
 	public boolean isInterface() {
-		System.out.println(this.classNode.access);  // just a check
-		return this.classNode.access == Opcodes.ACC_INTERFACE;
+		return this.classNode.access == 1537;  // Opcodes.ACC_INTERFACE;
 	}
 
 	@Override
 	public boolean isAbstract() {
-		System.out.println(this.classNode.access);  // just a check
-		return this.classNode.access == Opcodes.ACC_ABSTRACT;
+		return this.classNode.access == 1057;  // Opcodes.ACC_ABSTRACT;
 	}
 
 	@Override
 	public String getParent() {
-		return this.classNode.superName;
+		return this.cutPath(this.classNode.superName);
 	}
 
 	@Override
 	public List<String> getInterfaces() {
-		return this.classNode.interfaces;
+		List<String> inters = this.classNode.interfaces;
+		List<String> newInters = new LinkedList<String>();
+		for (String inter : inters) {
+			newInters.add(this.cutPath(inter));
+		}
+		return newInters;
+	}
+
+	@Override
+	public List<String> getAssociation() {
+		return this.associations;
+	}
+	
+	public void setAssociation(List<String> associations) {
+		this.associations = associations;
+	}
+
+	@Override
+	public List<String> getDependency() {
+		return this.dependencies;
+	}
+
+	@Override
+	public void setDependency(List<String> dependencies) {
+		this.dependencies = dependencies;
+	}
+	
+	private String cutPath(String text) {
+		String[] name = text.split("/");
+		return name[name.length-1];
 	}
 
 }
