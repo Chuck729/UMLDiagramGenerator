@@ -27,7 +27,8 @@ public class DesignParser implements IDesignParser {
 
 	// TODO add parameter for recursiveParsing and accessLevel
 	
-	public DesignParser(ICodeGenerator codeGenerator, String outFile, List<String> classNames, boolean isRecursive) {
+	public DesignParser(ICodeGenerator codeGenerator, String outFile, List<String> classNames, 
+			boolean isRecursive, List<IModification> modifications) {
 		this.codeGenerator = codeGenerator;
 		this.outFile = outFile;
 		this.classNames = classNames;
@@ -35,7 +36,7 @@ public class DesignParser implements IDesignParser {
 		this.classes = new LinkedList<IClassContent>();
 		this.methodConvert = new MethodConvert();
 		this.fieldConvert = new FieldConvert();
-		this.modifications = new ArrayList<IModification>();
+		this.modifications = modifications;
 	}
 
 	//for each class name passed in, create a classContent to get the content from the class
