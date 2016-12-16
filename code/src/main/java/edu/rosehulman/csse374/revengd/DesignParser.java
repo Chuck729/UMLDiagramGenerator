@@ -38,9 +38,9 @@ public class DesignParser implements IDesignParser {
 			ClassContent classContent = new ClassContent(name);
 			classContent.setField(parseFields(classContent.getField()));
 			classContent.setMethod(parseMethods(classContent.getMethod()));
-			findAssociations();
 			this.classes.add(classContent);
 		}
+		findAssociations();
 	}
 	
 	//go through each method the class and transform into UML format

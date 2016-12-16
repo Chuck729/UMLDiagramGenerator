@@ -2,6 +2,7 @@ package edu.rosehulman.csse374.revengd;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.objectweb.asm.ClassReader;
@@ -120,8 +121,7 @@ public class ClassContent implements IClassContent {
 
 	@Override
 	public String getName() {
-		String[] name = this.classNode.name.split("/");
-		return name[name.length-1];
+		return this.cutPath(this.classNode.name);
 	}
 
 	@Override
@@ -136,12 +136,17 @@ public class ClassContent implements IClassContent {
 
 	@Override
 	public String getParent() {
-		return this.classNode.superName;
+		return this.cutPath(this.classNode.superName);
 	}
 
 	@Override
 	public List<String> getInterfaces() {
-		return this.classNode.interfaces;
+		List<String> inters = this.classNode.interfaces;
+		List<String> newInters = new LinkedList<String>();
+		for (String inter : inters) {
+			newInters.add(this.cutPath(inter));
+		}
+		return newInters;
 	}
 
 	@Override
@@ -161,6 +166,11 @@ public class ClassContent implements IClassContent {
 	@Override
 	public void setDependency(List<String> dependencies) {
 		this.dependencies = dependencies;
+	}
+	
+	private String cutPath(String text) {
+		String[] name = text.split("/");
+		return name[name.length-1];
 	}
 
 }

@@ -90,9 +90,9 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		list.add("];");
 		
 		//relationships and dependency arrows
-		list.add(classContent.getName());
-		list.add("->");
-		if(classContent.getParent() != null){
+		if(classContent.getParent() != null && !classContent.getParent().equals("Object")){
+			list.add(classContent.getName());
+			list.add("->");
 			list.add(classContent.getParent());
 			list.add("[arrowhead=\"onormal\", style=\"solid\"];");
 		}
