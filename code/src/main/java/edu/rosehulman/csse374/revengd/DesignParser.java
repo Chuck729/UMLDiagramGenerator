@@ -41,6 +41,7 @@ public class DesignParser implements IDesignParser {
 			this.classes.add(classContent);
 		}
 		findAssociations();
+		findDependencies();
 	}
 	
 	//go through each method the class and transform into UML format
@@ -184,7 +185,7 @@ public class DesignParser implements IDesignParser {
 			ArrayList<String> associations = new ArrayList<String>();
 			for(String field: c.getField()) {
 				String parts[] = field.split(" ");
-				if (foundAssociations(parts[parts.length - 1]))
+				if (foundAssociations(parts[parts.length - 1] , c))
 					associations.add(parts[parts.length - 1]);
 			}
 			c.setAssociation(associations);
@@ -193,9 +194,31 @@ public class DesignParser implements IDesignParser {
 
 	//takes a className that is a field type
 	//returns if that class was found in the UML
-	private  boolean foundAssociations(String fieldName) {
+	private  boolean foundAssociations(String fieldName, IClassContent c) {
 		for(IClassContent allClasses: classes) {
-			if (allClasses.getName().equals(fieldName))
+			if (allClasses.getName().equals(fieldName) && allClasses != c)
+				return true;
+		}
+		return false;
+	}
+	
+	//if another class appears in a method param or return type, 
+	//add it to the dependencies
+	private void findDependencies() {
+		for(IClassContent c: classes) {
+			ArrayList<String> dependencies = new ArrayList<String>();
+			for(String method: c.getMethod()) {
+				if(foundDependency(method, c))
+					dependencies.add(c.getName());
+			}
+			c.setDependency(dependencies);
+		}
+	}
+	
+	//returns true if the a class is found in the method string
+	private boolean foundDependency(String methodString, IClassContent c) {
+		for(IClassContent allClasses: classes) {
+			if (methodString.contains(allClasses.getName()) && allClasses != c)
 				return true;
 		}
 		return false;
