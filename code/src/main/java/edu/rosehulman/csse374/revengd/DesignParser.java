@@ -220,14 +220,14 @@ public class DesignParser implements IDesignParser {
 	}
 	
 	private String[] getParams(String method) {
-		String params = method.substring(method.indexOf("("), method.indexOf(")"));
+		String params = method.substring(method.indexOf("(") + 1, method.indexOf(")"));
 		return params.split(",");
 	}
 	
 	private int foundDependencyInParams(String[] params, IClassContent c) {
 		for (IClassContent allClasses: classes) {
 			for (int x = 0; x < params.length; x++) {
-				if (allClasses.getName().equals(params[x]) && allClasses != c)
+				if (params[x].contains(allClasses.getName()) && allClasses != c)
 					return x;
 			}
 		}
