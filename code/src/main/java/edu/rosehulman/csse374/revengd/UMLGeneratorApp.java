@@ -36,12 +36,13 @@ public class UMLGeneratorApp {
 			if (args[i].contains("-a")) {
 				accessLevel = args[i].split("=");
 			}
-			
-			if(accessLevel.length == 1) {
-				modifications.add(modificationMap.get("private"));
-			}
-			else {
-				modifications.add(modificationMap.get(accessLevel[1]));
+			if (accessLevel != null) {
+				if(accessLevel.length == 1) {
+					modifications.add(modificationMap.get("private"));
+				}
+				else {
+					modifications.add(modificationMap.get(accessLevel[1]));
+				}
 			}
 		}
 		
