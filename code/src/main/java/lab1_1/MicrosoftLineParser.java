@@ -8,8 +8,8 @@ public class MicrosoftLineParser implements ILineParser {
 		return fields[0].trim() + " : " + fields[1].trim();
 	}
 	
-	private void testDep(GrouponLineParser g) {
-		
+	private GoogleLineParser testDep(GrouponLineParser g) {
+		return new GoogleLineParser();
 	}
 
 }

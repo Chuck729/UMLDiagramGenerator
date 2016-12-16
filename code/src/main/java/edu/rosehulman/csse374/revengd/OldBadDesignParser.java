@@ -36,6 +36,7 @@ public class OldBadDesignParser {
 		// FIXME: this code has POOR DESIGN. If you keep this code as-is for
 		// your main method, you will be sad about your grade.
 
+		ArrayList<String> names = new ArrayList<String>();
 		for (String className : args) {
 			// ASM's ClassReader does the heavy lifting of parsing the compiled
 			// Java class.
@@ -58,10 +59,8 @@ public class OldBadDesignParser {
 			// in our ClassNode.
 			// EXPAND_FRAMES means: I want my code to work. Always pass this.
 			reader.accept(classNode, ClassReader.EXPAND_FRAMES);
-			ArrayList<String> names = new ArrayList<String>();
 			names.add(className);
-			DesignParser dp = new DesignParser(new GraphVizGenerator(), "", names);
-			dp.parseProject();
+			
 			// Now we can navigate the classNode and look for things we are
 			// interested in.
 			
@@ -74,6 +73,8 @@ public class OldBadDesignParser {
 			// TODO: Use GOOD DESIGN to parse the classes of interest and store
 			// them.
 		}
+		DesignParser dp = new DesignParser(new GraphVizGenerator(), "", names);
+		dp.parseProject();
 	}
 
 	// FIXME: is it GOOD DESIGN to have a class where everything is static?

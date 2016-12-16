@@ -18,15 +18,13 @@ public class DesignParser implements IDesignParser {
 	private String outFile;
 	private ClassReader reader;
 	private List<String> classNames;
-	private boolean recursive;
 
 	// TODO add parameter for recursiveParsing and accessLevel
 	
-	public DesignParser(ICodeGenerator codeGenerator, String outFile, List<String> classNames, boolean recursive) {
+	public DesignParser(ICodeGenerator codeGenerator, String outFile, List<String> classNames) {
 		this.codeGenerator = codeGenerator;
 		this.outFile = outFile;
 		this.classNames = classNames;
-		this.recursive = recursive;
 		this.classes = new LinkedList<IClassContent>();
 	}
 
@@ -44,6 +42,10 @@ public class DesignParser implements IDesignParser {
 		}
 		findAssociations();
 		findDependencies();
+		for(IClassContent c: classes) {
+			//System.out.println(c.getMethod());
+			System.out.println(c.getDependency());
+		}
 	}
 	
 	//go through each method the class and transform into UML format
@@ -122,7 +124,7 @@ public class DesignParser implements IDesignParser {
 		boolean array = false;
 		if (type.equals("[]"))
 			return "";
-		if (type.charAt(0) == '[') {
+		if (type.charAt(0) == '[' && type.charAt(type.length() - 1) != ']') {
 			array = true;
 			type = type.substring(1);
 		}
@@ -163,10 +165,14 @@ public class DesignParser implements IDesignParser {
 	//since some objects are in the form java.lang.String or java/lang/String 
 	//this method gets just String
 	private String getFriendlyName(String type) {
+		String friendly = "";
 		if (type.contains("/"))
-			return type.substring(type.lastIndexOf('/') + 1, type.length() - 1);
+			friendly = type.substring(type.lastIndexOf('/') + 1);
 		else
-			return type.substring(type.lastIndexOf('.') + 1, type.length());
+			friendly = type.substring(type.lastIndexOf('.') + 1);
+		if (friendly.charAt(friendly.length()-1) == ']')
+			friendly = friendly.substring(0, friendly.length() -1);
+		return friendly;
 	}
 
 	@Override
@@ -211,13 +217,14 @@ public class DesignParser implements IDesignParser {
 			ArrayList<String> dependencies = new ArrayList<String>();
 			for(String method: c.getMethod()) {
 				String parts[] = method.split(" ");
-				//System.out.println(parts[parts.length-1]);
 				if(foundDependencyInReturnType(parts[parts.length - 1], c))
 					dependencies.add(parts[parts.length - 1]);
-				parts = getParams(method);
-				int index = foundDependencyInParams(getParams(method), c);
-					if(index != -1 && !dependencies.contains(parts[index]))
-						dependencies.add(parts[index]);
+				String[] params = getParams(method);
+				int index = foundDependencyInParams(params, c);
+//				for(int x = 0; x < params.length; x++)
+//					System.out.println("params: " + params[x]);
+					if(index != -1 && !dependencies.contains(params[index]))
+						dependencies.add(params[index]);
 			}
 			c.setDependency(dependencies);
 		}
@@ -231,7 +238,7 @@ public class DesignParser implements IDesignParser {
 	private int foundDependencyInParams(String[] params, IClassContent c) {
 		for (IClassContent allClasses: classes) {
 			for (int x = 0; x < params.length; x++) {
-				if (params[x].contains(allClasses.getName()) && allClasses != c)
+				if ((params[x].contains(allClasses.getName())) && allClasses != c)
 					return x;
 			}
 		}
