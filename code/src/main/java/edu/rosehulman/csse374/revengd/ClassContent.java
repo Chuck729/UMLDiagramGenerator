@@ -130,4 +130,9 @@ public class ClassContent implements IClassContent {
 		this.field = fields;
 	}
 
+	@Override
+	public String getName() {
+		return this.classNode.name;
+	}
+
 }
