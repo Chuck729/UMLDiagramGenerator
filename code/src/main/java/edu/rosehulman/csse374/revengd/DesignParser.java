@@ -40,8 +40,6 @@ public class DesignParser implements IDesignParser {
 			ClassContent classContent = new ClassContent(name);
 			classContent.setField(parseFields(classContent.getField()));
 			classContent.setMethod(parseMethods(classContent.getMethod()));
-			System.out.println(classContent.getField());
-			System.out.println(classContent.getMethod());
 			this.classes.add(classContent);
 		}
 		findAssociations();
