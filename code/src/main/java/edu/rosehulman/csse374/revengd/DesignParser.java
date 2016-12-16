@@ -1,8 +1,10 @@
 package edu.rosehulman.csse374.revengd;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
@@ -36,6 +38,7 @@ public class DesignParser implements IDesignParser {
 			ClassContent classContent = new ClassContent(name);
 			classContent.setField(parseFields(classContent.getField()));
 			classContent.setMethod(parseMethods(classContent.getMethod()));
+			findAssociations();
 			this.classes.add(classContent);
 		}
 	}
@@ -172,6 +175,30 @@ public class DesignParser implements IDesignParser {
 	public void findPattern() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	//if the field is has a type of another class in the UML
+	//add it to the associations
+	private void findAssociations() {
+		for(IClassContent c : classes) {
+			ArrayList<String> associations = new ArrayList<String>();
+			for(String field: c.getField()) {
+				String parts[] = field.split(" ");
+				if (foundAssociations(parts[parts.length - 1]))
+					associations.add(parts[parts.length - 1]);
+			}
+			c.setAssociation(associations);
+		}
+	}
+
+	//takes a className that is a field type
+	//returns if that class was found in the UML
+	private  boolean foundAssociations(String fieldName) {
+		for(IClassContent allClasses: classes) {
+			if (allClasses.getName().equals(fieldName))
+				return true;
+		}
+		return false;
 	}
 
 }

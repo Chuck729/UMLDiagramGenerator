@@ -13,12 +13,10 @@ import org.objectweb.asm.tree.MethodNode;
 
 public class ClassContent implements IClassContent {
 
-	private List<String> association;
+	private List<String> dependencies;
+	private List<String> associations;
 	private List<String> inheritance; 
 	private List<String> implementation;
-	private List<String> dependency;
-	private List<String> aggregation;
-	private List<String> composition;
 	private List<String> method;
 	private List<String> field;
 	private ClassNode classNode;
@@ -88,11 +86,6 @@ public class ClassContent implements IClassContent {
 	}
 
 	@Override
-	public List<String> getAssociation() {
-		return this.association;
-	}
-
-	@Override
 	public List<String> getInheritance() {
 		return this.inheritance;
 	}
@@ -100,21 +93,6 @@ public class ClassContent implements IClassContent {
 	@Override
 	public List<String> getImplementation() {
 		return this.implementation;
-	}
-
-	@Override
-	public List<String> getDependency() {
-		return this.dependency;
-	}
-
-	@Override
-	public List<String> getAggregation() {
-		return this.aggregation;
-	}
-
-	@Override
-	public List<String> getComposition() {
-		return this.composition;
 	}
 
 	@Override
@@ -166,6 +144,25 @@ public class ClassContent implements IClassContent {
 	@Override
 	public List<String> getInterfaces() {
 		return this.classNode.interfaces;
+	}
+
+	@Override
+	public List<String> getAssociation() {
+		return this.associations;
+	}
+	
+	public void setAssociation(List<String> associations) {
+		this.associations = associations;
+	}
+
+	@Override
+	public List<String> getDependency() {
+		return this.dependencies;
+	}
+
+	@Override
+	public void setDependency(List<String> dependencies) {
+		this.dependencies = dependencies;
 	}
 
 }
