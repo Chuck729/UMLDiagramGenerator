@@ -130,4 +130,33 @@ public class ClassContent implements IClassContent {
 		this.field = fields;
 	}
 
+	@Override
+	public String getName() {
+		return this.classNode.name;
+	}
+
+	@Override
+	public boolean isInterface() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAbstract() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getParent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getInterfaces() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

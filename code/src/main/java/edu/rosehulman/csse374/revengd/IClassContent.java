@@ -20,7 +20,17 @@ public interface IClassContent {
 	public List<String> getMethod();
 	
 	public List<String> getField();
+	
+	public String getName();
 
 	public ClassNode getClassNode();
+	
+	public boolean isInterface();
+	
+	public boolean isAbstract();
+	
+	public String getParent();
+	
+	public List<String> getInterfaces();
 	
 }
