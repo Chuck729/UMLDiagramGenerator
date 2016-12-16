@@ -49,28 +49,36 @@ public class ClassContent implements IClassContent {
 		createMethodList((List<MethodNode>)classNode.methods);
 	}
 	
+	//puts all the fields in a list after parsing
 	private void createFieldList(List<FieldNode> fNodes) {
 		for(FieldNode fn: fNodes) {
 			this.field.add(parseField(fn));
 		}
 	}
 	
-	
+	//gets true or false value for whether field is public
+	//the field name
+	//and the field type
 	private String parseField(FieldNode fn) {
 		return ((fn.access & Opcodes.ACC_PUBLIC) > 0) + " " + fn.name + " " + Type.getType(fn.desc);
 	}
 	
+	//puts all the methods in a list after parsing
 	private void createMethodList(List<MethodNode> mNodes) {
 		for(MethodNode mn: mNodes) {
 			this.method.add(parseMethod(mn));
 		}
 	}
 	
-	
+	//gets true of fase value for whether field is public
+	//the method name
+	//the parameter types
+	//and the return type
 	private String parseMethod(MethodNode mn) {
 		return ((mn.access & Opcodes.ACC_PUBLIC) > 0) + " "+ mn.name + " " + parseArgs(mn) + " " + (Type.getReturnType(mn.desc).getClassName());
 	}
 	
+	//gets the type of each parameter
 	private List<String> parseArgs(MethodNode mn) {
 		List<String> args = new ArrayList<String>();
 		for (Type argType : Type.getArgumentTypes(mn.desc)) {
