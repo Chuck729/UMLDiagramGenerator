@@ -66,6 +66,7 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		}
 		if (classContent.isAbstract()) {
 			//list.add("<I>");
+			list.add("\\<\\<Abstract\\>\\>\\l");
 		}
 		list.add(escape(classContent.getName()));
 		if (classContent.isAbstract()) {
