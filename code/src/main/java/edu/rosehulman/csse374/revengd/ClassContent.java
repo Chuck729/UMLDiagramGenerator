@@ -134,7 +134,8 @@ public class ClassContent implements IClassContent {
 
 	@Override
 	public String getName() {
-		return this.classNode.name;
+		String[] name = this.classNode.name.split("/");
+		return name[name.length-1];
 	}
 
 	@Override

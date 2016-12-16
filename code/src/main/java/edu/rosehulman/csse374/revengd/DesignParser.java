@@ -1,6 +1,7 @@
 package edu.rosehulman.csse374.revengd;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.objectweb.asm.ClassReader;
@@ -22,16 +23,18 @@ public class DesignParser implements IDesignParser {
 		this.codeGenerator = codeGenerator;
 		this.outFile = outFile;
 		this.classNames = classNames;
+		this.classes = new LinkedList<IClassContent>();
 	}
 
 	@Override
 	public void parseProject() {
 		
 		for (String name: classNames) {
-			ClassContent classContent = new ClassContent(name);
-			classContent.setField(parseFields(classContent.getField()));
-			System.out.println(classContent.getMethod());
-			parseMethods(classContent.getMethod());
+			ClassContent classContent = new ClassContent(name);  // TODO This needs to be a IClassContent
+			classContent.setField(parseFields(classContent.getField())); // TODO This needs to be a function in IClassContent
+			//System.out.println(classContent.getMethod());
+			parseMethods(classContent.getMethod());  // TODO This too
+			this.classes.add(classContent);
 		}
 	}
 	
@@ -125,7 +128,7 @@ public class DesignParser implements IDesignParser {
 
 	@Override
 	public void generate() {
-		
+		this.codeGenerator.generateCode(this.classes);
 	}
 
 	@Override

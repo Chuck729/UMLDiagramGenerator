@@ -19,7 +19,6 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 
 	@Override
 	public void generateCode(List<IClassContent> classes) {
-		sort(classes);
 		for (IClassContent c : classes) {
 			this.format(c);
 		}
@@ -27,9 +26,10 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 
 	public void write(String file) throws IOException {
 		String code = concatCode();
-		OutputStream out = new FileOutputStream(file);
+		System.out.println(code);
+		/*OutputStream out = new FileOutputStream(file);
 		byte[] b = code.getBytes();
-		out.write(b);
+		out.write(b);*/
 	}
 	
 	private String concatCode() {
@@ -78,8 +78,10 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		}
 		list.add("}\",");
 		
+		list.add("];");
+		
 		//relationships and dependency arrows
-		list.add(classContent.getName());
+		/*list.add(classContent.getName());
 		list.add("->");
 		if(classContent.getParent() != null){
 			list.add(classContent.getParent());
@@ -90,24 +92,11 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 			list.add("->");
 			list.add(inter);
 			list.add("[arrowhead=\"onormal\", style=\"dashed\"];");
-		}
+		}*/
 		
 		
 		this.code.add(list);
 		
-	}
-	//We need to rearranged our strings so the classes will be generated in the right order.
-	private void sort(List<IClassContent> classes){
-		List<IClassContent> rearranged = new ArrayList<IClassContent>();
-		for (IClassContent content : classes){
-			//adds main to our rearranged list of classes
-			for (String method : content.getMethod()){
-				if(method.contains("main")){
-					rearranged.add(content);
-				}
-			}
-			//for loop for adding interfaces to 
-		}
 	}
 
 }

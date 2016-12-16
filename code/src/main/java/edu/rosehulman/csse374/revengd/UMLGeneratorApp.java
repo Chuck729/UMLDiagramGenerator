@@ -1,11 +1,12 @@
 package edu.rosehulman.csse374.revengd;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UMLGeneratorApp {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		ICodeGenerator generator = new GraphVizGenerator();
 		
@@ -23,9 +24,7 @@ public class UMLGeneratorApp {
 		
 		parser.generate();
 		
-		
-		
-		
+		generator.write(out);
 
 	}
 
