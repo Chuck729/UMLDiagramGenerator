@@ -40,6 +40,8 @@ public class DesignParser implements IDesignParser {
 			ClassContent classContent = new ClassContent(name);
 			classContent.setField(parseFields(classContent.getField()));
 			classContent.setMethod(parseMethods(classContent.getMethod()));
+			System.out.println(classContent.getField());
+			System.out.println(classContent.getMethod());
 			this.classes.add(classContent);
 		}
 		findAssociations();
@@ -82,7 +84,7 @@ public class DesignParser implements IDesignParser {
 		for (int x = 2; x < parts.length - 1; x++) {
 			transformed += convertType(parts[x]) + ", ";
 		}
-		transformed = transformed.substring(0,  transformed.length() - 2) + ") : " + parts[parts.length - 1];
+		transformed = transformed.substring(0,  transformed.length() - 2) + ") : " + getFriendlyName(parts[parts.length - 1]);
 		return transformed;
 	}
 
@@ -166,7 +168,7 @@ public class DesignParser implements IDesignParser {
 		if (type.contains("/"))
 			return type.substring(type.lastIndexOf('/') + 1, type.length() - 1);
 		else
-			return type.substring(type.lastIndexOf('.') + 1, type.length() - 1);
+			return type.substring(type.lastIndexOf('.') + 1, type.length());
 	}
 
 	@Override
@@ -211,6 +213,7 @@ public class DesignParser implements IDesignParser {
 			ArrayList<String> dependencies = new ArrayList<String>();
 			for(String method: c.getMethod()) {
 				String parts[] = method.split(" ");
+				//System.out.println(parts[parts.length-1]);
 				if(foundDependencyInReturnType(parts[parts.length - 1], c))
 					dependencies.add(parts[parts.length - 1]);
 				parts = getParams(method);
