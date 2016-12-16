@@ -91,27 +91,27 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		
 		//relationships and dependency arrows
 		if(classContent.getParent() != null && !classContent.getParent().equals("Object")){
-			list.add(classContent.getName());
+			list.add(escape(classContent.getName()));
 			list.add("->");
-			list.add(classContent.getParent());
+			list.add(escape(classContent.getParent()));
 			list.add("[arrowhead=\"onormal\", style=\"solid\"];");
 		}
 		for (String inter : classContent.getInterfaces()){
 			list.add(classContent.getName());
 			list.add("->");
-			list.add(inter);
+			list.add(escape(inter));
 			list.add("[arrowhead=\"onormal\", style=\"dashed\"];");
 		}
 		for (String assoc : classContent.getAssociation()){
-			list.add(classContent.getName());
+			list.add(escape(classContent.getName()));
 			list.add("->");
-			list.add(assoc);
+			list.add(escape(assoc));
 			list.add("[arrowhead=\"vee\", style=\"solid\"];");
 		}
 		for (String dep : classContent.getDependency()){
-			list.add(classContent.getName());
+			list.add(escape(classContent.getName()));
 			list.add("->");
-			list.add(dep);
+			list.add(escape(dep));
 			list.add("[arrowhead=\"vee\", style=\"dashed\"];");
 		}
 		
