@@ -90,7 +90,7 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		list.add("];");
 		
 		//relationships and dependency arrows
-		/*list.add(classContent.getName());
+		list.add(classContent.getName());
 		list.add("->");
 		if(classContent.getParent() != null){
 			list.add(classContent.getParent());
@@ -101,8 +101,13 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 			list.add("->");
 			list.add(inter);
 			list.add("[arrowhead=\"onormal\", style=\"dashed\"];");
-		}*/
-		
+		}
+		for (String assoc : classContent.getAssociation()){
+			list.add(classContent.getName());
+			list.add("->");
+			list.add(assoc);
+			list.add("[arrowhead=\"vee\", style=\"solid\"];");
+		}
 		
 		this.code.add(list);
 		
