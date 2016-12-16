@@ -33,13 +33,13 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	}
 	
 	private String concatCode() {
-		String text = "";
+		String text = "digraph uml { rankdir=BT; ";
 		for (List<String> block : code) {
 			for (String s : block) {
 				text = text + s + " ";
 			}
 		}
-		return text;
+		return text + " }";
 	}
 	
 	private void format(IClassContent classContent) {
