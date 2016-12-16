@@ -25,4 +25,12 @@ public interface IClassContent {
 
 	public ClassNode getClassNode();
 	
+	public boolean isInterface();
+	
+	public boolean isAbstract();
+	
+	public String getParent();
+	
+	public List<String> getInterfaces();
+	
 }
