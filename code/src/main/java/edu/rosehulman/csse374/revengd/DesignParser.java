@@ -29,20 +29,38 @@ public class DesignParser implements IDesignParser {
 		
 		for (String name: classNames) {
 			ClassContent classContent = new ClassContent(name);
-			parseFields(classContent.getField());
+			classContent.setField(parseFields(classContent.getField()));
+			System.out.println(classContent.getMethod());
 			parseMethods(classContent.getMethod());
 		}
 	}
 	
 	private void parseMethods(List<String> method) {
-		
+		ArrayList<String> methods = new ArrayList<String>();
+		for (String m: method) {
+			methods.add(transformMethod(m));
+		}
 	}
 
-	private void parseFields(List<String> field) {
+	private String transformMethod(String method) {
+		String transformed = "";
+		String[] parts = method.split(" ");
+		if (parts[0].equals("true")) {
+			transformed += "+ ";
+		}
+		else {
+			transformed += "- ";
+		}
+		
+		return null;
+	}
+
+	private List<String> parseFields(List<String> field) {
 		ArrayList<String> fields = new ArrayList<String>();
 		for (String f: field) {
 			fields.add(transformField(f));
 		}
+		return fields;
 	}
 	
 	private String transformField(String field) {
@@ -58,7 +76,6 @@ public class DesignParser implements IDesignParser {
 		transformed += parts[1] + ": ";
 		
 		transformed += convertType(parts[2]);
-		System.out.println("Transformed: " +transformed);
 		return transformed;
 	}
 
@@ -108,8 +125,7 @@ public class DesignParser implements IDesignParser {
 
 	@Override
 	public void generate() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
