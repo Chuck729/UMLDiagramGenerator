@@ -208,17 +208,36 @@ public class DesignParser implements IDesignParser {
 		for(IClassContent c: classes) {
 			ArrayList<String> dependencies = new ArrayList<String>();
 			for(String method: c.getMethod()) {
-				if(foundDependency(method, c))
-					dependencies.add(c.getName());
+				String parts[] = method.split(" ");
+				if(foundDependencyInReturnType(parts[parts.length - 1], c))
+					dependencies.add(parts[parts.length - 1]);
+				int index = foundDependencyInParams(getParams(method), c);
+					if(index != -1 && !dependencies.contains(parts[index]))
+						dependencies.add(parts[index]);
 			}
 			c.setDependency(dependencies);
 		}
 	}
 	
+	private String[] getParams(String method) {
+		String params = method.substring(method.indexOf("("), method.indexOf(")"));
+		return params.split(",");
+	}
+	
+	private int foundDependencyInParams(String[] params, IClassContent c) {
+		for (IClassContent allClasses: classes) {
+			for (int x = 0; x < params.length; x++) {
+				if (allClasses.getName().equals(params[x]) && allClasses != c)
+					return x;
+			}
+		}
+		return -1;
+	}
+
 	//returns true if the a class is found in the method string
-	private boolean foundDependency(String methodString, IClassContent c) {
+	private boolean foundDependencyInReturnType(String returnType, IClassContent c) {
 		for(IClassContent allClasses: classes) {
-			if (methodString.contains(allClasses.getName()) && allClasses != c)
+			if (returnType.equals(allClasses.getName()) && allClasses != c)
 				return true;
 		}
 		return false;
