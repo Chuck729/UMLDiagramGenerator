@@ -84,6 +84,13 @@ public class DesignParser implements IDesignParser {
 			System.out.println(c.getMethod());
 			System.out.println(c.getDependency());
 		}*/
+		
+		for(IClassContent c: classes) {
+			for (IModification modification: modifications) {
+				c.setField(modification.modify(c.getField()));
+				c.setMethod(modification.modify(c.getMethod()));
+			}
+		}
 	}
 	
 	@Override

@@ -74,7 +74,7 @@ public class OldBadDesignParser {
 			// TODO: Use GOOD DESIGN to parse the classes of interest and store
 			// them.
 		}
-		DesignParser dp = new DesignParser(new GraphVizGenerator(), "", names, false);
+		DesignParser dp = new DesignParser(new GraphVizGenerator(), "", names, false, new ArrayList<IModification>());
 		dp.parseProject();
 	}
 
