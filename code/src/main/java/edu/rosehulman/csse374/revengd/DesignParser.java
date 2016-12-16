@@ -18,13 +18,15 @@ public class DesignParser implements IDesignParser {
 	private String outFile;
 	private ClassReader reader;
 	private List<String> classNames;
+	private boolean isRecursive;
 
 	// TODO add parameter for recursiveParsing and accessLevel
 	
-	public DesignParser(ICodeGenerator codeGenerator, String outFile, List<String> classNames) {
+	public DesignParser(ICodeGenerator codeGenerator, String outFile, List<String> classNames, boolean isRecursive) {
 		this.codeGenerator = codeGenerator;
 		this.outFile = outFile;
 		this.classNames = classNames;
+		this.isRecursive = isRecursive;
 		this.classes = new LinkedList<IClassContent>();
 	}
 
@@ -40,12 +42,38 @@ public class DesignParser implements IDesignParser {
 			classContent.setMethod(parseMethods(classContent.getMethod()));
 			this.classes.add(classContent);
 		}
-		findAssociations();
+		
+		if (isRecursive) {
+			for(int i = 0; i < this.classes.size(); i++) {
+				for(String intName : this.classes.get(i).getInterfaces()) {
+					if (!this.classNames.contains(intName)) {
+						System.out.println("added");
+						ClassContent classContent = new ClassContent(intName);
+						classContent.setField(parseFields(classContent.getField()));
+						classContent.setMethod(parseMethods(classContent.getMethod()));
+						this.classes.add(classContent);
+						this.classNames.add(intName);
+					}
+				}
+				String p = this.classes.get(i).getParent();
+				if (!this.classNames.contains(p) && p != null) {
+					System.out.println("added");
+					ClassContent classContent = new ClassContent(p);
+					classContent.setField(parseFields(classContent.getField()));
+					classContent.setMethod(parseMethods(classContent.getMethod()));
+					this.classes.add(classContent);
+					this.classNames.add(p);
+					
+				}
+			}
+		}
+		
+		/*findAssociations();
 		findDependencies();
 		for(IClassContent c: classes) {
 			//System.out.println(c.getMethod());
 			System.out.println(c.getDependency());
-		}
+		}*/
 	}
 	
 	//go through each method the class and transform into UML format
@@ -188,7 +216,7 @@ public class DesignParser implements IDesignParser {
 	
 	//if the field is has a type of another class in the UML
 	//add it to the associations
-	private void findAssociations() {
+	/*private void findAssociations() {
 		for(IClassContent c : classes) {
 			ArrayList<String> associations = new ArrayList<String>();
 			for(String field: c.getField()) {
@@ -198,21 +226,21 @@ public class DesignParser implements IDesignParser {
 			}
 			c.setAssociation(associations);
 		}
-	}
+	}*/
 
 	//takes a className that is a field type
 	//returns if that class was found in the UML
-	private  boolean foundAssociations(String fieldName, IClassContent c) {
+	/*private  boolean foundAssociations(String fieldName, IClassContent c) {
 		for(IClassContent allClasses: classes) {
 			if (allClasses.getName().equals(fieldName) && allClasses != c)
 				return true;
 		}
 		return false;
-	}
+	}*/
 	
 	//if another class appears in a method param or return type, 
 	//add it to the dependencies
-	private void findDependencies() {
+	/*private void findDependencies() {
 		for(IClassContent c: classes) {
 			ArrayList<String> dependencies = new ArrayList<String>();
 			for(String method: c.getMethod()) {
@@ -228,14 +256,14 @@ public class DesignParser implements IDesignParser {
 			}
 			c.setDependency(dependencies);
 		}
-	}
+	}*/
 	
-	private String[] getParams(String method) {
+	/*private String[] getParams(String method) {
 		String params = method.substring(method.indexOf("(") + 1, method.indexOf(")"));
 		return params.split(",");
-	}
+	}*/
 	
-	private int foundDependencyInParams(String[] params, IClassContent c) {
+	/*private int foundDependencyInParams(String[] params, IClassContent c) {
 		for (IClassContent allClasses: classes) {
 			for (int x = 0; x < params.length; x++) {
 				if ((params[x].contains(allClasses.getName())) && allClasses != c)
@@ -243,15 +271,15 @@ public class DesignParser implements IDesignParser {
 			}
 		}
 		return -1;
-	}
+	}*/
 
 	//returns true if the a class is found in the method string
-	private boolean foundDependencyInReturnType(String returnType, IClassContent c) {
+	/*private boolean foundDependencyInReturnType(String returnType, IClassContent c) {
 		for(IClassContent allClasses: classes) {
 			if (returnType.equals(allClasses.getName()) && allClasses != c)
 				return true;
 		}
 		return false;
-	}
+	}*/
 
 }

@@ -97,12 +97,12 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 			list.add("[arrowhead=\"onormal\", style=\"solid\"];");
 		}
 		for (String inter : classContent.getInterfaces()){
-			list.add(classContent.getName());
+			list.add(escape(classContent.getName()));
 			list.add("->");
 			list.add(escape(inter));
 			list.add("[arrowhead=\"onormal\", style=\"dashed\"];");
 		}
-		for (String assoc : classContent.getAssociation()){
+		/*for (String assoc : classContent.getAssociation()){
 			list.add(escape(classContent.getName()));
 			list.add("->");
 			list.add(escape(assoc));
@@ -113,7 +113,7 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 			list.add("->");
 			list.add(escape(dep));
 			list.add("[arrowhead=\"vee\", style=\"dashed\"];");
-		}
+		}*/
 		
 		this.code.add(list);
 		
@@ -123,7 +123,8 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		in = in.replace(">", "\\>");
 		in = in.replace("<", "\\<");
 		in = in.replace("$", "\\$");
-		return in;
+		String[] split = in.split("\\.");
+		return split[split.length-1];
 		
 	}
 

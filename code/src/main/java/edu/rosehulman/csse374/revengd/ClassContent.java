@@ -121,7 +121,8 @@ public class ClassContent implements IClassContent {
 
 	@Override
 	public String getName() {
-		return this.cutPath(this.classNode.name);
+		//return this.cutPath(this.classNode.name);
+		return Type.getObjectType(classNode.name).getClassName();
 	}
 
 	@Override
@@ -136,7 +137,11 @@ public class ClassContent implements IClassContent {
 
 	@Override
 	public String getParent() {
-		return this.cutPath(this.classNode.superName);
+		if(classNode.superName == null) {
+			return null;
+		}
+		return Type.getObjectType(classNode.superName).getClassName();
+		//return this.cutPath(this.classNode.superName);
 	}
 
 	@Override
@@ -144,9 +149,11 @@ public class ClassContent implements IClassContent {
 		List<String> inters = this.classNode.interfaces;
 		List<String> newInters = new LinkedList<String>();
 		for (String inter : inters) {
-			newInters.add(this.cutPath(inter));
+			//newInters.add(this.cutPath(inter));
+			newInters.add(Type.getObjectType(inter).getClassName());
 		}
 		return newInters;
+		//return this.classNode.interfaces;
 	}
 
 	@Override

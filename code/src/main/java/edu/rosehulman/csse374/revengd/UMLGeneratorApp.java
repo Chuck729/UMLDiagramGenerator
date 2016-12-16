@@ -24,7 +24,7 @@ public class UMLGeneratorApp {
 			}
 		}
 		
-		IDesignParser parser = new DesignParser(generator, out, arguments);
+		IDesignParser parser = new DesignParser(generator, out, arguments, recursive);
 		
 		parser.parseProject();
 		
