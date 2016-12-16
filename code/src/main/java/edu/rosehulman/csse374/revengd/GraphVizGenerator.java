@@ -46,7 +46,7 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		List<String> list = new LinkedList<String>();
 		
 		// add class name
-		list.add(classContent.getName());
+		list.add(escape(classContent.getName()));
 		list.add("[");
 		
 		// make shape
@@ -61,19 +61,19 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		
 		// Name
 		// TODO check if it is an interface or abstract class
-		list.add(classContent.getName());
+		list.add(escape(classContent.getName()));
 		list.add("|");
 		
 		// fields
 		for (String field : classContent.getField()) {
-			list.add(field);
+			list.add(escape(field));
 			list.add("\\l");
 		}
 		list.add("|");
 		
 		// methods
 		for (String method : classContent.getMethod()) {
-			list.add(method);
+			list.add(escape(method));
 			list.add("\\l");
 		}
 		list.add("}\",");
@@ -96,6 +96,13 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		
 		
 		this.code.add(list);
+		
+	}
+	
+	private String escape(String in){
+		in = in.replace(">", "\\>");
+		in = in.replace("<", "\\<");
+		return in;
 		
 	}
 
