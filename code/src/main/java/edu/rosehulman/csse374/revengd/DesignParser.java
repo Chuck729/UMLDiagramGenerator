@@ -26,6 +26,9 @@ public class DesignParser implements IDesignParser {
 		this.classes = new LinkedList<IClassContent>();
 	}
 
+	//for each class name passed in, create a classContent to get the content from the class
+	//then set the class contents fields to the parsed UML format version
+	//and set the class contents methods to the parsed UML format version
 	@Override
 	public void parseProject() {
 		
@@ -37,6 +40,7 @@ public class DesignParser implements IDesignParser {
 		}
 	}
 	
+	//go through each method the class and transform into UML format
 	private List<String> parseMethods(List<String> method) {
 		ArrayList<String> methods = new ArrayList<String>();
 		for (String m: method) {
@@ -47,6 +51,11 @@ public class DesignParser implements IDesignParser {
 		return methods;
 	}
 
+	//transform the method based on the parts from contentclass.getMethod()
+	//1. true or false string meaning whether it is public
+	//2. method name
+	//3 - ? param types
+	//last part is the return type
 	private String transformMethod(String method) {
 		String transformed = "";
 		String[] parts = method.split(" ");
@@ -71,6 +80,7 @@ public class DesignParser implements IDesignParser {
 		return transformed;
 	}
 
+	//go through each field of the class and transform it into UML format
 	private List<String> parseFields(List<String> field) {
 		ArrayList<String> fields = new ArrayList<String>();
 		for (String f: field) {
@@ -79,6 +89,10 @@ public class DesignParser implements IDesignParser {
 		return fields;
 	}
 	
+	//transform field based on the 3 parts from each field in the contentclass.getField()
+	//1. true or false string meaning whether it is public
+	//2. field name
+	//3. field type
 	private String transformField(String field) {
 		String transformed = "";
 		String[] parts = field.split(" ");
@@ -95,6 +109,9 @@ public class DesignParser implements IDesignParser {
 		return transformed;
 	}
 
+	//converts java's type symbols into what they represent
+	//[] means the array of parameters is null so return
+	//[ signals it is the type of an array
 	private String convertType(String type) {
 		boolean array = false;
 		if (type.equals("[]"))
@@ -137,6 +154,8 @@ public class DesignParser implements IDesignParser {
 		return conversion;
 	}
 
+	//since some objects are in the form java.lang.String or java/lang/String 
+	//this method gets just String
 	private String getFriendlyName(String type) {
 		if (type.contains("/"))
 			return type.substring(type.lastIndexOf('/') + 1, type.length() - 1);
