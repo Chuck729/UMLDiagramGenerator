@@ -30,19 +30,20 @@ public class DesignParser implements IDesignParser {
 	public void parseProject() {
 		
 		for (String name: classNames) {
-			ClassContent classContent = new ClassContent(name);  // TODO This needs to be a IClassContent
-			classContent.setField(parseFields(classContent.getField())); // TODO This needs to be a function in IClassContent
-			//System.out.println(classContent.getMethod());
-			parseMethods(classContent.getMethod());  // TODO This too
-			this.classes.add(classContent);
+			ClassContent classContent = new ClassContent(name);
+			classContent.setField(parseFields(classContent.getField()));
+			classContent.setMethod(parseMethods(classContent.getMethod()));
 		}
 	}
 	
-	private void parseMethods(List<String> method) {
+	private List<String> parseMethods(List<String> method) {
 		ArrayList<String> methods = new ArrayList<String>();
 		for (String m: method) {
-			methods.add(transformMethod(m));
+			String transformed = transformMethod(m);
+			if(transformed != "")
+			methods.add(transformed);
 		}
+		return methods;
 	}
 
 	private String transformMethod(String method) {
@@ -55,7 +56,18 @@ public class DesignParser implements IDesignParser {
 			transformed += "- ";
 		}
 		
-		return null;
+		if (parts[1].equals("<init>")) {
+			return "";
+		}
+		else {
+			transformed += parts[1];
+		}
+		transformed += "(";
+		for (int x = 2; x < parts.length - 1; x++) {
+			transformed += convertType(parts[x]) + ", ";
+		}
+		transformed = transformed.substring(0,  transformed.length() - 2) + ") : " + parts[parts.length - 1];
+		return transformed;
 	}
 
 	private List<String> parseFields(List<String> field) {
@@ -84,6 +96,8 @@ public class DesignParser implements IDesignParser {
 
 	private String convertType(String type) {
 		boolean array = false;
+		if (type.equals("[]"))
+			return "";
 		if (type.charAt(0) == '[') {
 			array = true;
 			type = type.substring(1);
@@ -123,7 +137,10 @@ public class DesignParser implements IDesignParser {
 	}
 
 	private String getFriendlyName(String type) {
-		return type.substring(type.lastIndexOf('/') + 1, type.length() - 1);
+		if (type.contains("/"))
+			return type.substring(type.lastIndexOf('/') + 1, type.length() - 1);
+		else
+			return type.substring(type.lastIndexOf('.') + 1, type.length() - 1);
 	}
 
 	@Override

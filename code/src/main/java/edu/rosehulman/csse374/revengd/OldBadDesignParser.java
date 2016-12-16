@@ -1,6 +1,7 @@
 package edu.rosehulman.csse374.revengd;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.objectweb.asm.ClassReader;
@@ -57,11 +58,14 @@ public class OldBadDesignParser {
 			// in our ClassNode.
 			// EXPAND_FRAMES means: I want my code to work. Always pass this.
 			reader.accept(classNode, ClassReader.EXPAND_FRAMES);
-
+			ArrayList<String> names = new ArrayList<String>();
+			names.add(className);
+			DesignParser dp = new DesignParser(new GraphVizGenerator(), "", names);
+			dp.parseProject();
 			// Now we can navigate the classNode and look for things we are
 			// interested in.
 			
-			printClass(classNode);
+			//printClass(classNode);
 
 			//printFields(classNode);
 
