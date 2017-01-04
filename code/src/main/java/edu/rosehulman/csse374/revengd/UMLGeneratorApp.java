@@ -58,6 +58,7 @@ public class UMLGeneratorApp {
 		// problem.AmazonLineParser problem.GrouponLineParser problem.GoogleLineParser problem.MicrosoftLineParser problem.ILineParser problem.DataStandardizer
 		// javax.swing.JComponent -r
 		// java.lang.String
+		// edu.rosehulman.csse374.revengd.ClassContent edu.rosehulman.csse374.revengd.ConvertInternalTypes edu.rosehulman.csse374.revengd.DesignParser edu.rosehulman.csse374.revengd.FieldConvert edu.rosehulman.csse374.revengd.GraphVizGenerator edu.rosehulman.csse374.revengd.MethodConvert edu.rosehulman.csse374.revengd.PrivateOnly edu.rosehulman.csse374.revengd.ProtectedOnly edu.rosehulman.csse374.revengd.PublicOnly edu.rosehulman.csse374.revengd.UMLGeneratorApp -r -a=public
 	}
 
 }
