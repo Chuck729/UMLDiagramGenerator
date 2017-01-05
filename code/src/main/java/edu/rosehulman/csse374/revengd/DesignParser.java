@@ -52,6 +52,8 @@ public class DesignParser implements IDesignParser {
 			this.classes.add(classContent);
 		}
 		
+		// TODO this all should be in a recursive method. I think it would make
+		// dependencies and associations easier
 		for(int i = 0; i < this.classes.size(); i++) {
 			for(String intName : this.classes.get(i).getInterfaces()) {
 				if (!this.classNames.contains(intName) && isRecursive) {
