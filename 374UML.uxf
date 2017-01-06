@@ -124,17 +124,22 @@
 --
 + modify(List&lt;String&gt; parsedClassContent): List&lt;String&gt;</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>216</x><y>160</y><w>40</w><h>216</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;200</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>312</x><y>160</y><w>40</w><h>264</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;248</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>392</x><y>160</y><w>40</w><h>312</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;296</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>328</x><y>656</y><w>264</w><h>136</h></coordinates><panel_attributes>GraphVizComponents
 --
-- label: String[2] // label, options
-- shape: String[2] // shape, options
+- label: String // label, options
+- shape: String // shape, options
 - isInterface: boolean
 - isAbstract: boolean
-- name: String[2] // label, options
-- edges: List&lt;String[3]&gt; // edge1, arrow tyoe, options
-- methods: List&lt;String[2] // label, options
-- fields: List&lt;String[2] // label, options
+- name: String // label, options
+- edges: List&lt;Edges&gt; // edge1, arrow tyoe, options. make this a class
+- methods: List&lt;String&gt; // label, options
+- fields: List&lt;String&gt; // label, options
+- options: Map&lt;String, String&gt; // can add to map to add options (color -&gt; green) 
+
+// options should be map
 </panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>464</x><y>584</y><w>40</w><h>88</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;72;24;24</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>624</x><y>656</y><w>272</w><h>72</h></coordinates><panel_attributes>/GraphVizOneToManyDecorator/
 --
-+ generateData(classes: List&lt;IClassContent&gt;): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>776</x><y>736</y><w>272</w><h>72</h></coordinates><panel_attributes>/GraphVizBidirDecorator/
++ generateData(classes: List&lt;IClassContent&gt;): void
+
+// also need many to many </panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>776</x><y>736</y><w>272</w><h>72</h></coordinates><panel_attributes>/GraphVizBidirDecorator/
 --
 + generateData(classes: List&lt;IClassContent&gt;): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>776</x><y>584</y><w>40</w><h>88</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;72</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>920</x><y>584</y><w>40</w><h>168</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;152</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1768</x><y>648</y><w>192</w><h>72</h></coordinates><panel_attributes>DependencyFinder
 --
@@ -144,4 +149,10 @@ ClassContent: List&lt;IClassContent&gt;</panel_attributes><additional_attributes
 find(): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1544</x><y>648</y><w>192</w><h>72</h></coordinates><panel_attributes>AssociationFinder
 --
 names: List&lt;String&gt;
-ClassContent: List&lt;IClassContent&gt;</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1696</x><y>568</y><w>40</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;80</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1760</x><y>568</y><w>40</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;80</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1352</x><y>304</y><w>544</w><h>360</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>528;344;528;160;344;160;160;160;104;160;104;24;24;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1352</x><y>320</y><w>264</w><h>344</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>248;328;248;184;248;160;176;160;72;160;72;24;24;24</additional_attributes></element></umlet_diagram>
+ClassContent: List&lt;IClassContent&gt;</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1696</x><y>568</y><w>40</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;80</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1760</x><y>568</y><w>40</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;80</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1352</x><y>304</y><w>544</w><h>360</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>528;344;528;160;344;160;160;160;104;160;104;24;24;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1352</x><y>320</y><w>264</w><h>344</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>248;328;248;184;248;160;176;160;72;160;72;24;24;24</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>368</x><y>824</y><w>264</w><h>136</h></coordinates><panel_attributes>Edges
+--
+edge1: String
+edge2: String
+type: String
+option: List&lt;String&gt;
+</panel_attributes><additional_attributes/></element></umlet_diagram>
