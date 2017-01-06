@@ -30,7 +30,7 @@
 --
 # generator: ICodeGenerator 
 --
-+ abstract generateData(classes: List&lt;IClassContent&gt;): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1384</x><y>512</y><w>96</w><h>24</h></coordinates><panel_attributes>ClassNode
++ abstract generateData(classes: List&lt;IClassContent&gt;): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1432</x><y>192</y><w>96</w><h>24</h></coordinates><panel_attributes>ClassNode
 </panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>792</x><y>16</y><w>176</w><h>40</h></coordinates><panel_attributes>App
 --
 + main(args: String[]): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1120</x><y>96</y><w>256</w><h>80</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
@@ -56,8 +56,8 @@
 
 
 
-</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1384</x><y>552</y><w>96</w><h>24</h></coordinates><panel_attributes>ClassReader
-</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1224</x><y>152</y><w>40</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;80</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1520</x><y>232</y><w>256</w><h>176</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1424</x><y>232</y><w>96</w><h>24</h></coordinates><panel_attributes>ClassReader
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1224</x><y>152</y><w>40</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;80</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1560</x><y>56</y><w>256</w><h>176</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
 /IClassContent/
 --
 + getAssociation(): List&lt;String&gt;
@@ -70,7 +70,7 @@
 + getField(): List&lt;String&gt;
 + getName: List&lt;String&gt;
 ...
-</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1520</x><y>464</y><w>256</w><h>184</h></coordinates><panel_attributes>ClassContent
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1560</x><y>272</y><w>256</w><h>184</h></coordinates><panel_attributes>ClassContent
 --
 - associations: List&lt;String&gt;
 - inheritance: List&lt;String&gt;
@@ -85,7 +85,7 @@
 --
 + getInheritance(): List&lt;String&gt;
 ...
-</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1624</x><y>384</y><w>40</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;80</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1352</x><y>264</y><w>184</w><h>40</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>168;24;24;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1456</x><y>504</y><w>80</w><h>40</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;24;64;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1456</x><y>536</y><w>80</w><h>40</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;24;64;24</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>0</x><y>240</y><w>176</w><h>104</h></coordinates><panel_attributes>DisplayJavaFX
+</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1664</x><y>208</y><w>40</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>24;24;24;64</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1352</x><y>88</y><w>224</w><h>216</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>208;24;64;24;64;200;24;200</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1504</x><y>184</y><w>72</w><h>168</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;24;24;152;56;152</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1496</x><y>216</y><w>80</w><h>168</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>24;24;24;152;64;152</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>0</x><y>240</y><w>176</w><h>104</h></coordinates><panel_attributes>DisplayJavaFX
 --
 - file: String
 </panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>0</x><y>96</y><w>176</w><h>104</h></coordinates><panel_attributes>&lt;&lt;Interface&gt;&gt;
@@ -136,4 +136,12 @@
 --
 + generateData(classes: List&lt;IClassContent&gt;): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>776</x><y>752</y><w>272</w><h>72</h></coordinates><panel_attributes>/GraphVizBidirDecorator/
 --
-+ generateData(classes: List&lt;IClassContent&gt;): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>776</x><y>600</y><w>40</w><h>88</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;72</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>920</x><y>600</y><w>40</w><h>168</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;152</additional_attributes></element></umlet_diagram>
++ generateData(classes: List&lt;IClassContent&gt;): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>776</x><y>600</y><w>40</w><h>88</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;72</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>920</x><y>600</y><w>40</w><h>168</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;152</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1768</x><y>664</y><w>192</w><h>72</h></coordinates><panel_attributes>DependencyFinder
+--
+names: List&lt;String&gt;
+ClassContent: List&lt;IClassContent&gt;</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1704</x><y>560</y><w>104</w><h>48</h></coordinates><panel_attributes>ICoupleFinder
+--
+find(): void</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>1544</x><y>664</y><w>192</w><h>72</h></coordinates><panel_attributes>AssociationFinder
+--
+names: List&lt;String&gt;
+ClassContent: List&lt;IClassContent&gt;</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1696</x><y>584</y><w>40</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;80</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1760</x><y>584</y><w>40</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>24;24;24;80</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1352</x><y>320</y><w>544</w><h>360</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>528;344;528;160;344;160;160;160;104;160;104;24;24;24</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>1352</x><y>336</y><w>264</w><h>344</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>248;328;248;184;248;160;176;160;72;160;72;24;24;24</additional_attributes></element></umlet_diagram>
