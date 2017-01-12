@@ -57,4 +57,49 @@ public class GraphVizComponents {
 		String[] split = in.split("\\.");  // FIXME this should be left
 		return split[split.length-1];
 	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public String getLabel() {
+		return this.label;
+	}
+	
+	public String getShape() {
+		return this.shape;
+	}
+	
+	public boolean isInterface() {
+		return this.isInterface;
+	}
+	
+	public boolean isAbstract() {
+		return this.isAbstract;
+	}
+	
+	public List<String> getEdges() {
+		List<String> listEdges = new LinkedList<>();
+		for (Edge e : this.edges) {
+			String str = "" + e.getEdge1() + "->" + e.getEdge2() + e.getArrowType();
+			listEdges.add(str);
+		}
+		return listEdges;
+	}
+	
+	public List<String> getMethods() {
+		return this.methods;
+	}
+	
+	public List<String> getFields() {
+		return this.fields;
+	}
+	
+	public Map<String, String> getOptions() {
+		return this.options;
+	}
+	
+	public void addOption(String option, String value) {
+		this.options.put(option, value);
+	}
 }
