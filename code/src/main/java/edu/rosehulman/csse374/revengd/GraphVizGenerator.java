@@ -12,19 +12,24 @@ import java.util.List;
 public class GraphVizGenerator implements IGraphVizGenorator {
 	
 	private List<List<String>> code;
+	private List<GraphVizComponents> classes;
 	
 	public GraphVizGenerator() {
 		this.code = new LinkedList<>();
+		this.classes = new LinkedList<>();
 	}
 
 	@Override
 	public void generateCode(List<IClassContent> classes) {
 		for (IClassContent c : classes) {
-			this.format(c);
+			this.classes.add(new GraphVizComponents(c));
 		}
 	}
 
 	public void write(String file) throws IOException {
+		for(GraphVizComponents c : this.classes) {
+			this.format(c);
+		}
 		String code = concatCode();
 		System.out.println(code);
 		OutputStream out = new FileOutputStream(file);
@@ -42,17 +47,18 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		return text + " }";
 	}
 	
-	private void format(IClassContent classContent) {
+	private void format(GraphVizComponents classComponent) {
 		List<String> list = new LinkedList<String>();
 		
 		// add class name
-		list.add(escape(classContent.getName()));
+		list.add(classComponent.getName());
 		list.add("[");
 		
 		// make shape
 		list.add("shape");
 		list.add("=");
-		list.add("\"record\",");
+		list.add(classComponent.getShape());
+		list.add(",");
 		
 		// make label
 		list.add("label");
@@ -61,28 +67,28 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		
 		// Name
 		// TODO check if it is an interface or abstract class
-		if (classContent.isInterface()) {
+		if (classComponent.isInterface()) {
 			list.add("\\<\\<Interface\\>\\>\\l");
 		}
-		if (classContent.isAbstract()) {
+		if (classComponent.isAbstract()) {
 			//list.add("<I>");
 			list.add("\\<\\<Abstract\\>\\>\\l");
 		}
-		list.add(escape(classContent.getName()));
-		if (classContent.isAbstract()) {
+		list.add(escape(classComponent.getName()));
+		if (classComponent.isAbstract()) {
 			//list.add("</I>");
 		}
 		list.add("|");
 		
 		// fields
-		for (String field : classContent.getField()) {
+		for (String field : classComponent.getFields()) {
 			list.add(escape(field));
 			list.add("\\l");
 		}
 		list.add("|");
 		
 		// methods
-		for (String method : classContent.getMethod()) {
+		for (String method : classComponent.getMethods()) {
 			list.add(escape(method));
 			list.add("\\l");
 		}
@@ -91,17 +97,8 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		list.add("];");
 		
 		//relationships and dependency arrows
-		if(classContent.getParent() != null && !classContent.getParent().equals("Object")){
-			list.add(escape(classContent.getName()));
-			list.add("->");
-			list.add(escape(classContent.getParent()));
-			list.add("[arrowhead=\"onormal\", style=\"solid\"];");
-		}
-		for (String inter : classContent.getInterfaces()){
-			list.add(escape(classContent.getName()));
-			list.add("->");
-			list.add(escape(inter));
-			list.add("[arrowhead=\"onormal\", style=\"dashed\"];");
+		for(String e : classComponent.getEdges()) {
+			list.add(e);
 		}
 		/*for (String assoc : classContent.getAssociation()){
 			list.add(escape(classContent.getName()));
