@@ -12,7 +12,7 @@ import java.util.List;
 public class GraphVizGenerator implements IGraphVizGenorator {
 	
 	private List<List<String>> code;
-	private List<GraphVizComponents> classes;
+	private List<IComponents> classes;
 	
 	public GraphVizGenerator() {
 		this.code = new LinkedList<>();
@@ -27,8 +27,8 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	}
 
 	public void write(String file) throws IOException {
-		for(GraphVizComponents c : this.classes) {
-			this.format(c);
+		for(IComponents c : this.classes) {
+			this.format((GraphVizComponents) c);
 		}
 		String code = concatCode();
 		System.out.println(code);
@@ -94,6 +94,8 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		}
 		list.add("}\",");
 		
+		// TODO options
+		
 		list.add("];");
 		
 		//relationships and dependency arrows
@@ -124,6 +126,11 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		String[] split = in.split("\\.");
 		return split[split.length-1];
 		
+	}
+
+	@Override
+	public IComponents getClasses() {
+		return (IComponents) this.classes;
 	}
 
 }
