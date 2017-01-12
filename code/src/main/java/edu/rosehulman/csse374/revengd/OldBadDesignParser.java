@@ -1,6 +1,7 @@
 package edu.rosehulman.csse374.revengd;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.objectweb.asm.ClassReader;
@@ -35,11 +36,13 @@ public class OldBadDesignParser {
 		// FIXME: this code has POOR DESIGN. If you keep this code as-is for
 		// your main method, you will be sad about your grade.
 
+		ArrayList<String> names = new ArrayList<String>();
 		for (String className : args) {
 			// ASM's ClassReader does the heavy lifting of parsing the compiled
 			// Java class.
 			// TODO: verify you have your JavaDocs set up so Eclipse can load
 			// ASM's JavaDocs and tell you what this is.
+			System.out.println("class: " + className);
 			ClassReader reader = new ClassReader(className);
 
 			// There are NO ASM ClassVisitors, MethodVisitors, or FieldVisitors
@@ -57,19 +60,22 @@ public class OldBadDesignParser {
 			// in our ClassNode.
 			// EXPAND_FRAMES means: I want my code to work. Always pass this.
 			reader.accept(classNode, ClassReader.EXPAND_FRAMES);
-
+			names.add(className);
+			
 			// Now we can navigate the classNode and look for things we are
 			// interested in.
 			
 			//printClass(classNode);
 
-			printFields(classNode);
+			//printFields(classNode);
 
 			//printMethods(classNode);
 
 			// TODO: Use GOOD DESIGN to parse the classes of interest and store
 			// them.
 		}
+		DesignParser dp = new DesignParser(new GraphVizGenerator(), "", names, false, new ArrayList<IModification>());
+		dp.parseProject();
 	}
 
 	// FIXME: is it GOOD DESIGN to have a class where everything is static?
@@ -81,6 +87,7 @@ public class OldBadDesignParser {
 				+ ((classNode.access & Opcodes.ACC_PUBLIC) > 0));
 		System.out.println("Extends: " + classNode.superName);
 		System.out.println("Implements: " + classNode.interfaces);
+		System.out.println(classNode.signature);
 
 	}
 

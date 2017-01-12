@@ -2,6 +2,7 @@ package edu.rosehulman.csse374.revengd;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.objectweb.asm.ClassReader;
@@ -13,15 +14,16 @@ import org.objectweb.asm.tree.MethodNode;
 
 public class ClassContent implements IClassContent {
 
-	private List<String> association;
+	private List<String> dependencies;
+	private List<String> associations;
 	private List<String> inheritance; 
 	private List<String> implementation;
-	private List<String> dependency;
-	private List<String> aggregation;
-	private List<String> composition;
 	private List<String> method;
 	private List<String> field;
 	private ClassNode classNode;
+	private boolean isInterface;
+	private boolean isAbstract;
+	private List<String> removedInterfaces;
 	
 	private ClassReader classReader;
 	
@@ -32,6 +34,7 @@ public class ClassContent implements IClassContent {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.removedInterfaces = new LinkedList<String>();
 		populateFields();
 	}
 	
@@ -47,39 +50,42 @@ public class ClassContent implements IClassContent {
 		createMethodList((List<MethodNode>)classNode.methods);
 	}
 	
+	//puts all the fields in a list after parsing
 	private void createFieldList(List<FieldNode> fNodes) {
 		for(FieldNode fn: fNodes) {
 			this.field.add(parseField(fn));
 		}
 	}
 	
-	
+	//gets true or false value for whether field is public
+	//the field name
+	//and the field type
 	private String parseField(FieldNode fn) {
 		return ((fn.access & Opcodes.ACC_PUBLIC) > 0) + " " + fn.name + " " + Type.getType(fn.desc);
 	}
 	
+	//puts all the methods in a list after parsing
 	private void createMethodList(List<MethodNode> mNodes) {
 		for(MethodNode mn: mNodes) {
 			this.method.add(parseMethod(mn));
 		}
 	}
 	
-	
+	//gets true of fase value for whether field is public
+	//the method name
+	//the parameter types
+	//and the return type
 	private String parseMethod(MethodNode mn) {
 		return ((mn.access & Opcodes.ACC_PUBLIC) > 0) + " "+ mn.name + " " + parseArgs(mn) + " " + (Type.getReturnType(mn.desc).getClassName());
 	}
 	
+	//gets the type of each parameter
 	private List<String> parseArgs(MethodNode mn) {
 		List<String> args = new ArrayList<String>();
 		for (Type argType : Type.getArgumentTypes(mn.desc)) {
 			args.add(argType.getClassName());
 		}
 		return args;
-	}
-
-	@Override
-	public List<String> getAssociation() {
-		return this.association;
 	}
 
 	@Override
@@ -90,21 +96,6 @@ public class ClassContent implements IClassContent {
 	@Override
 	public List<String> getImplementation() {
 		return this.implementation;
-	}
-
-	@Override
-	public List<String> getDependency() {
-		return this.dependency;
-	}
-
-	@Override
-	public List<String> getAggregation() {
-		return this.aggregation;
-	}
-
-	@Override
-	public List<String> getComposition() {
-		return this.composition;
 	}
 
 	@Override
@@ -122,17 +113,90 @@ public class ClassContent implements IClassContent {
 		return this.classNode;
 	}
 	
+	@Override
 	public void setMethod(List<String> methods) {
 		this.method = methods;
 	}
 	
+	@Override
 	public void setField(List<String> fields) {
 		this.field = fields;
 	}
 
 	@Override
 	public String getName() {
-		return this.classNode.name;
+		//return this.cutPath(this.classNode.name);
+		return Type.getObjectType(classNode.name).getClassName();
+	}
+
+	@Override
+	public boolean isInterface() {
+		return this.classNode.access == 1537;  // Opcodes.ACC_INTERFACE;
+	}
+
+	@Override
+	public boolean isAbstract() {
+		return this.classNode.access == 1057;  // Opcodes.ACC_ABSTRACT;
+	}
+
+	@Override
+	public String getParent() {
+		if(classNode.superName == null) {
+			return null;
+		}
+		return Type.getObjectType(classNode.superName).getClassName();
+		//return this.cutPath(this.classNode.superName);
+	}
+
+	@Override
+	public List<String> getInterfaces() {
+		List<String> inters = this.classNode.interfaces;
+		List<String> newInters = new LinkedList<String>();
+		for (String inter : inters) {
+			//newInters.add(this.cutPath(inter));
+			String name = Type.getObjectType(inter).getClassName();
+			if(!this.removedInterfaces.contains(name)) {
+				newInters.add(name);
+			}
+		}
+		return newInters;
+		//return this.classNode.interfaces;
+	}
+
+	@Override
+	public List<String> getAssociation() {
+		return this.associations;
+	}
+	
+	public void setAssociation(List<String> associations) {
+		this.associations = associations;
+	}
+
+	@Override
+	public List<String> getDependency() {
+		return this.dependencies;
+	}
+
+	@Override
+	public void setDependency(List<String> dependencies) {
+		this.dependencies = dependencies;
+	}
+	
+	private String cutPath(String text) {
+		String[] name = text.split("/");
+		return name[name.length-1];
+	}
+
+	@Override
+	public void removeInterface(String intName) {
+		this.removedInterfaces.add(intName);
+		
+	}
+
+	@Override
+	public void removeParent() {
+		this.classNode.superName = null;
+		
 	}
 
 }
