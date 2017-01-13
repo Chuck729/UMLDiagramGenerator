@@ -41,6 +41,9 @@ public abstract class ConvertInternalTypes {
 		case "S":
 			conversion = "short";
 			break;
+		case "V":
+			conversion = "void";
+			break;
 		default: 
 			conversion = getFriendlyName(type);
 		}

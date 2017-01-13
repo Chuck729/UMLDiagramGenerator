@@ -87,8 +87,8 @@ public class DesignParser implements IDesignParser {
 		assFinder.find(classes);
 		dpFinder.find(classes);
 		for(IClassContent c: classes) {
-			//System.out.println(c.getMethod());
-			System.out.println(c.getName() + ": " + c.getAssociation() + "  : " + c.getDependency());
+//			System.out.println(c.getMethod());
+//			System.out.println(c.getName() + ": " + c.getAssociation() + "  : " + c.getDependency());
 		}
 		
 		for(IClassContent c: classes) {
