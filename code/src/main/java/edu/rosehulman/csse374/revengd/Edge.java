@@ -1,31 +1,34 @@
 package edu.rosehulman.csse374.revengd;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Edge {
-	private String edge1;
-	private String edge2;
+	private String vertex1;
+	private String vertex2;
 	private String arrowType;
-	private String options;
+	private Map<String, String> options;
 	
-	public Edge(String edge1, String edge2, String arrowType, String options) {
-		this.edge1 = edge1;
-		this.edge2 = edge2;
+	public Edge(String vertex1, String vertex2, String arrowType) {
+		this.vertex1 = vertex1;
+		this.vertex2 = vertex2;
 		this.arrowType = arrowType;
-		this.options = options;
+		this.options = new HashMap<String, String>();
 	}
 	
-	public String getEdge1() {
-		return this.edge1;
+	public String getVertex1() {
+		return this.vertex1;
 	}
 	
-	public String getEdge2() {
-		return this.edge2;
+	public String getVertex2() {
+		return this.vertex2;
 	}
 	
 	public String getArrowType() {
 		return this.arrowType;
 	}
 	
-	public String getOptions() {
+	public Map<String, String> getOptions() {
 		return this.options;
 	}
 	
@@ -33,7 +36,7 @@ public class Edge {
 		this.arrowType = t;
 	}
 	
-	public void appendOption(String o) {
-		this.options = this.options + ", " + o;  // TODO this is most likely not right 
+	public void appendOption(String o, String val) {
+		this.options.put(o, val);  
 	}
 }

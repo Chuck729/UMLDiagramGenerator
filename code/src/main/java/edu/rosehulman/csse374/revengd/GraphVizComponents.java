@@ -39,16 +39,14 @@ public class GraphVizComponents implements IComponents {
 		if (c.getParent() != null) {
 			this.edges.add(new Edge(this.label, 
 					this.nameToID.get(c.getParent()), 
-					"[arrowhead=\"onormal\", style=\"solid\"];", 
-					""));
+					"[arrowhead=\"onormal\", style=\"solid\"];"));
 		}
 		
 		// interface
 		for (String inter : c.getInterfaces()){
 			this.edges.add(new Edge(this.label, 
 					this.nameToID.get(inter), 
-					"[arrowhead=\"onormal\", style=\"dashed\"];", 
-					""));
+					"[arrowhead=\"onormal\", style=\"dashed\"];"));
 		}
 	}
 	
@@ -72,13 +70,8 @@ public class GraphVizComponents implements IComponents {
 		return this.isAbstract;
 	}
 	
-	public List<String> getEdges() {
-		List<String> listEdges = new LinkedList<>();
-		for (Edge e : this.edges) {
-			String str = "" + e.getEdge1() + "->" + e.getEdge2() + e.getArrowType();
-			listEdges.add(str);
-		}
-		return listEdges;
+	public List<Edge> getEdges() {
+		return this.edges;
 	}
 	
 	public List<String> getMethods() {
@@ -87,10 +80,6 @@ public class GraphVizComponents implements IComponents {
 	
 	public List<String> getFields() {
 		return this.fields;
-	}
-	
-	public Map<String, String> getOptions() {
-		return this.options;
 	}
 	
 	public void addOption(String option, String value) {
