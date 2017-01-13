@@ -82,6 +82,11 @@ public class GraphVizComponents {
 		return this.fields;
 	}
 	
+	public String getID(String name){
+		return nameToID.get(name);
+		
+	}
+	
 	public void addOption(String option, String value) {
 		this.options.put(option, value);
 	}
