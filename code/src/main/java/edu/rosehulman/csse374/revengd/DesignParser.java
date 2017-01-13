@@ -24,6 +24,8 @@ public class DesignParser implements IDesignParser {
 	private MethodConvert methodConvert;
 	private FieldConvert fieldConvert;
 	private List<IModification> modifications;
+	private ICoupleFinder dpFinder;
+	private ICoupleFinder assFinder;
 
 	// TODO add parameter for recursiveParsing and accessLevel
 	
@@ -37,6 +39,8 @@ public class DesignParser implements IDesignParser {
 		this.methodConvert = new MethodConvert();
 		this.fieldConvert = new FieldConvert();
 		this.modifications = modifications;
+		this.assFinder = new AssociationFinder();
+		this.dpFinder = new DependencyFinder();
 	}
 
 	//for each class name passed in, create a classContent to get the content from the class
@@ -80,12 +84,12 @@ public class DesignParser implements IDesignParser {
 			
 		}
 		
-		/*findAssociations();
-		findDependencies();
+		assFinder.find(classes);
+		dpFinder.find(classes);
 		for(IClassContent c: classes) {
-			System.out.println(c.getMethod());
-			System.out.println(c.getDependency());
-		}*/
+			//System.out.println(c.getMethod());
+			System.out.println(c.getName() + ": " + c.getAssociation() + "  : " + c.getDependency());
+		}
 		
 		for(IClassContent c: classes) {
 			for (IModification modification: modifications) {
@@ -106,72 +110,6 @@ public class DesignParser implements IDesignParser {
 
 	}
 	
-	//if the field is has a type of another class in the UML
-	//add it to the associations
-	/*private void findAssociations() {
-		for(IClassContent c : classes) {
-			ArrayList<String> associations = new ArrayList<String>();
-			for(String field: c.getField()) {
-				String parts[] = field.split(" ");
-				if (foundAssociations(parts[parts.length - 1] , c))
-					associations.add(parts[parts.length - 1]);
-			}
-			c.setAssociation(associations);
-		}
-	}*/
-
-	//takes a className that is a field type
-	//returns if that class was found in the UML
-	/*private  boolean foundAssociations(String fieldName, IClassContent c) {
-		for(IClassContent allClasses: classes) {
-			if (allClasses.getName().equals(fieldName) && allClasses != c)
-				return true;
-		}
-		return false;
-	}*/
 	
-	//if another class appears in a method param or return type, 
-	//add it to the dependencies
-	/*private void findDependencies() {
-		for(IClassContent c: classes) {
-			ArrayList<String> dependencies = new ArrayList<String>();
-			for(String method: c.getMethod()) {
-				String parts[] = method.split(" ");
-				if(foundDependencyInReturnType(parts[parts.length - 1], c))
-					dependencies.add(parts[parts.length - 1]);
-				String[] params = getParams(method);
-				int index = foundDependencyInParams(params, c);
-//				for(int x = 0; x < params.length; x++)
-//					System.out.println("params: " + params[x]);
-					if(index != -1 && !dependencies.contains(params[index]))
-						dependencies.add(params[index]);
-			}
-			c.setDependency(dependencies);
-		}
-	}*/
 	
-	/*private String[] getParams(String method) {
-		String params = method.substring(method.indexOf("(") + 1, method.indexOf(")"));
-		return params.split(",");
-	}*/
-	
-	/*private int foundDependencyInParams(String[] params, IClassContent c) {
-		for (IClassContent allClasses: classes) {
-			for (int x = 0; x < params.length; x++) {
-				if ((params[x].contains(allClasses.getName())) && allClasses != c)
-					return x;
-			}
-		}
-		return -1;
-	}*/
-
-	//returns true if the a class is found in the method string
-	/*private boolean foundDependencyInReturnType(String returnType, IClassContent c) {
-		for(IClassContent allClasses: classes) {
-			if (returnType.equals(allClasses.getName()) && allClasses != c)
-				return true;
-		}
-		return false;
-	}*/
-
 }

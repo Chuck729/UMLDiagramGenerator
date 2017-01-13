@@ -23,7 +23,7 @@ public class UMLGeneratorApp {
 		
 		ArrayList<IModification> modifications = new ArrayList<IModification>();
 		
-		boolean recursive = false;
+		boolean recursive = true;
 		
 		String[] accessLevel = null;
 		

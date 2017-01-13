@@ -46,10 +46,18 @@ public class MethodConvert extends ConvertInternalTypes{
 				transformed += parts[1];
 			}
 			transformed += "(";
+			//remove [ from first param and the , or ] from every param
+			if (parts[2].length() > 2)
+				parts[2] = parts[2].substring(1);
+			for (int y = 2; y < parts.length - 1; y++) {
+				if (parts[y].length() > 2)
+				parts[y] = parts[y].substring(0, parts[y].length() -1);
+			}
 			for (int x = 2; x < parts.length - 1; x++) {
 				transformed += convertType(parts[x]) + ", ";
 			}
 			transformed = transformed.substring(0,  transformed.length() - 2) + ") : " + getFriendlyName(parts[parts.length - 1]);
+			System.out.println("  transformed: " + transformed);
 			return transformed;
 		}
 	
