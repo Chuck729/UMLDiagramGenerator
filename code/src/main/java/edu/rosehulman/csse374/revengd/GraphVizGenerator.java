@@ -117,19 +117,6 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 			list.add(str);
 		}
 		
-		/*for (String assoc : classContent.getAssociation()){
-			list.add(escape(classContent.getName()));
-			list.add("->");
-			list.add(escape(assoc));
-			list.add("[arrowhead=\"vee\", style=\"solid\"];");
-		}
-		for (String dep : classContent.getDependency()){
-			list.add(escape(classContent.getName()));
-			list.add("->");
-			list.add(escape(dep));
-			list.add("[arrowhead=\"vee\", style=\"dashed\"];");
-		}*/
-		
 		this.code.add(list);
 		
 	}
