@@ -1,30 +1,43 @@
 package edu.rosehulman.csse374.revengd;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 public class GraphVizGenerator implements IGraphVizGenorator {
 	
 	private List<List<String>> code;
+	private List<IComponents> classes;
+	private Map<String, String> options;
+	private Map<String, String> names;
 	
 	public GraphVizGenerator() {
 		this.code = new LinkedList<>();
+		this.classes = new LinkedList<>();
+		this.options = new HashMap<>();
+		this.names = new HashMap<>();
 	}
 
 	@Override
 	public void generateCode(List<IClassContent> classes) {
+		for (int i = 0; i < classes.size(); i++) {
+			this.names.put(classes.get(i).getName(), Integer.toString(i));
+		}
+		this.addOption("rankdir", "BT");
 		for (IClassContent c : classes) {
-			this.format(c);
+			this.classes.add(new GraphVizComponents(c,  this.names.get(c.getName()), this.names));
 		}
 	}
 
 	public void write(String file) throws IOException {
+		for(IComponents c : this.classes) {
+			this.format((GraphVizComponents) c);
+		}
 		String code = concatCode();
 		System.out.println(code);
 		OutputStream out = new FileOutputStream(file);
@@ -33,7 +46,11 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	}
 	
 	private String concatCode() {
-		String text = "digraph uml { rankdir=BT; ";
+		String text = "digraph uml { ";
+		for (String o : this.options.keySet()) {
+			text = text + o + "=" + this.options.get(o) + ";";
+		}
+		
 		for (List<String> block : code) {
 			for (String s : block) {
 				text = text + s + " ";
@@ -42,17 +59,18 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		return text + " }";
 	}
 	
-	private void format(IClassContent classContent) {
+	private void format(GraphVizComponents classComponent) {
 		List<String> list = new LinkedList<String>();
 		
 		// add class name
-		list.add(escape(classContent.getName()));
+		list.add(classComponent.getLabel());
 		list.add("[");
 		
 		// make shape
 		list.add("shape");
 		list.add("=");
-		list.add("\"record\",");
+		list.add(classComponent.getShape());
+		list.add(",");
 		
 		// make label
 		list.add("label");
@@ -61,48 +79,44 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		
 		// Name
 		// TODO check if it is an interface or abstract class
-		if (classContent.isInterface()) {
+		if (classComponent.isInterface()) {
 			list.add("\\<\\<Interface\\>\\>\\l");
 		}
-		if (classContent.isAbstract()) {
+		if (classComponent.isAbstract()) {
 			//list.add("<I>");
 			list.add("\\<\\<Abstract\\>\\>\\l");
 		}
-		list.add(escape(classContent.getName()));
-		if (classContent.isAbstract()) {
+		list.add(escape(classComponent.getName()));
+		if (classComponent.isAbstract()) {
 			//list.add("</I>");
 		}
 		list.add("|");
 		
 		// fields
-		for (String field : classContent.getField()) {
+		for (String field : classComponent.getFields()) {
 			list.add(escape(field));
 			list.add("\\l");
 		}
 		list.add("|");
 		
 		// methods
-		for (String method : classContent.getMethod()) {
+		for (String method : classComponent.getMethods()) {
 			list.add(escape(method));
 			list.add("\\l");
 		}
 		list.add("}\",");
 		
+		// TODO options
+		
 		list.add("];");
 		
 		//relationships and dependency arrows
-		if(classContent.getParent() != null && !classContent.getParent().equals("Object")){
-			list.add(escape(classContent.getName()));
-			list.add("->");
-			list.add(escape(classContent.getParent()));
-			list.add("[arrowhead=\"onormal\", style=\"solid\"];");
+		List<String> listEdges = new LinkedList<>();
+		for (Edge e : classComponent.getEdges()) {
+			String str = "" + e.getVertex1() + "->" + e.getVertex2() + e.getArrowType();
+			list.add(str);
 		}
-		for (String inter : classContent.getInterfaces()){
-			list.add(escape(classContent.getName()));
-			list.add("->");
-			list.add(escape(inter));
-			list.add("[arrowhead=\"onormal\", style=\"dashed\"];");
-		}
+		
 		/*for (String assoc : classContent.getAssociation()){
 			list.add(escape(classContent.getName()));
 			list.add("->");
@@ -123,10 +137,20 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	private String escape(String in){
 		in = in.replace(">", "\\>");
 		in = in.replace("<", "\\<");
-		in = in.replace("$", "");
-		String[] split = in.split("\\.");
-		return split[split.length-1];
-		
+		//in = in.replace("$", "");
+		//String[] split = in.split("\\.");
+		//return split[split.length-1];
+		return in;
+	}
+
+	@Override
+	public IComponents getClasses() {
+		return (IComponents) this.classes;
+	}
+
+	@Override
+	public void addOption(String option, String value) {
+		this.options.put(option, value);
 	}
 
 }
