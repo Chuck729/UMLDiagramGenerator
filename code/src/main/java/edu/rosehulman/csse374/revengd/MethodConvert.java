@@ -57,7 +57,6 @@ public class MethodConvert extends ConvertInternalTypes{
 				transformed += convertType(parts[x]) + ", ";
 			}
 			transformed = transformed.substring(0,  transformed.length() - 2) + ") : " + getFriendlyName(parts[parts.length - 1]);
-			System.out.println("  transformed: " + transformed);
 			return transformed;
 		}
 	

@@ -42,7 +42,7 @@ public abstract class ConvertInternalTypes {
 			conversion = "short";
 			break;
 		default: 
-			conversion = getFriendlyName(type);	
+			conversion = getFriendlyName(type);
 		}
 		if(array)
 			conversion += "[]";
@@ -52,14 +52,17 @@ public abstract class ConvertInternalTypes {
 	//since some objects are in the form java.lang.String or java/lang/String 
 	//this method gets just String
 	protected String getFriendlyName(String type) {
-		String friendly = "";
-		if (type.contains("/"))
-			friendly = type.substring(type.lastIndexOf('/') + 1);
-		else
-			friendly = type.substring(type.lastIndexOf('.') + 1);
-		if (friendly.charAt(friendly.length()-1) == ']')
-			friendly = friendly.substring(0, friendly.length() -1);
-		return friendly;
+		if(type.equals("void")) {
+			return type;
+		}
+		type = type.replace(";", "");
+		type = type.replace("/", ".");
+		if (type.substring(0, 1).equals(type.substring(0, 1).toUpperCase())) {
+			type = type.substring(1);
+		}
+		type = type.replaceAll("<.", "<");
+		type = type.replaceAll(", .", ", ");
+		return type;
 	}
 	
 	public abstract List<String> convert(List<String> string);

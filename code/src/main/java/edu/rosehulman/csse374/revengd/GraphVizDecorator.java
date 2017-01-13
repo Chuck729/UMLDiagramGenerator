@@ -11,8 +11,8 @@ public abstract class GraphVizDecorator implements IGraphVizGenorator {
 	public abstract void generateCode(List<IClassContent> classes);
 	
 	@Override
-	public IComponents getClasses() {
-		return (IComponents) this.generator.getClasses();
+	public List<GraphVizComponents> getClasses() {
+		return this.generator.getClasses();
 	}
 	
 	@Override
