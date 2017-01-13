@@ -61,6 +61,8 @@ public class UMLGeneratorApp {
 		// javax.swing.JComponent -r
 		// java.lang.String
 		// edu.rosehulman.csse374.revengd.ClassContent edu.rosehulman.csse374.revengd.ConvertInternalTypes edu.rosehulman.csse374.revengd.DesignParser edu.rosehulman.csse374.revengd.FieldConvert edu.rosehulman.csse374.revengd.GraphVizGenerator edu.rosehulman.csse374.revengd.MethodConvert edu.rosehulman.csse374.revengd.PrivateOnly edu.rosehulman.csse374.revengd.ProtectedOnly edu.rosehulman.csse374.revengd.PublicOnly edu.rosehulman.csse374.revengd.UMLGeneratorApp -r -a=public
+		// headfirst.factory.pizzafm.PizzaStore headfirst.factory.pizzafm.ChicagoPizzaStore headfirst.factory.pizzafm.ChicagoStyleCheesePizza headfirst.factory.pizzafm.ChicagoStyleClamPizza headfirst.factory.pizzafm.ChicagoStylePepperoniPizza headfirst.factory.pizzafm.ChicagoStyleVeggiePizza headfirst.factory.pizzafm.DependentPizzaStore headfirst.factory.pizzafm.NYPizzaStore headfirst.factory.pizzafm.NYStyleCheesePizza headfirst.factory.pizzafm.NYStyleClamPizza headfirst.factory.pizzafm.NYStylePepperoniPizza headfirst.factory.pizzafm.NYStyleVeggiePizza headfirst.factory.pizzafm.PizzaStore headfirst.factory.pizzafm.PizzaTestDrive
+	
 	}
 
 }
