@@ -19,5 +19,11 @@ public abstract class GraphVizDecorator implements IGraphVizGenorator {
 	public void write(String file) throws IOException {
 		this.generator.write(file);
 	}
+	
+	@Override 
+	public void addOption(String option, String value) {
+		this.generator.addOption(option, value);
+	}
+	
 
 }

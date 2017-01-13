@@ -15,19 +15,21 @@ public class GraphVizComponents implements IComponents {
 	List<String> methods;
 	List<String> fields;
 	Map<String, String> options;
+	private Map<String, String> nameToID;
 	
-	public GraphVizComponents(IClassContent c) {
+	public GraphVizComponents(IClassContent c, String label, Map<String, String> nameToID) {
+		this.label = label;
 		this.edges = new LinkedList<>();
 		this.methods = new LinkedList<>();
 		this.fields = new LinkedList<>();
 		this.options = new HashMap<>();
+		this.nameToID = nameToID;
 		this.setFields(c);
 	}
 	
 	private void setFields(IClassContent c) {
-		this.label = escape(c.getName());  // FIXME should not be name, could cause errors
 		this.shape = "\"record\"";
-		this.name = escape(c.getName());
+		this.name = c.getName();
 		this.isInterface = c.isInterface();
 		this.isAbstract = c.isAbstract();
 		this.methods = c.getMethod();
@@ -35,25 +37,17 @@ public class GraphVizComponents implements IComponents {
 		
 		// parent
 		if (c.getParent() != null) {
-			this.edges.add(new Edge(escape(c.getName()), 
-					escape(c.getParent()), 
+			this.edges.add(new Edge(this.label, 
+					this.nameToID.get(c.getParent()), 
 					"[arrowhead=\"onormal\", style=\"solid\"];"));
 		}
 		
 		// interface
 		for (String inter : c.getInterfaces()){
-			this.edges.add(new Edge(escape(c.getName()), 
-					escape(inter), 
+			this.edges.add(new Edge(this.label, 
+					this.nameToID.get(inter), 
 					"[arrowhead=\"onormal\", style=\"dashed\"];"));
 		}
-	}
-	
-	private String escape(String in){
-		in = in.replace(">", "\\>");
-		in = in.replace("<", "\\<");
-		in = in.replace("$", "");
-		String[] split = in.split("\\.");  // FIXME this should be left
-		return split[split.length-1];
 	}
 	
 	public String getName() {
@@ -86,10 +80,6 @@ public class GraphVizComponents implements IComponents {
 	
 	public List<String> getFields() {
 		return this.fields;
-	}
-	
-	public Map<String, String> getOptions() {
-		return this.options;
 	}
 	
 	public void addOption(String option, String value) {

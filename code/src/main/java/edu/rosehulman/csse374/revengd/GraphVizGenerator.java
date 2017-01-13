@@ -1,28 +1,36 @@
 package edu.rosehulman.csse374.revengd;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 public class GraphVizGenerator implements IGraphVizGenorator {
 	
 	private List<List<String>> code;
 	private List<IComponents> classes;
+	private Map<String, String> options;
+	private Map<String, String> names;
 	
 	public GraphVizGenerator() {
 		this.code = new LinkedList<>();
 		this.classes = new LinkedList<>();
+		this.options = new HashMap<>();
+		this.names = new HashMap<>();
 	}
 
 	@Override
 	public void generateCode(List<IClassContent> classes) {
+		for (int i = 0; i < classes.size(); i++) {
+			this.names.put(classes.get(i).getName(), Integer.toString(i));
+		}
+		this.addOption("rankdir", "BT");
 		for (IClassContent c : classes) {
-			this.classes.add(new GraphVizComponents(c));
+			this.classes.add(new GraphVizComponents(c,  this.names.get(c.getName()), this.names));
 		}
 	}
 
@@ -38,7 +46,11 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	}
 	
 	private String concatCode() {
-		String text = "digraph uml { rankdir=BT; ";
+		String text = "digraph uml { ";
+		for (String o : this.options.keySet()) {
+			text = text + o + "=" + this.options.get(o) + ";";
+		}
+		
 		for (List<String> block : code) {
 			for (String s : block) {
 				text = text + s + " ";
@@ -51,7 +63,7 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		List<String> list = new LinkedList<String>();
 		
 		// add class name
-		list.add(classComponent.getName());
+		list.add(classComponent.getLabel());
 		list.add("[");
 		
 		// make shape
@@ -125,15 +137,20 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	private String escape(String in){
 		in = in.replace(">", "\\>");
 		in = in.replace("<", "\\<");
-		in = in.replace("$", "");
-		String[] split = in.split("\\.");
-		return split[split.length-1];
-		
+		//in = in.replace("$", "");
+		//String[] split = in.split("\\.");
+		//return split[split.length-1];
+		return in;
 	}
 
 	@Override
 	public IComponents getClasses() {
 		return (IComponents) this.classes;
+	}
+
+	@Override
+	public void addOption(String option, String value) {
+		this.options.put(option, value);
 	}
 
 }
