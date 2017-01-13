@@ -41,11 +41,11 @@ public class GraphVizBidirDecorator extends GraphVizDecorator{
 							current.appendOption("dir", "both");
 							current.appendOption("arrowtail", current.getOptions().get("arrowhead"));
 							if(leftMany && rightMany) {
-								current.appendOption("taillabel", "M\\:M");
+								current.appendOption("taillabel", "N\\:M");
 							} else if (leftMany) {
-								current.appendOption("taillabel", "M\\:1");
-							} else if (rightMany) {
 								current.appendOption("taillabel", "1\\:M");
+							} else if (rightMany) {
+								current.appendOption("taillabel", "M\\:1");
 							}
 						}
 					}
