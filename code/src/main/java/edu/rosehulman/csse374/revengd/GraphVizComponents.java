@@ -35,32 +35,38 @@ public class GraphVizComponents {
 		this.methods = c.getMethod();
 		this.fields = c.getField();
 		
+		Edge e;
+		
 		// parent
 		if (c.getParent() != null) {
-			this.edges.add(new Edge(this.label, 
-					this.nameToID.get(c.getParent()), 
-					"[arrowhead=\"onormal\", style=\"solid\"];"));
+			e = new Edge(this.label, this.nameToID.get(c.getParent()));
+			e.appendOption("arrowhead", "onormal");
+			e.appendOption("style", "solid");
+			this.edges.add(e);
 		}
 		
 		// interface
 		for (String inter : c.getInterfaces()){
-			this.edges.add(new Edge(this.label, 
-					this.nameToID.get(inter), 
-					"[arrowhead=\"onormal\", style=\"dashed\"];"));
+			e = new Edge(this.label, this.nameToID.get(inter));
+			e.appendOption("arrowhead", "onormal");
+			e.appendOption("style", "dashed");
+			this.edges.add(e);
 		}
 		
 		// associations
 		for (String ass : c.getAssociation()) {
-			this.edges.add(new Edge(this.label, 
-					this.nameToID.get(ass), 
-					"[arrowhead=\"vee\", style=\"solid\"];"));
+			e = new Edge(this.label, this.nameToID.get(ass));
+			e.appendOption("arrowhead", "vee");
+			e.appendOption("style", "solid");
+			this.edges.add(e);
 		}
 		
 		// dependency
 		for (String dp : c.getAssociation()) {
-			this.edges.add(new Edge(this.label, 
-					this.nameToID.get(dp), 
-					"[arrowhead=\"vee\", style=\"dashed\"];"));
+			e = new Edge(this.label, this.nameToID.get(dp));
+			e.appendOption("arrowhead", "vee");
+			e.appendOption("style", "dashed");
+			this.edges.add(e);
 		}
 	}
 	
@@ -104,4 +110,5 @@ public class GraphVizComponents {
 	public void addOption(String option, String value) {
 		this.options.put(option, value);
 	}
+	
 }

@@ -113,12 +113,20 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		//relationships and dependency arrows
 		List<String> listEdges = new LinkedList<>();
 		for (Edge e : classComponent.getEdges()) {
-			String str = "" + e.getVertex1() + "->" + e.getVertex2() + e.getArrowType();
+			String str = "" + e.getVertex1() + "->" + e.getVertex2() + concatOptions(e.getOptions());
 			list.add(str);
 		}
 		
 		this.code.add(list);
 		
+	}
+	
+	private String concatOptions(Map<String, String> options) {
+		String str = "[";
+		for (String o : options.keySet()) {
+			str = str + o + "=\"" + options.get(o) + "\", ";
+		}
+		return str + "]";
 	}
 	
 	private String escape(String in){
