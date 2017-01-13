@@ -49,6 +49,7 @@ public class DesignParser implements IDesignParser {
 	@Override
 	public void parseProject() {
 		for (String name: classNames) {
+			System.out.println(name);
 			IClassContent classContent = new ClassContent(name);
 			classContent.setField(fieldConvert.convert(classContent.getField()));
 			classContent.setMethod(methodConvert.convert(classContent.getMethod()));
