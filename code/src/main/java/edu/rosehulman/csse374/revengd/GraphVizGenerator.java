@@ -99,9 +99,12 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		list.add("];");
 		
 		//relationships and dependency arrows
-		for(String e : classComponent.getEdges()) {
-			list.add(e);
+		List<String> listEdges = new LinkedList<>();
+		for (Edge e : classComponent.getEdges()) {
+			String str = "" + e.getVertex1() + "->" + e.getVertex2() + e.getArrowType();
+			list.add(str);
 		}
+		
 		/*for (String assoc : classContent.getAssociation()){
 			list.add(escape(classContent.getName()));
 			list.add("->");
