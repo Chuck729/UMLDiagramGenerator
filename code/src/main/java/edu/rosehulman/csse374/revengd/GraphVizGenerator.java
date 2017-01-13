@@ -124,7 +124,7 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	private String concatOptions(Map<String, String> options) {
 		String str = "[";
 		for (String o : options.keySet()) {
-			str = str + o + "=" + options.get(o) + ", ";
+			str = str + o + "=\"" + options.get(o) + "\", ";
 		}
 		return str + "]";
 	}

@@ -11,6 +11,9 @@ public class UMLGeneratorApp {
 		
 		IGraphVizGenorator generator = new GraphVizGenerator();
 		generator = new GraphVizAssociationSupersedeDecorator(generator);
+		generator = new GraphVizOneToManyDecorator(generator);
+		generator = new GraphVizBidirDecorator(generator);
+		
 		
 		String out = "./Input-Output/output.txt";
 		
