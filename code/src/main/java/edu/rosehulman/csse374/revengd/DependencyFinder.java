@@ -12,15 +12,21 @@ public class DependencyFinder implements ICoupleFinder {
 		for(IClassContent c: classes) {
 			ArrayList<String> dependencies = new ArrayList<String>();
 			for(String method: c.getMethod()) {
-				String parts[] = method.split(" ");
-				if(foundDependencyInReturnType(parts[parts.length - 1], c, classes))
-					dependencies.add(parts[parts.length - 1]);
-				String[] params = getParams(method);
-				int index = foundDependencyInParams(params, c, classes);
-				for(int x = 0; x < params.length; x++)
-					//System.out.println("params: " + params[x]);
-					if(index != -1 && !dependencies.contains(params[index]))
-						dependencies.add(params[index]);
+				for (IClassContent dpClass: classes) {
+					if (method.contains(dpClass.getName()) && !dpClass.getName().equals(c.getName())) {
+						if (!dependencies.contains(dpClass.getName()))
+							dependencies.add(dpClass.getName());
+					}
+				}
+//				String parts[] = method.split(" ");
+//				if(foundDependencyInReturnType(parts[parts.length - 1], c, classes))
+//					dependencies.add(parts[parts.length - 1]);
+//				String[] params = getParams(method);
+//				int index = foundDependencyInParams(params, c, classes);
+//				for(int x = 0; x < params.length; x++)
+//					//System.out.println("params: " + params[x]);
+//					if(index != -1 && !dependencies.contains(params[index]))
+//						dependencies.add(params[index]);
 			}
 			c.setDependency(dependencies);
 		}
