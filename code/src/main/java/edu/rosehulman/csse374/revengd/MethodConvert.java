@@ -32,6 +32,7 @@ public class MethodConvert extends ConvertInternalTypes{
 		private String transformMethod(String method) {
 			String transformed = "";
 			String[] parts = method.split(" ");
+			//System.out.print("before: " + method);
 			if (parts[0].equals("true")) {
 				transformed += "+ ";
 			}
@@ -57,6 +58,7 @@ public class MethodConvert extends ConvertInternalTypes{
 				transformed += convertType(parts[x]) + ", ";
 			}
 			transformed = transformed.substring(0,  transformed.length() - 2) + ") : " + getFriendlyName(parts[parts.length - 1]);
+			System.out.println("   after: " + transformed);
 			return transformed;
 		}
 	
