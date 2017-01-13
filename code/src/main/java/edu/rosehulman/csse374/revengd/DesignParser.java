@@ -62,8 +62,8 @@ public class DesignParser implements IDesignParser {
 		
 		for(IClassContent c: classes) {
 //			System.out.println(c.getMethod());
-			if(c.getName().equals("headfirst.factory.pizzaaf.Pizza"))
-			System.out.println(c.getName() + ": " + c.getAssociation() + "  : " + c.getDependency());
+//			if(c.getName().equals("headfirst.factory.pizzaaf.Pizza"))
+//			System.out.println(c.getName() + ": " + c.getAssociation() + "  : " + c.getDependency());
 		}
 		
 		for(IClassContent c: classes) {

@@ -56,7 +56,9 @@ public class GraphVizComponents {
 		// associations
 		if (c.getAssociation() != null) {  // TODO needs to be fixed
 			for (String ass : c.getAssociation()) {
-				e = new Edge(this.label, this.nameToID.get(ass));
+				if(c.getName().equals("headfirst.factory.pizzaaf.Pizza"))
+				System.out.println("+++"+ass.replace("[", "").replace("]", ""));
+				e = new Edge(this.label, this.nameToID.get(ass.replace("[", "").replace("]", "")));
 				e.appendOption("arrowhead", "vee");
 				e.appendOption("style", "solid");
 				this.edges.add(e);
