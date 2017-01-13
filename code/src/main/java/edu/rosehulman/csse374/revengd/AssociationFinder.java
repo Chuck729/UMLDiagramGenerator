@@ -17,7 +17,10 @@ public class AssociationFinder implements ICoupleFinder {
 				String parts[] = field.split(" ");
 				String f = parts[parts.length -1];
 				if (foundAssociations(f , c, classes)) {
-					associations.add(f);
+					if (f.contains("<"))
+						associations.add(f.substring(f.indexOf("<") + 1, f.indexOf(">")));
+					else
+						associations.add(f);
 				}
 			}
 			c.setAssociation(associations);
