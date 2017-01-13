@@ -62,7 +62,8 @@ public class DesignParser implements IDesignParser {
 		
 		for(IClassContent c: classes) {
 //			System.out.println(c.getMethod());
-//			System.out.println(c.getName() + ": " + c.getAssociation() + "  : " + c.getDependency());
+			if(c.getName().equals("headfirst.factory.pizzaaf.Pizza"))
+			System.out.println(c.getName() + ": " + c.getAssociation() + "  : " + c.getDependency());
 		}
 		
 		for(IClassContent c: classes) {
@@ -89,6 +90,8 @@ public class DesignParser implements IDesignParser {
 	}
 	
 	private void addNewClass(String name) {
+		name = name.replace("[", "");
+		name = name.replace("]", "");
 		ClassContent classContent = new ClassContent(name);
 		classContent.setField(fieldConvert.convert(classContent.getField()));
 		classContent.setMethod(methodConvert.convert(classContent.getMethod()));

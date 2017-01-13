@@ -115,4 +115,13 @@ public class GraphVizComponents {
 		this.options.put(option, value);
 	}
 	
+	public String getName(String i) {
+		for(String n : nameToID.keySet()) {
+			if (i.equals(nameToID.get(n))) {
+				return n;
+			}
+		}
+		return null;
+	}
+	
 }

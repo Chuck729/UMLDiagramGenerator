@@ -12,6 +12,12 @@ public class GraphVizAssociationSupersedeDecorator extends GraphVizDecorator {
 	public void findDoubleArrow(){
 		List<GraphVizComponents> allClasses = generator.getClasses();
 		for (GraphVizComponents classes : allClasses) {
+			if(classes.getName().equals("headfirst.factory.pizzaaf.Pizza")) {
+				for(Edge e : classes.getEdges()) {
+				System.out.println(classes.getName(e.getVertex1()) + " " + e.getVertex2());
+				}
+				
+			}
 			List<Edge> arrows = classes.getEdges();
 			List<Edge> toDelete = new ArrayList<>();
 			Edge current = null;
