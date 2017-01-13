@@ -6,9 +6,8 @@ import java.util.List;
 
 public class GraphVizBidirDecorator extends GraphVizDecorator{
 
-	IGraphVizGenorator generator;
 	public GraphVizBidirDecorator(IGraphVizGenorator gen) {
-		generator = gen;
+		this.generator = gen;
 	}
 	
 	public void findBidirectional(){

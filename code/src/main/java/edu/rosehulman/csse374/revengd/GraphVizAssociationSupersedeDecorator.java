@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GraphVizAssociationSupersedeDecorator extends GraphVizDecorator {
-
-	IGraphVizGenorator generator;
 	
 	public GraphVizAssociationSupersedeDecorator(IGraphVizGenorator gen) {
-		generator = gen;
+		this.generator = gen;
 	}
 	
 	public void findDoubleArrow(){
