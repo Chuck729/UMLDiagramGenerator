@@ -6,13 +6,11 @@ import java.util.Map;
 public class Edge {
 	private String vertex1;
 	private String vertex2;
-	private String arrowType;
 	private Map<String, String> options;
 	
-	public Edge(String vertex1, String vertex2, String arrowType) {
+	public Edge(String vertex1, String vertex2) {
 		this.vertex1 = vertex1;
 		this.vertex2 = vertex2;
-		this.arrowType = arrowType;
 		this.options = new HashMap<String, String>();
 	}
 	
@@ -24,16 +22,8 @@ public class Edge {
 		return this.vertex2;
 	}
 	
-	public String getArrowType() {
-		return this.arrowType;
-	}
-	
 	public Map<String, String> getOptions() {
 		return this.options;
-	}
-	
-	public void setArrowType(String t) {
-		this.arrowType = t;
 	}
 	
 	public void appendOption(String o, String val) {
