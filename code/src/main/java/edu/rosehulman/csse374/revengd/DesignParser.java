@@ -48,7 +48,6 @@ public class DesignParser implements IDesignParser {
 	//and set the class contents methods to the parsed UML format version
 	@Override
 	public void parseProject() {
-		IClassContent cc = new ClassContent("java.lang.String");
 		for (String name: classNames) {
 			IClassContent classContent = new ClassContent(name);
 			classContent.setField(fieldConvert.convert(classContent.getField()));
@@ -56,10 +55,8 @@ public class DesignParser implements IDesignParser {
 			this.classes.add(classContent);
 		}
 		
-		if (!isRecursive) {
-			assFinder.find(classes, classNames, isRecursive);
-			dpFinder.find(classes, classNames, isRecursive);
-		}
+		assFinder.find(classes, classNames, isRecursive);
+		dpFinder.find(classes, classNames, isRecursive);
 		
 		findRecursive();
 		

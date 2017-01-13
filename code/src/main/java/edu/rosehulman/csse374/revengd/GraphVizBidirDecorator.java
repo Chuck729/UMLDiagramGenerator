@@ -39,6 +39,7 @@ public class GraphVizBidirDecorator extends GraphVizDecorator{
 							}
 							toDelete.add(arrows2.get(j));
 							current.appendOption("dir", "both");
+							current.appendOption("arrowtail", current.getOptions().get("arrowhead"));
 							if(leftMany && rightMany) {
 								current.appendOption("taillabel", "M\\:M");
 							} else if (leftMany) {
@@ -49,10 +50,8 @@ public class GraphVizBidirDecorator extends GraphVizDecorator{
 						}
 					}
 				}
-			}
-			if(toDelete.size() != 0) {
 				for(Edge e : toDelete) {
-					currentClass.getEdges().remove(e);
+					classes2.getEdges().remove(e);
 				}
 			}
 		}
