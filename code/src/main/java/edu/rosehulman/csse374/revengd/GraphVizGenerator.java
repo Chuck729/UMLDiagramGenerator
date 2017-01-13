@@ -12,7 +12,7 @@ import java.util.Map;
 public class GraphVizGenerator implements IGraphVizGenorator {
 	
 	private List<List<String>> code;
-	private List<IComponents> classes;
+	private List<GraphVizComponents> classes;
 	private Map<String, String> options;
 	private Map<String, String> names;
 	
@@ -35,8 +35,8 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	}
 
 	public void write(String file) throws IOException {
-		for(IComponents c : this.classes) {
-			this.format((GraphVizComponents) c);
+		for(GraphVizComponents c : this.classes) {
+			this.format(c);
 		}
 		String code = concatCode();
 		System.out.println(code);
@@ -144,8 +144,8 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	}
 
 	@Override
-	public IComponents getClasses() {
-		return (IComponents) this.classes;
+	public List<GraphVizComponents> getClasses() {
+		return this.classes;
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class GraphVizComponents implements IComponents {
+public class GraphVizComponents {
 	private String label;
 	private String shape;
 	private String name;

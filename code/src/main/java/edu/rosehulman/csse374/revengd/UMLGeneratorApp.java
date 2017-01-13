@@ -9,8 +9,8 @@ public class UMLGeneratorApp {
 
 	public static void main(String[] args) throws IOException {
 		
-		ICodeGenerator generator = new GraphVizGenerator();
-		generator = new GraphVizOneToManyDecorator(new GraphVizBidirDecorator(new GraphVizAssociationSupersedeDecorator(generator)));
+		IGraphVizGenorator generator = new GraphVizGenerator();
+		//generator = new GraphVizBidirDecorator(new GraphVizAssociationSupersedeDecorator(generator));
 		
 		String out = "./Input-Output/output.txt";
 		
@@ -24,7 +24,7 @@ public class UMLGeneratorApp {
 		
 		ArrayList<IModification> modifications = new ArrayList<IModification>();
 		
-		boolean recursive = true;
+		boolean recursive = false;
 		
 		String[] accessLevel = null;
 		

@@ -61,7 +61,11 @@ public class ClassContent implements IClassContent {
 	//the field name
 	//and the field type
 	private String parseField(FieldNode fn) {
-		return ((fn.access & Opcodes.ACC_PUBLIC) > 0) + " " + fn.name + " " + Type.getType(fn.desc);
+		String type = fn.signature;
+		if (type == null) {
+			type = Type.getType(fn.desc).toString();
+		}
+		return ((fn.access & Opcodes.ACC_PUBLIC) > 0) + " " + fn.name + " " + type;
 	}
 	
 	//puts all the methods in a list after parsing
@@ -76,6 +80,12 @@ public class ClassContent implements IClassContent {
 	//the parameter types
 	//and the return type
 	private String parseMethod(MethodNode mn) {
+		String type = mn.signature;
+		if (type == null) {
+			type = (Type.getReturnType(mn.desc).getClassName());
+		} else {
+			type = type.substring(type.indexOf(')') + 1);
+		}
 		return ((mn.access & Opcodes.ACC_PUBLIC) > 0) + " "+ mn.name + " " + parseArgs(mn) + " " + (Type.getReturnType(mn.desc).getClassName());
 	}
 	
