@@ -48,6 +48,20 @@ public class GraphVizComponents {
 					this.nameToID.get(inter), 
 					"[arrowhead=\"onormal\", style=\"dashed\"];"));
 		}
+		
+		// associations
+		for (String ass : c.getAssociation()) {
+			this.edges.add(new Edge(this.label, 
+					this.nameToID.get(ass), 
+					"[arrowhead=\"vee\", style=\"solid\"];"));
+		}
+		
+		// dependency
+		for (String dp : c.getAssociation()) {
+			this.edges.add(new Edge(this.label, 
+					this.nameToID.get(dp), 
+					"[arrowhead=\"vee\", style=\"dashed\"];"));
+		}
 	}
 	
 	public String getName() {
