@@ -86,7 +86,6 @@ public class ClassContent implements IClassContent {
 		} else {
 			type = type.substring(type.indexOf(')') + 1);
 		}
-		System.out.println(type);
 		return ((mn.access & Opcodes.ACC_PUBLIC) > 0) + " "+ mn.name + " " + parseArgs(mn) + " " + (Type.getReturnType(mn.desc).getClassName());
 	}
 	
