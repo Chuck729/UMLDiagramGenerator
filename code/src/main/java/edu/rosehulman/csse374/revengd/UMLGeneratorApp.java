@@ -10,7 +10,7 @@ public class UMLGeneratorApp {
 	public static void main(String[] args) throws IOException {
 		
 		IGraphVizGenorator generator = new GraphVizGenerator();
-		//generator = new GraphVizBidirDecorator(new GraphVizAssociationSupersedeDecorator(generator));
+		generator = new GraphVizBidirDecorator(generator);
 		
 		String out = "./Input-Output/output.txt";
 		
