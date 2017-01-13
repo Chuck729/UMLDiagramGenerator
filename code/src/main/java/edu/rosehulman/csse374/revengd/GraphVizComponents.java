@@ -62,7 +62,7 @@ public class GraphVizComponents {
 		}
 		
 		// dependency
-		for (String dp : c.getAssociation()) {
+		for (String dp : c.getDependency()) {
 			e = new Edge(this.label, this.nameToID.get(dp));
 			e.appendOption("arrowhead", "vee");
 			e.appendOption("style", "dashed");
