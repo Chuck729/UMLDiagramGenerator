@@ -14,11 +14,9 @@ public class UMLGeneratorApp {
 		generator = new GraphVizOneToManyDecorator(generator);
 		generator = new GraphVizBidirDecorator(generator);
 		
-		
 		String out = "./Input-Output/output.txt";
 		
 		List<String> arguments = new ArrayList<String>();
-		
 
 		HashMap<String, IModification> modificationMap = new HashMap<String, IModification>();
 		modificationMap.put("private", new PrivateOnly());

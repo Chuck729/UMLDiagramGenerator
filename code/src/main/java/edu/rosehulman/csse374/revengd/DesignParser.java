@@ -48,7 +48,7 @@ public class DesignParser implements IDesignParser {
 	//and set the class contents methods to the parsed UML format version
 	@Override
 	public void parseProject() {
-		
+		IClassContent cc = new ClassContent("java.lang.String");
 		for (String name: classNames) {
 			IClassContent classContent = new ClassContent(name);
 			classContent.setField(fieldConvert.convert(classContent.getField()));
@@ -56,36 +56,13 @@ public class DesignParser implements IDesignParser {
 			this.classes.add(classContent);
 		}
 		
-		// TODO this all should be in a recursive method. I think it would make
-		// dependencies and associations easier
-		for(int i = 0; i < this.classes.size(); i++) {
-			for(String intName : this.classes.get(i).getInterfaces()) {
-				if (!this.classNames.contains(intName) && isRecursive) {
-					ClassContent classContent = new ClassContent(intName);
-					classContent.setField(fieldConvert.convert(classContent.getField()));
-					classContent.setMethod(methodConvert.convert(classContent.getMethod()));
-					this.classes.add(classContent);
-					this.classNames.add(intName);
-				} else if (!this.classNames.contains(intName)) {
-					this.classes.get(i).removeInterface(intName);
-				}
-			}
-			String p = this.classes.get(i).getParent();
-			if (!this.classNames.contains(p) && p != null && isRecursive) {
-				ClassContent classContent = new ClassContent(p);
-				classContent.setField(fieldConvert.convert(classContent.getField()));
-				classContent.setMethod(methodConvert.convert(classContent.getMethod()));
-				this.classes.add(classContent);
-				this.classNames.add(p);
-				
-			} else if (!this.classNames.contains(p)) {
-				this.classes.get(i).removeParent();
-			}
-			
+		if (!isRecursive) {
+			assFinder.find(classes, classNames, isRecursive);
+			dpFinder.find(classes, classNames, isRecursive);
 		}
 		
-		assFinder.find(classes);
-		dpFinder.find(classes);
+		findRecursive();
+		
 		for(IClassContent c: classes) {
 //			System.out.println(c.getMethod());
 //			System.out.println(c.getName() + ": " + c.getAssociation() + "  : " + c.getDependency());
@@ -110,6 +87,83 @@ public class DesignParser implements IDesignParser {
 
 	}
 	
+	private void findRecursive() {
+		findParent();
+	}
 	
+	private void addNewClass(String name) {
+		ClassContent classContent = new ClassContent(name);
+		classContent.setField(fieldConvert.convert(classContent.getField()));
+		classContent.setMethod(methodConvert.convert(classContent.getMethod()));
+		this.classes.add(classContent);
+		this.classNames.add(name);
+	}
+	
+	private void findParent() {
+		boolean found = false;
+		for(int i = 0; i < this.classes.size(); i++) {
+			String p = this.classes.get(i).getParent();
+			if (!this.classNames.contains(p) && p != null && isRecursive) {
+				addNewClass(p);
+				found = true;
+			} else if (!this.classNames.contains(p)) {
+				this.classes.get(i).removeParent();
+			}
+		}
+		if (found) {
+			findParent();
+		} else {
+			findInterface();
+		}
+	}
+	
+	private void findInterface() {
+		boolean found = false;
+		for(int i = 0; i < this.classes.size(); i++) {
+			for(String intName : this.classes.get(i).getInterfaces()) {
+				if (!this.classNames.contains(intName) && isRecursive) {
+					addNewClass(intName);
+					found = true;
+				} else if (!this.classNames.contains(intName)) {
+					this.classes.get(i).removeInterface(intName);
+				}
+			}
+		}
+		if (found) {
+			findParent();
+		} 
+//			else {
+//			findAss();
+//		}
+	}
+
+	private void findAss() {
+		List<String> newClasses;
+		newClasses = assFinder.find(classes, classNames, isRecursive);
+		if(isRecursive && newClasses.size() != 0) { // quit before find
+//			for (String c : newClasses) {
+//				System.out.println("ass: " + c);
+//				//addNewClass(c);
+//			}
+			findParent();
+		} else {
+			findDP();
+		}
+	}
+	
+	private void findDP() {
+		List<String> newClasses;
+		newClasses = dpFinder.find(classes, classNames, isRecursive);
+		if(isRecursive && newClasses.size() != 0) { // quit before find
+			for (String c : newClasses) {
+				System.out.println("dp: " + c);
+				//addNewClass(c);
+				
+			}
+			findParent();
+		} else {
+			// yayayayayayayay
+		}
+	}
 	
 }

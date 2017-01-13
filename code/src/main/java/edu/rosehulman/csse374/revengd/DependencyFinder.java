@@ -8,57 +8,46 @@ public class DependencyFinder implements ICoupleFinder {
 	//if another class appears in a method param or return type, 
 	//add it to the dependencies
 	@Override
-	public void find(List<IClassContent> classes) {
+	public List<String> find(List<IClassContent> classes, List<String> classNames, boolean isRecursive) {
+		List<String> newClasses = new ArrayList<>();
 		for(IClassContent c: classes) {
 			ArrayList<String> dependencies = new ArrayList<String>();
 			for(String method: c.getMethod()) {
+//				if(isRecursive) {
+//					List<String> temp = (checkArgsAndReturn(classNames, method));
+//					newClasses.addAll(temp);
+//					classNames.addAll(temp);
+//				}
 				for (IClassContent dpClass: classes) {
 					if (method.contains(dpClass.getName()) && !dpClass.getName().equals(c.getName())) {
-						if (!dependencies.contains(dpClass.getName()))
+						if (!dependencies.contains(dpClass.getName())) {
 							dependencies.add(dpClass.getName());
+						}
+						
 					}
 				}
-//				String parts[] = method.split(" ");
-//				if(foundDependencyInReturnType(parts[parts.length - 1], c, classes))
-//					dependencies.add(parts[parts.length - 1]);
-//				String[] params = getParams(method);
-//				int index = foundDependencyInParams(params, c, classes);
-//				for(int x = 0; x < params.length; x++)
-//					//System.out.println("params: " + params[x]);
-//					if(index != -1 && !dependencies.contains(params[index]))
-//						dependencies.add(params[index]);
 			}
 			c.setDependency(dependencies);
 		}
+		return newClasses;
 	}
 	
-
-	
-	
-	
-	private String[] getParams(String method) {
-		String params = method.substring(method.indexOf("(") + 1, method.indexOf(")"));
-		return params.split(",");
-	}
-	
-	private int foundDependencyInParams(String[] params, IClassContent c, List<IClassContent> classes) {
-		for (IClassContent allClasses: classes) {
-			for (int x = 0; x < params.length; x++) {
-				if ((params[x].contains(allClasses.getName())) && allClasses != c)
-					return x;
+	public List<String> checkArgsAndReturn(List<String> classNames, String m) {
+		ArrayList<String> newClasses = new ArrayList<String>();
+		String method = m;
+		String args = method.substring(method.indexOf('(') + 1, method.indexOf(')'));
+		String returnType = method.substring(method.indexOf(':') + 2);
+		String[] params = args.split(",");
+		for (int x = 0; x < params.length; x++) {
+			if (params[x].length() > 0) {
+				params[x] = params[x].trim();
+				if (!classNames.contains(params[x]) && params[x].contains(".") && !newClasses.contains(params[x]))
+					newClasses.add(params[x]);
 			}
 		}
-		return -1;
+		if (!(returnType.equals("void") || !returnType.contains(".") || 
+				returnType.contains(".Class<>") || classNames.contains(returnType) || newClasses.contains(returnType)))
+			newClasses.add(returnType);
+		return newClasses;
 	}
-
-	//returns true if the a class is found in the method string
-	private boolean foundDependencyInReturnType(String returnType, IClassContent c, List<IClassContent> classes) {
-		for(IClassContent allClasses: classes) {
-			if (returnType.equals(allClasses.getName()) && allClasses != c)
-				return true;
-		}
-		return false;
-	}
-
-
 }
