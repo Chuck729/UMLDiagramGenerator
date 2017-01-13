@@ -18,7 +18,18 @@ public class AssociationFinder implements ICoupleFinder {
 				String f = parts[parts.length -1];
 				if (foundAssociations(f , c, classes) && !associations.contains(f)) {
 					if (f.contains("<"))
-						associations.add(f.substring(f.indexOf("<") + 1, f.indexOf(">")));
+						if(f.contains("Map")) {
+							String new1 = f.substring(f.indexOf("<") + 1, f.indexOf(","));
+							String new2 = f.substring(f.indexOf(",") + 1, f.indexOf(">"));
+							if(classNames.contains(new1)) {
+								associations.add(new1);
+							}
+							if(classNames.contains(new2)) {
+								associations.add(new2);
+							}
+						} else {
+							associations.add(f.substring(f.indexOf("<") + 1, f.indexOf(">")));
+						}
 					else
 						associations.add(f);
 				}
