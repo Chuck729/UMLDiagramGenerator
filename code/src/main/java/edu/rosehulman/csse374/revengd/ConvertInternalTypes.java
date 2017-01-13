@@ -41,6 +41,9 @@ public abstract class ConvertInternalTypes {
 		case "S":
 			conversion = "short";
 			break;
+		case "V":
+			conversion = "void";
+			break;
 		default: 
 			conversion = getFriendlyName(type);
 		}
@@ -55,13 +58,14 @@ public abstract class ConvertInternalTypes {
 		if(type.equals("void")) {
 			return type;
 		}
+		type = type.replace(";L", ",");
 		type = type.replace(";", "");
 		type = type.replace("/", ".");
 		if (type.substring(0, 1).equals(type.substring(0, 1).toUpperCase())) {
 			type = type.substring(1);
 		}
 		type = type.replaceAll("<.", "<");
-		type = type.replaceAll(", .", ", ");
+		type = type.replaceAll(", [a-zA-Z0-9]", ", ");
 		return type;
 	}
 	

@@ -48,6 +48,7 @@ public class ClassContent implements IClassContent {
 		this.field = new ArrayList<String>();
 		createFieldList((List<FieldNode>)classNode.fields);
 		createMethodList((List<MethodNode>)classNode.methods);
+		
 	}
 	
 	//puts all the fields in a list after parsing
@@ -82,18 +83,35 @@ public class ClassContent implements IClassContent {
 	private String parseMethod(MethodNode mn) {
 		String type = mn.signature;
 		if (type == null) {
-			type = (Type.getReturnType(mn.desc).getClassName());
+			type = (Type.getReturnType(mn.desc).toString());
 		} else {
 			type = type.substring(type.indexOf(')') + 1);
 		}
-		return ((mn.access & Opcodes.ACC_PUBLIC) > 0) + " "+ mn.name + " " + parseArgs(mn) + " " + (Type.getReturnType(mn.desc).getClassName());
+		//System.out.println("                 method:         " + ((mn.access & Opcodes.ACC_PUBLIC) > 0) + " "+ mn.name + " args:" + parseArgs(mn) + " return:" + type);
+		return ((mn.access & Opcodes.ACC_PUBLIC) > 0) + " "+ mn.name + " " + parseArgs(mn) + " " + type;
 	}
 	
 	//gets the type of each parameter
 	private List<String> parseArgs(MethodNode mn) {
 		List<String> args = new ArrayList<String>();
-		for (Type argType : Type.getArgumentTypes(mn.desc)) {
-			args.add(argType.getClassName());
+		String type = mn.signature;
+		if (type == null) {
+			for (Type argType : Type.getArgumentTypes(mn.desc)) {
+				args.add(argType.getClassName());
+			}
+			return args;
+		}
+		else {
+			String arguments = mn.signature.substring(1, mn.signature.indexOf(')'));
+			while(arguments.length() > 1) {
+				if (arguments.substring(0, arguments.indexOf(';')).contains("<")) {
+					args.add(arguments.substring(0, arguments.indexOf('>') + 1));
+					arguments = arguments.substring(arguments.indexOf('>') + 2);
+				} else {
+				args.add(arguments.substring(0, arguments.indexOf(';')));
+				arguments = arguments.substring(arguments.indexOf(';') + 1);
+				}
+			}
 		}
 		return args;
 	}
