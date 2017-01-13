@@ -17,6 +17,10 @@ public class GraphVizBidirDecorator extends GraphVizDecorator{
 			List<Edge> toDelete = new ArrayList<>();
 			GraphVizComponents currentClass = null;
 			for (GraphVizComponents classes2 : allClasses) {
+				
+				boolean leftMany = false;
+				boolean rightMany = false;
+				
 				List<Edge> arrows2 = classes2.getEdges();
 				currentClass = classes2;
 				Edge current = null;
@@ -24,11 +28,24 @@ public class GraphVizBidirDecorator extends GraphVizDecorator{
 					current = arrows1.get(i);
 					for(int j = 0; j < arrows2.size(); j++){
 						if(arrows2.get(j).getVertex1().equals(current.getVertex2()) && 
-							arrows2.get(j).getVertex2().equals(current.getVertex1()) && 
-							arrows2.get(j).getOptions().get("arrowhead").equals(current.getOptions().get("arrowhead")) &&
-							arrows2.get(j).getOptions().get("style").equals(current.getOptions().get("style"))) {
-								toDelete.add(arrows2.get(j));
-								current.appendOption("dir", "both");
+								arrows2.get(j).getVertex2().equals(current.getVertex1()) && 
+								arrows2.get(j).getOptions().get("arrowhead").equals(current.getOptions().get("arrowhead")) &&
+								arrows2.get(j).getOptions().get("style").equals(current.getOptions().get("style"))) {
+							if (current.getOptions().containsKey("taillabel") && current.getOptions().get("taillabel").equals("1\\:M")) {
+								leftMany = true;
+							}
+							if (arrows2.get(j).getOptions().containsKey("taillabel") && arrows2.get(j).getOptions().get("taillabel").equals("1\\:M")) {
+								rightMany = true;
+							}
+							toDelete.add(arrows2.get(j));
+							current.appendOption("dir", "both");
+							if(leftMany && rightMany) {
+								current.appendOption("taillabel", "M\\:M");
+							} else if (leftMany) {
+								current.appendOption("taillabel", "M\\:1");
+							} else if (rightMany) {
+								current.appendOption("taillabel", "1\\:M");
+							}
 						}
 					}
 				}

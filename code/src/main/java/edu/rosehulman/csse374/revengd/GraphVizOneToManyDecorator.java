@@ -43,9 +43,9 @@ public class GraphVizOneToManyDecorator extends GraphVizDecorator{
 				for(Edge e : c.getEdges()){
 					if(e.getVertex1().equals(thisClass) && e.getVertex2().equals(id)){
 						e.appendOption("taillabel", "1\\:M");
-					}else if (e.getVertex2().equals(thisClass) && e.getVertex1().equals(id)){
+					}/*else if (e.getVertex2().equals(thisClass) && e.getVertex1().equals(id)){
 						e.appendOption("headlabel", "1\\:M");
-					}
+					}*/
 				}
 			}
 		}
