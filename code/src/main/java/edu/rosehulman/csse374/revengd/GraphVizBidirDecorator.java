@@ -31,21 +31,21 @@ public class GraphVizBidirDecorator extends GraphVizDecorator{
 								arrows2.get(j).getVertex2().equals(current.getVertex1()) && 
 								arrows2.get(j).getOptions().get("arrowhead").equals(current.getOptions().get("arrowhead")) &&
 								arrows2.get(j).getOptions().get("style").equals(current.getOptions().get("style"))) {
-							if (current.getOptions().containsKey("taillabel") && current.getOptions().get("taillabel").equals("1\\:M")) {
+							if (current.getOptions().containsKey("headlabel") && current.getOptions().get("headlabel").equals("1\\:M")) {
 								leftMany = true;
 							}
-							if (arrows2.get(j).getOptions().containsKey("taillabel") && arrows2.get(j).getOptions().get("taillabel").equals("1\\:M")) {
+							if (arrows2.get(j).getOptions().containsKey("headlabel") && arrows2.get(j).getOptions().get("headlabel").equals("1\\:M")) {
 								rightMany = true;
 							}
 							toDelete.add(arrows2.get(j));
 							current.appendOption("dir", "both");
 							current.appendOption("arrowtail", current.getOptions().get("arrowhead"));
 							if(leftMany && rightMany) {
-								current.appendOption("taillabel", "N\\:M");
+								current.appendOption("headlabel", "N\\:M");
 							} else if (leftMany) {
-								current.appendOption("taillabel", "1\\:M");
+								current.appendOption("headlabel", "1\\:M");
 							} else if (rightMany) {
-								current.appendOption("taillabel", "M\\:1");
+								current.appendOption("headlabel", "M\\:1");
 							}
 						}
 					}
