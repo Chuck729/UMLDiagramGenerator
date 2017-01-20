@@ -6,7 +6,7 @@ import java.util.List;
 public class AssociationFinder implements ICoupleFinder {
 
 	//if the field is has a type of another class in the UML
-	//add it to the associations
+	//add it to the associations //
 	@Override
 	public List<String> find(List<IClassContent> classes, List<String> classNames, boolean isRecursive) {
 		List<String> newClasses = new ArrayList<>();
