@@ -8,7 +8,7 @@ import java.util.List;
 public class UMLGeneratorApp {
 
 	public static void main(String[] args) throws IOException {
-		
+
 		IGraphVizGenorator generator = new GraphVizGenerator();
 		generator = new GraphVizAssociationSupersedeDecorator(generator);
 		generator = new GraphVizOneToManyDecorator(generator);
