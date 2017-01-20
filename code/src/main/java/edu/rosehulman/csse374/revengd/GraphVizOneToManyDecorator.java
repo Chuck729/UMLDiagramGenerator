@@ -6,8 +6,7 @@ import java.util.List;
 
 public class GraphVizOneToManyDecorator extends GraphVizDecorator{
 
-	GraphVizGenerator generator;
-	public GraphVizOneToManyDecorator(GraphVizGenerator gen) {
+	public GraphVizOneToManyDecorator(IGraphVizGenorator gen) {
 		generator = gen;
 
 	}
@@ -25,7 +24,7 @@ public class GraphVizOneToManyDecorator extends GraphVizDecorator{
 				if(f.contains("<") && f.contains(">")){
 					manyList.add(f.substring(f.indexOf("<")+1, f.indexOf(">")));
 				}else if(f.contains("[") && f.contains("]")){
-					manyList.add(f.substring(f.indexOf("[")+1, f.indexOf("]")));
+					manyList.add(f.substring(0, f.indexOf("[")));
 				}
 			}
 			
@@ -34,23 +33,19 @@ public class GraphVizOneToManyDecorator extends GraphVizDecorator{
 				if(m.contains("<") && m.contains(">")){
 					manyList.add(m.substring(m.indexOf("<")+1, m.indexOf(">")));
 				}else if(m.contains("[") && m.contains("]")){
-					manyList.add(m.substring(m.indexOf("[")+1, m.indexOf("]")));
+					manyList.add(m.substring(0, m.indexOf("[")));
 				}
-			}
-			
-			//take all class names from manyList and convert them to their IDs
-			for(String name : manyList){
-				name = c.getID(name);
 			}
 			
 			//for each id in manyList, find the correct arrow that represents it and add the cardinality option
 			for(String id : manyList){
+				id = c.getID(id);
 				for(Edge e : c.getEdges()){
 					if(e.getVertex1().equals(thisClass) && e.getVertex2().equals(id)){
-						e.appendOption("taillabel", "1:M");
-					}else if (e.getVertex2().equals(thisClass) && e.getVertex1().equals(id)){
-						e.appendOption("headlabel", "1:M");
-					}
+						e.appendOption("headlabel", "1\\:M");
+					}/*else if (e.getVertex2().equals(thisClass) && e.getVertex1().equals(id)){
+						e.appendOption("headlabel", "1\\:M");
+					}*/
 				}
 			}
 		}
