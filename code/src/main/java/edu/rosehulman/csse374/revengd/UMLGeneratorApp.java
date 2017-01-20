@@ -5,9 +5,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import test.classes.A;
+
 public class UMLGeneratorApp {
 
 	public static void main(String[] args) throws IOException {
+	
+		// using a class loader
+//		ClassLoader cl = new PatternClassLoader();
+//		A a = null;
+//		try {
+//			a = (A) cl.loadClass("test.classes.A").newInstance();
+//		} catch (InstantiationException | IllegalAccessException
+//				| ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		a.testA();
 
 		IGraphVizGenorator generator = new GraphVizGenerator();
 		generator = new GraphVizAssociationSupersedeDecorator(generator);
