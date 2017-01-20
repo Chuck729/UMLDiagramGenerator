@@ -79,12 +79,6 @@ public class DesignParser implements IDesignParser {
 	public void generate() {
 		this.codeGenerator.generateCode(this.classes);
 	}
-
-	@Override
-	public void findPattern() {
-		// TODO Auto-generated method stub
-
-	}
 	
 	private void findRecursive() {
 		findParent();
