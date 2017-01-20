@@ -12,6 +12,7 @@ import test.classes.A;
 
 public class UMLGeneratorApp {
 	
+	private static String propertyileName = "";  // TODO this should actually be set to some default
 
 	public static void main(String[] args) throws IOException {
 	
