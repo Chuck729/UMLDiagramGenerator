@@ -1,6 +1,6 @@
-package edu.rosehulman.csse374.revengd;
+package design.parsers;
 
-public class BiDirectionalDetector extends PatternDetector {
+public class BiDirectionalDetector extends PatternDecorator {
 
 	IDesignParser parser;
 	

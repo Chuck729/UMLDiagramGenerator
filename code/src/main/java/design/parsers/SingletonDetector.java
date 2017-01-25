@@ -1,7 +1,7 @@
-import edu.rosehulman.csse374.revengd.IDesignParser;
-import edu.rosehulman.csse374.revengd.PatternDetector;
+package design.parsers;
 
-public class SingletonDetector extends PatternDetector {
+
+public class SingletonDetector extends PatternDecorator {
 
 	IDesignParser parser;
 	
