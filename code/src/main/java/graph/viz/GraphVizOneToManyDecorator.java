@@ -1,8 +1,10 @@
-package edu.rosehulman.csse374.revengd;
+package graph.viz;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.rosehulman.csse374.revengd.IClassContent;
 
 public class GraphVizOneToManyDecorator extends GraphVizDecorator{
 

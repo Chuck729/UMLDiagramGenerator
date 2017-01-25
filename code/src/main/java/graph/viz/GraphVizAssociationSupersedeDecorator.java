@@ -1,7 +1,9 @@
-package edu.rosehulman.csse374.revengd;
+package graph.viz;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.rosehulman.csse374.revengd.IClassContent;
 
 public class GraphVizAssociationSupersedeDecorator extends GraphVizDecorator {
 	

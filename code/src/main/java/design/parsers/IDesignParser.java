@@ -1,4 +1,4 @@
-package edu.rosehulman.csse374.revengd;
+package design.parsers;
 
 public interface IDesignParser {
 	public void parseProject();

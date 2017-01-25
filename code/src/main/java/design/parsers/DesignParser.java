@@ -1,4 +1,4 @@
-package edu.rosehulman.csse374.revengd;
+package design.parsers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +12,16 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.MethodNode;
+
+import edu.rosehulman.csse374.revengd.AssociationFinder;
+import edu.rosehulman.csse374.revengd.ClassContent;
+import edu.rosehulman.csse374.revengd.DependencyFinder;
+import edu.rosehulman.csse374.revengd.FieldConvert;
+import edu.rosehulman.csse374.revengd.IClassContent;
+import edu.rosehulman.csse374.revengd.ICoupleFinder;
+import edu.rosehulman.csse374.revengd.IModification;
+import edu.rosehulman.csse374.revengd.MethodConvert;
+import graph.viz.ICodeGenerator;
 
 public class DesignParser implements IDesignParser {
 	
