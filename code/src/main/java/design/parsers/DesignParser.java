@@ -59,7 +59,7 @@ public class DesignParser implements IDesignParser {
 	@Override
 	public void parseProject() {
 		for (String name: classNames) {
-			System.out.println(name);
+//			System.out.println(name);
 			IClassContent classContent = new ClassContent(name);
 			classContent.setField(fieldConvert.convert(classContent.getField()));
 			classContent.setMethod(methodConvert.convert(classContent.getMethod()));
@@ -166,7 +166,7 @@ public class DesignParser implements IDesignParser {
 		newClasses = dpFinder.find(classes, classNames, isRecursive);
 		if(isRecursive && newClasses.size() != 0) { // quit before find
 			for (String c : newClasses) {
-				System.out.println("dp: " + c);
+//				System.out.println("dp: " + c);
 				//addNewClass(c);
 				
 			}

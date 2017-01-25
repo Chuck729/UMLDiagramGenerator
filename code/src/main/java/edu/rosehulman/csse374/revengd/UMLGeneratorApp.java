@@ -18,6 +18,7 @@ import java.util.Properties;
 
 import design.parsers.DesignParser;
 import design.parsers.IDesignParser;
+import design.parsers.SingletonDetector;
 
 public class UMLGeneratorApp {
 
@@ -118,8 +119,8 @@ public class UMLGeneratorApp {
 		
 		arguments = whiteBlackList(arguments, whiteList, blackList);
 
-		IDesignParser parser = new DesignParser(generator, out, arguments,
-				recursive, modifications, blackList);
+		IDesignParser parser = new SingletonDetector(new DesignParser(generator, out, arguments,
+				recursive, modifications, blackList));
 
 		parser.parseProject();
 		parser.generate();
