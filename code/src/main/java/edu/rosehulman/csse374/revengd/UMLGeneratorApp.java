@@ -76,6 +76,7 @@ public class UMLGeneratorApp {
 		modificationMap.put("private", new PrivateOnly());
 		modificationMap.put("public", new PublicOnly());
 		modificationMap.put("protected", new ProtectedOnly());
+		modificationMap.put("synthetic", new NoSynthetic());
 
 		List<IModification> modifications = new ArrayList<IModification>();
 
@@ -102,10 +103,14 @@ public class UMLGeneratorApp {
 			}
 		}
 		
+		if (!synthetic) {
+			modifications.add(modificationMap.get("synthetic"));  // TODO not tested
+		}
+		
 		arguments = whiteBlackList(arguments, whiteList, blackList);
 
 		IDesignParser parser = new DesignParser(generator, out, arguments,
-				recursive, modifications, blackList);  // need to pass synthetic
+				recursive, modifications, blackList);
 
 		parser.parseProject();
 		parser.generate();
