@@ -1,4 +1,4 @@
-package edu.rosehulman.csse374.revengd;
+package graph.viz;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,5 +1,11 @@
 package edu.rosehulman.csse374.revengd;
 
+import graph.viz.GraphVizAssociationSupersedeDecorator;
+import graph.viz.GraphVizBidirDecorator;
+import graph.viz.GraphVizGenerator;
+import graph.viz.GraphVizOneToManyDecorator;
+import graph.viz.IGraphVizGenorator;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +15,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
+import design.parsers.DesignParser;
+import design.parsers.IDesignParser;
 
 public class UMLGeneratorApp {
 
