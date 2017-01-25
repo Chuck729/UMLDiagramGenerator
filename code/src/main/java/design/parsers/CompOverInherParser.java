@@ -4,9 +4,9 @@ import java.util.List;
 
 import edu.rosehulman.csse374.revengd.IClassContent;
 
-public class CompOverInherOarser extends PatternDecorator {
+public class CompOverInherParser extends PatternDecorator {
 	
-	public CompOverInherOarser(IDesignParser d) {
+	public CompOverInherParser(IDesignParser d) {
 		this.decorated = d;
 	}
 
@@ -17,7 +17,9 @@ public class CompOverInherOarser extends PatternDecorator {
 		List<IClassContent> classContent = this.decorated.getClassContent();
 		
 		for (IClassContent clazz : classContent) {
-			
+			if (clazz.getParent().equals("")) {
+				
+			}
 		}
 	}
 

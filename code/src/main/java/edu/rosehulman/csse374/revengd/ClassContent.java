@@ -228,7 +228,6 @@ public class ClassContent implements IClassContent {
 	@Override
 	public void removeParent() {
 		this.classNode.superName = null;
-		
 	}
 
 	@Override
