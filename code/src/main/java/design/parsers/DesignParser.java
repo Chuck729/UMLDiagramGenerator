@@ -71,11 +71,11 @@ public class DesignParser implements IDesignParser {
 		
 		findRecursive();
 		
-		for(IClassContent c: classes) {
+//		for(IClassContent c: classes) {
 //			System.out.println(c.getMethod());
 //			if(c.getName().equals("headfirst.factory.pizzaaf.Pizza"))
 //			System.out.println(c.getName() + ": " + c.getAssociation() + "  : " + c.getDependency());
-		}
+//		}
 		
 		for(IClassContent c: classes) {
 			for (IModification modification: modifications) {
@@ -174,6 +174,11 @@ public class DesignParser implements IDesignParser {
 		} else {
 			// yayayayayayayay
 		}
+	}
+
+	@Override
+	public List<IClassContent> getClassContent() {
+		return this.classes;
 	}
 	
 }
