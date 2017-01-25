@@ -2,8 +2,10 @@ package edu.rosehulman.csse374.revengd;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
@@ -24,6 +26,7 @@ public class ClassContent implements IClassContent {
 	private boolean isInterface;
 	private boolean isAbstract;
 	private List<String> removedInterfaces;
+	private Map<String, String> options;
 	
 	private ClassReader classReader;
 	
@@ -35,6 +38,7 @@ public class ClassContent implements IClassContent {
 			e.printStackTrace();
 		}
 		this.removedInterfaces = new LinkedList<String>();
+		this.options = new HashMap<>();
 		populateFields();
 	}
 	
@@ -225,6 +229,16 @@ public class ClassContent implements IClassContent {
 	public void removeParent() {
 		this.classNode.superName = null;
 		
+	}
+
+	@Override
+	public void addOption(String option, String val) {
+		this.options.put(option, val);
+	}
+
+	@Override
+	public Map<String, String> getOptions() {
+		return this.options;
 	}
 
 }
