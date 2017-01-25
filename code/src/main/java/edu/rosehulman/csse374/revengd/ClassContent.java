@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
@@ -236,8 +237,13 @@ public class ClassContent implements IClassContent {
 	}
 
 	@Override
-	public Map<String, String> getOptions() {
-		return this.options;
+	public Set<String> getOptionKeys() {
+		return this.options.keySet();
+	}
+
+	@Override
+	public String getOption(String option) {
+		return this.options.get(option);
 	}
 
 }

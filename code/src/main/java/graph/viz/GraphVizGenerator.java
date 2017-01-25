@@ -37,7 +37,11 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		}
 		this.addOption("rankdir", "BT");
 		for (IClassContent c : classes) {
-			this.classes.add(new GraphVizComponents(c,  this.names.get(c.getName()), this.names));
+			GraphVizComponents g = new GraphVizComponents(c,  this.names.get(c.getName()), this.names);
+			for (String o : c.getOptionKeys()) {
+				g.addOption(o, c.getOption(o));
+			}
+			this.classes.add(g);
 		}
 	}
 

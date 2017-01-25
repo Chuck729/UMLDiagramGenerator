@@ -2,6 +2,7 @@ package edu.rosehulman.csse374.revengd;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.objectweb.asm.tree.ClassNode;
 
@@ -44,6 +45,8 @@ public interface IClassContent {
 	
 	public void addOption(String option, String val);
 	
-	public Map<String, String> getOptions();
+	public Set<String> getOptionKeys();
+	
+	public String getOption(String option);
 	
 }
