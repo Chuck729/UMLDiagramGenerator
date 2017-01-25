@@ -26,15 +26,15 @@ public class DesignParser implements IDesignParser {
 	private List<IModification> modifications;
 	private ICoupleFinder dpFinder;
 	private ICoupleFinder assFinder;
-
-	// TODO add parameter for recursiveParsing and accessLevel
+	private String[] blackList;
 	
 	public DesignParser(ICodeGenerator codeGenerator, String outFile, List<String> classNames, 
-			boolean isRecursive, List<IModification> modifications) {
+			boolean isRecursive, List<IModification> modifications, String[] blackList) {
 		this.codeGenerator = codeGenerator;
 		this.outFile = outFile;
 		this.classNames = classNames;
 		this.isRecursive = isRecursive;
+		this.blackList = blackList;
 		this.classes = new LinkedList<IClassContent>();
 		this.methodConvert = new MethodConvert();
 		this.fieldConvert = new FieldConvert();
@@ -85,6 +85,11 @@ public class DesignParser implements IDesignParser {
 	}
 	
 	private void addNewClass(String name) {
+		for (String b : this.blackList) {
+			if (name.contains(b)) {
+				return;  // do not add TODO not tested
+			}
+		}
 		name = name.replace("[", "");
 		name = name.replace("]", "");
 		ClassContent classContent = new ClassContent(name);

@@ -105,7 +105,7 @@ public class UMLGeneratorApp {
 		arguments = whiteBlackList(arguments, whiteList, blackList);
 
 		IDesignParser parser = new DesignParser(generator, out, arguments,
-				recursive, modifications);  // need to pass in blacklist and synthetic
+				recursive, modifications, blackList);  // need to pass synthetic
 
 		parser.parseProject();
 		parser.generate();
