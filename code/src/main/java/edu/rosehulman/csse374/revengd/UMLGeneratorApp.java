@@ -1,13 +1,45 @@
 package edu.rosehulman.csse374.revengd;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
+
+import test.classes.A;
 
 public class UMLGeneratorApp {
+	
+	private static String propertyileName = "";  // TODO this should actually be set to some default
 
 	public static void main(String[] args) throws IOException {
+	
+		// using a class loader
+//		ClassLoader cl = new PatternClassLoader();
+//		A a = null;
+//		try {
+//			a = (A) cl.loadClass("test.classes.A").newInstance();
+//		} catch (InstantiationException | IllegalAccessException
+//				| ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		a.testA();
+		
+		if (args.length == 1) {
+			propertyileName = args[0];
+		}
+		
+		Properties p = new Properties();
+		InputStream in = new FileInputStream(propertyileName);
+		p.load(in);
+		
+		String[] clargs = p.getProperty("clo").split(",");
+		String[] whiteList = p.getProperty("whitelist").split(",");
+		String[] blackList = p.getProperty("blacklist").split(",");
+		boolean synthetic = p.getProperty("synthetic").equals("yes");
 
 		IGraphVizGenorator generator = new GraphVizGenerator();
 		generator = new GraphVizAssociationSupersedeDecorator(generator);
@@ -29,14 +61,14 @@ public class UMLGeneratorApp {
 		
 		String[] accessLevel = null;
 		
-		for(int i = 0; i < args.length; i++){
-			if (args[i].equals("-r")) {
+		for(int i = 0; i < clargs.length; i++){
+			if (clargs[i].equals("-r")) {
 				recursive = true;
 			} 
-			else if (args[i].contains("-a")) {
-				accessLevel = args[i].split("=");
+			else if (clargs[i].contains("-a")) {
+				accessLevel = clargs[i].split("=");
 			} else {
-				arguments.add(args[i]);
+				arguments.add(clargs[i]);
 			}
 		}
 			if (accessLevel != null) {
