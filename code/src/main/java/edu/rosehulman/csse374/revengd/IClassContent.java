@@ -42,4 +42,8 @@ public interface IClassContent {
 
 	public void removeParent();
 	
+	public void addOption(String option, String val);
+	
+	public Map<String, String> getOptions();
+	
 }
