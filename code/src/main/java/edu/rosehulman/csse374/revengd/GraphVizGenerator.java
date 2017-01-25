@@ -1,8 +1,12 @@
 package edu.rosehulman.csse374.revengd;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,6 +30,7 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	@Override
 	public void generateCode(List<IClassContent> classes) {
 		for (int i = 0; i < classes.size(); i++) {
+			System.out.println("---"+classes.get(i).getName());
 			this.names.put(classes.get(i).getName(), Integer.toString(i));
 		}
 		this.addOption("rankdir", "BT");
@@ -39,12 +44,34 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 			this.format(c);
 		}
 		String code = concatCode();
+		producePicture(code);
 		System.out.println(code);
 		OutputStream out = new FileOutputStream(file);
 		byte[] b = code.getBytes();
 		out.write(b);
 	}
 	
+	private void producePicture(String code2) throws IOException {
+		String outFile = "output.gv";
+		String outPic = "graph.png";
+		PrintWriter write = new PrintWriter(outFile);
+		write.print(code2);
+		write.close();
+		
+		Process graphViz = new ProcessBuilder("C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe", "-Tpng", outFile, "-o", outPic).start();
+		try{
+			graphViz.waitFor();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		if (Desktop.isDesktopSupported()){
+			Desktop.getDesktop().open(new File(outPic));
+		} else {
+			Process paintProcess = new ProcessBuilder("mspaint", outPic).start();
+		}
+	}
+
 	private String concatCode() {
 		String text = "digraph uml { ";
 		for (String o : this.options.keySet()) {

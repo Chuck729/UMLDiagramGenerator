@@ -12,25 +12,46 @@ public class GraphVizBidirDecorator extends GraphVizDecorator{
 	
 	public void findBidirectional(){
 		List<GraphVizComponents> allClasses = generator.getClasses();
-		for (GraphVizComponents classes : allClasses) {
-			List<Edge> arrows = classes.getEdges();
+		for (GraphVizComponents classes1 : allClasses) {
+			List<Edge> arrows1 = classes1.getEdges();
 			List<Edge> toDelete = new ArrayList<>();
-			Edge current = null;
-			for(int i = 0; i < arrows.size(); i++){
-				current = arrows.get(i);
-				for(int j = 0; j < arrows.size(); j++){
-					if(arrows.get(j).getVertex1().equals(current.getVertex2()) && 
-					   arrows.get(j).getVertex2().equals(current.getVertex1()) && 
-					   arrows.get(j).getOptions().get("arrowhead").equals(current.getOptions().get("arrowhead")) &&
-					   arrows.get(j).getOptions().get("style").equals(current.getOptions().get("style"))) {
-							toDelete.add(arrows.get(j));
+			GraphVizComponents currentClass = null;
+			for (GraphVizComponents classes2 : allClasses) {
+				
+				boolean leftMany = false;
+				boolean rightMany = false;
+				
+				List<Edge> arrows2 = classes2.getEdges();
+				currentClass = classes2;
+				Edge current = null;
+				for(int i = 0; i < arrows1.size(); i++){
+					current = arrows1.get(i);
+					for(int j = 0; j < arrows2.size(); j++){
+						if(arrows2.get(j).getVertex1().equals(current.getVertex2()) && 
+								arrows2.get(j).getVertex2().equals(current.getVertex1()) && 
+								arrows2.get(j).getOptions().get("arrowhead").equals(current.getOptions().get("arrowhead")) &&
+								arrows2.get(j).getOptions().get("style").equals(current.getOptions().get("style"))) {
+							if (current.getOptions().containsKey("headlabel") && current.getOptions().get("headlabel").equals("1\\:M")) {
+								leftMany = true;
+							}
+							if (arrows2.get(j).getOptions().containsKey("headlabel") && arrows2.get(j).getOptions().get("headlabel").equals("1\\:M")) {
+								rightMany = true;
+							}
+							toDelete.add(arrows2.get(j));
 							current.appendOption("dir", "both");
+							current.appendOption("arrowtail", current.getOptions().get("arrowhead"));
+							if(leftMany && rightMany) {
+								current.appendOption("headlabel", "N\\:M");
+							} else if (leftMany) {
+								current.appendOption("headlabel", "1\\:M");
+							} else if (rightMany) {
+								current.appendOption("headlabel", "M\\:1");
+							}
+						}
 					}
 				}
-			}
-			if(toDelete.size() != 0) {
 				for(Edge e : toDelete) {
-					arrows.remove(e);
+					classes2.getEdges().remove(e);
 				}
 			}
 		}

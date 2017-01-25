@@ -54,19 +54,25 @@ public class GraphVizComponents {
 		}
 		
 		// associations
-		for (String ass : c.getAssociation()) {
-			e = new Edge(this.label, this.nameToID.get(ass));
-			e.appendOption("arrowhead", "vee");
-			e.appendOption("style", "solid");
-			this.edges.add(e);
+		if (c.getAssociation() != null) {  // TODO needs to be fixed
+			for (String ass : c.getAssociation()) {
+				if(c.getName().equals("headfirst.factory.pizzaaf.Pizza"))
+				System.out.println("+++"+ass.replace("[", "").replace("]", ""));
+				e = new Edge(this.label, this.nameToID.get(ass.replace("[", "").replace("]", "")));
+				e.appendOption("arrowhead", "vee");
+				e.appendOption("style", "solid");
+				this.edges.add(e);
+			}
 		}
 		
 		// dependency
-		for (String dp : c.getAssociation()) {
-			e = new Edge(this.label, this.nameToID.get(dp));
-			e.appendOption("arrowhead", "vee");
-			e.appendOption("style", "dashed");
-			this.edges.add(e);
+		if(c.getDependency() != null) {  // TODO needs to be fixed
+			for (String dp : c.getDependency()) {
+				e = new Edge(this.label, this.nameToID.get(dp));
+				e.appendOption("arrowhead", "vee");
+				e.appendOption("style", "dashed");
+				this.edges.add(e);
+			}
 		}
 	}
 	
@@ -109,6 +115,15 @@ public class GraphVizComponents {
 	
 	public void addOption(String option, String value) {
 		this.options.put(option, value);
+	}
+	
+	public String getName(String i) {
+		for(String n : nameToID.keySet()) {
+			if (i.equals(nameToID.get(n))) {
+				return n;
+			}
+		}
+		return null;
 	}
 	
 }
