@@ -119,6 +119,10 @@ public class GraphVizComponents {
 		this.options.put(option, value);
 	}
 	
+	public Map<String, String> getOptions() {
+		return this.options;
+	}
+	
 	public String getName(String i) {
 		for(String n : nameToID.keySet()) {
 			if (i.equals(nameToID.get(n))) {

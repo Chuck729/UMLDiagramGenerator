@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import design.parsers.CompOverInherParser;
 import design.parsers.DesignParser;
 import design.parsers.IDesignParser;
 
@@ -120,6 +121,8 @@ public class UMLGeneratorApp {
 
 		IDesignParser parser = new DesignParser(generator, out, arguments,
 				recursive, modifications, blackList);
+		
+		parser = new CompOverInherParser(parser);
 
 		parser.parseProject();
 		parser.generate();
