@@ -19,9 +19,9 @@ public interface IClassContent {
 	
 	public void setDependency(List<String> dependencies);
 	
-	public List<String> getMethod();
+	public List<String> getMethods();
 	
-	public List<String> getField();
+	public List<String> getFields();
 	
 	public String getName();
 

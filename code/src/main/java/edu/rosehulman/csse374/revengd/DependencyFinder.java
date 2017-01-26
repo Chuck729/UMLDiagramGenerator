@@ -12,7 +12,7 @@ public class DependencyFinder implements ICoupleFinder {
 		List<String> newClasses = new ArrayList<>();
 		for(IClassContent c: classes) {
 			ArrayList<String> dependencies = new ArrayList<String>();
-			for(String method: c.getMethod()) {
+			for(String method: c.getMethods()) {
 //				if(isRecursive) {
 //					List<String> temp = (checkArgsAndReturn(classNames, method));
 //					newClasses.addAll(temp);

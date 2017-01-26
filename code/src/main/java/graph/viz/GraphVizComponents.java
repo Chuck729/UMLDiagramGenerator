@@ -34,8 +34,8 @@ public class GraphVizComponents {
 		this.name = c.getName();
 		this.isInterface = c.isInterface();
 		this.isAbstract = c.isAbstract();
-		this.methods = c.getMethod();
-		this.fields = c.getField();
+		this.methods = c.getMethods();
+		this.fields = c.getFields();
 		
 		Edge e;
 		

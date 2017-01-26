@@ -13,7 +13,7 @@ public class AssociationFinder implements ICoupleFinder {
 		for(IClassContent c : classes) {
 			ArrayList<String> associations = new ArrayList<String>();
 
-			for(String field: c.getField()) {
+			for(String field: c.getFields()) {
 				String parts[] = field.split(" ");
 				String f = parts[parts.length -1];
 				if (foundAssociations(f , c, classes) && !associations.contains(f)) {

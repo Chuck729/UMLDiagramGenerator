@@ -61,8 +61,8 @@ public class DesignParser implements IDesignParser {
 		for (String name: classNames) {
 //			System.out.println(name);
 			IClassContent classContent = new ClassContent(name);
-			classContent.setField(fieldConvert.convert(classContent.getField()));
-			classContent.setMethod(methodConvert.convert(classContent.getMethod()));
+			classContent.setField(fieldConvert.convert(classContent.getFields()));
+			classContent.setMethod(methodConvert.convert(classContent.getMethods()));
 			this.classes.add(classContent);
 		}
 		
@@ -79,8 +79,8 @@ public class DesignParser implements IDesignParser {
 		
 		for(IClassContent c: classes) {
 			for (IModification modification: modifications) {
-				c.setField(modification.modify(c.getField()));
-				c.setMethod(modification.modify(c.getMethod()));
+				c.setField(modification.modify(c.getFields()));
+				c.setMethod(modification.modify(c.getMethods()));
 			}
 		}
 	}
@@ -103,8 +103,8 @@ public class DesignParser implements IDesignParser {
 		name = name.replace("[", "");
 		name = name.replace("]", "");
 		ClassContent classContent = new ClassContent(name);
-		classContent.setField(fieldConvert.convert(classContent.getField()));
-		classContent.setMethod(methodConvert.convert(classContent.getMethod()));
+		classContent.setField(fieldConvert.convert(classContent.getFields()));
+		classContent.setMethod(methodConvert.convert(classContent.getMethods()));
 		this.classes.add(classContent);
 		this.classNames.add(name);
 	}

@@ -132,12 +132,12 @@ public class ClassContent implements IClassContent {
 	}
 
 	@Override
-	public List<String> getMethod() {
+	public List<String> getMethods() {
 		return this.method;
 	}
 
 	@Override
-	public List<String> getField() {
+	public List<String> getFields() {
 		return this.field;
 	}
 
