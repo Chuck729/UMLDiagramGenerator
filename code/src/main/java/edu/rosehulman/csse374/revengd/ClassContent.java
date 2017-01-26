@@ -30,6 +30,7 @@ public class ClassContent implements IClassContent {
 	private Map<String, String> options;
 	
 	private ClassReader classReader;
+	private String extension;
 	
 	//takes in a class reader and populates all the needed fields
 	public ClassContent(String className) {
@@ -40,6 +41,7 @@ public class ClassContent implements IClassContent {
 		}
 		this.removedInterfaces = new LinkedList<String>();
 		this.options = new HashMap<>();
+		this.extension = "";
 		populateFields();
 	}
 	
@@ -244,6 +246,16 @@ public class ClassContent implements IClassContent {
 	@Override
 	public String getOption(String option) {
 		return this.options.get(option);
+	}
+	
+	@Override
+	public void setExtension(String extender){
+		this.extension = extender;
+	}
+
+	@Override
+	public String getNameWithExtension() {
+		return Type.getObjectType(classNode.name).getClassName() + extension;
 	}
 
 }

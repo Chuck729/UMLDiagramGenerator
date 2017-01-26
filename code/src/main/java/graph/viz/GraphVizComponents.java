@@ -31,7 +31,7 @@ public class GraphVizComponents {
 	
 	private void setFields(IClassContent c) {
 		this.shape = "\"record\"";
-		this.name = c.getName();
+		this.name = c.getNameWithExtension();
 		this.isInterface = c.isInterface();
 		this.isAbstract = c.isAbstract();
 		this.methods = c.getMethods();

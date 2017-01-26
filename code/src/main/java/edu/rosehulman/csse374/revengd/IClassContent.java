@@ -48,5 +48,9 @@ public interface IClassContent {
 	public Set<String> getOptionKeys();
 	
 	public String getOption(String option);
+
+	public void setExtension(String extender);
+	
+	public String getNameWithExtension();
 	
 }
