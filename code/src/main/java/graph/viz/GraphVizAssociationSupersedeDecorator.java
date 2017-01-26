@@ -28,7 +28,10 @@ public class GraphVizAssociationSupersedeDecorator extends GraphVizDecorator {
 				for(int j = 0; j < arrows.size(); j++){
 					if(arrows.get(j).getVertex1().equals(current.getVertex1()) && 
 							   arrows.get(j).getVertex2().equals(current.getVertex2())){ 
-						if(arrows.get(j).getOptions().get("style").equals("solid") && current.getOptions().get("style").equals("dashed")){
+						if(arrows.get(j).getOptions().get("style").equals("solid") 
+								&& current.getOptions().get("style").equals("dashed")
+								&& arrows.get(j).getOptions().get("arrowhead").equals("vee")
+								&& current.getOptions().get("arrowhead").equals("vee")){
 							toDelete.add(current);
 						}
 					}

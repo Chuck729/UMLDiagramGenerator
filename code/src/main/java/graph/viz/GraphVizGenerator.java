@@ -39,6 +39,7 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		for (IClassContent c : classes) {
 			GraphVizComponents g = new GraphVizComponents(c,  this.names.get(c.getName()), this.names);
 			for (String o : c.getOptionKeys()) {
+				System.out.println("============================================");
 				g.addOption(o, c.getOption(o));
 			}
 			this.classes.add(g);
@@ -140,13 +141,14 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		list.add("}\",");
 		
 		// TODO options
+		list.add(concatOptions(classComponent.getOptions()));
 		
 		list.add("];");
 		
 		//relationships and dependency arrows
 		List<String> listEdges = new LinkedList<>();
 		for (Edge e : classComponent.getEdges()) {
-			String str = "" + e.getVertex1() + "->" + e.getVertex2() + concatOptions(e.getOptions());
+			String str = "" + e.getVertex1() + "->" + e.getVertex2() + "[" + concatOptions(e.getOptions()) + "]";
 			list.add(str);
 		}
 		
@@ -155,11 +157,11 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	}
 	
 	private String concatOptions(Map<String, String> options) {
-		String str = "[";
+		String str = "";
 		for (String o : options.keySet()) {
 			str = str + o + "=\"" + options.get(o) + "\", ";
 		}
-		return str + "]";
+		return str;
 	}
 	
 	private String escape(String in){

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import design.parsers.CompOverInherParser;
 import design.parsers.DesignParser;
 import design.parsers.IDesignParser;
 import design.parsers.SingletonDetector;
@@ -119,8 +120,11 @@ public class UMLGeneratorApp {
 		
 		arguments = whiteBlackList(arguments, whiteList, blackList);
 
-		IDesignParser parser = new SingletonDetector(new DesignParser(generator, out, arguments,
-				recursive, modifications, blackList));
+		IDesignParser parser = new DesignParser(generator, out, arguments,
+				recursive, modifications, blackList);
+		
+		parser = new CompOverInherParser(parser);
+		parser = new SingletonDetector(parser);
 
 		parser.parseProject();
 		parser.generate();
