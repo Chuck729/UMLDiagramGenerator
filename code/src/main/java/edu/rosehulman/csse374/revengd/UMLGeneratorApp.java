@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import design.parsers.BiDirDetector;
 import design.parsers.CompOverInherParser;
 import design.parsers.DesignParser;
 import design.parsers.IDesignParser;
@@ -125,6 +126,7 @@ public class UMLGeneratorApp {
 		
 		parser = new CompOverInherParser(parser);
 		parser = new SingletonDetector(parser);
+		parser = new BiDirDetector(parser);  // TODO still need to turn arrow red
 
 		parser.parseProject();
 		parser.generate();

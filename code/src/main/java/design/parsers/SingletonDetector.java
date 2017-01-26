@@ -5,23 +5,20 @@ import java.util.List;
 import edu.rosehulman.csse374.revengd.IClassContent;
 
 public class SingletonDetector extends PatternDecorator {
-
-	IDesignParser parser;
 	
 	public SingletonDetector(IDesignParser parser){
-		this.parser = parser;
-
+		this.decorated = parser;
 	}
 	
 	@Override
 	public void parseProject() {
-		this.parser.parseProject();
+		this.decorated.parseProject();
 		findSingletons();
 	}
 
 	@Override
 	public void generate() {
-		this.parser.generate();
+		this.decorated.generate();
 		
 	}
 	
@@ -35,7 +32,7 @@ public class SingletonDetector extends PatternDecorator {
 		//go through list of fields: if a field == class -> singleton!
 		
 		//put "color" "Blue" in options
-		for(IClassContent clazz : this.parser.getClassContent()){
+		for(IClassContent clazz : this.decorated.getClassContent()){
 			List<String> methods = clazz.getMethods();
 			List<String> fields = clazz.getFields();
 			boolean returnType = false;
