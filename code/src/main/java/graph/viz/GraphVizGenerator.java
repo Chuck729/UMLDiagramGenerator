@@ -32,7 +32,7 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 	@Override
 	public void generateCode(List<IClassContent> classes) {
 		for (int i = 0; i < classes.size(); i++) {
-			System.out.println("---"+classes.get(i).getName());
+//			System.out.println("---"+classes.get(i).getName());
 			this.names.put(classes.get(i).getName(), Integer.toString(i));
 		}
 		this.addOption("rankdir", "BT");

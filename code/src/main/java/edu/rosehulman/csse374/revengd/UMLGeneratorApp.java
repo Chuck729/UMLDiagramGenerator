@@ -19,6 +19,7 @@ import java.util.Properties;
 import design.parsers.CompOverInherParser;
 import design.parsers.DesignParser;
 import design.parsers.IDesignParser;
+import design.parsers.SingletonDetector;
 
 public class UMLGeneratorApp {
 
@@ -123,6 +124,7 @@ public class UMLGeneratorApp {
 				recursive, modifications, blackList);
 		
 		parser = new CompOverInherParser(parser);
+		parser = new SingletonDetector(parser);
 
 		parser.parseProject();
 		parser.generate();
