@@ -39,7 +39,6 @@ public class GraphVizGenerator implements IGraphVizGenorator {
 		for (IClassContent c : classes) {
 			GraphVizComponents g = new GraphVizComponents(c,  this.names.get(c.getName()), this.names);
 			for (String o : c.getOptionKeys()) {
-				System.out.println("============================================");
 				g.addOption(o, c.getOption(o));
 			}
 			this.classes.add(g);

@@ -31,7 +31,6 @@ public class CompOverInherParser extends PatternDecorator {
 				String parent = clazz.getParent();
 				IClassContent parentContent = new ClassContent(parent);
 				if (!parentContent.isAbstract()) {
-					System.out.println("----------------------------------------------");
 					clazz.addOption(OPTION, VALUE);
 				}
 			}
