@@ -50,7 +50,6 @@ public class SingletonDetector extends PatternDecorator {
 			if(returnType && selfField){
 				clazz.addOption("color", "blue");
 				clazz.setExtension("\\l <<Singleton>>");
-
 			}
 			
 		}

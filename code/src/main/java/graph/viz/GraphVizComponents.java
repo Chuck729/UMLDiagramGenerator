@@ -69,6 +69,7 @@ public class GraphVizComponents {
 		
 		// dependency
 		if(c.getDependency() != null) {  // TODO needs to be fixed
+			System.out.println(c.getName() + c.getDependency());
 			for (String dp : c.getDependency()) {
 				e = new Edge(this.label, this.nameToID.get(dp));
 				e.appendOption("arrowhead", "vee");

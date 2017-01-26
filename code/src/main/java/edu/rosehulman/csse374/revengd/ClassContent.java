@@ -1,6 +1,7 @@
 package edu.rosehulman.csse374.revengd;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -11,9 +12,14 @@ import java.util.Set;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
+import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldNode;
+import org.objectweb.asm.tree.InsnList;
+import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.TypeInsnNode;
+import org.objectweb.asm.util.TraceClassVisitor;
 
 public class ClassContent implements IClassContent {
 
@@ -28,6 +34,7 @@ public class ClassContent implements IClassContent {
 	private boolean isAbstract;
 	private List<String> removedInterfaces;
 	private Map<String, String> options;
+	private List<String> instructionDependencies;
 	
 	private ClassReader classReader;
 	private String extension;
@@ -49,7 +56,8 @@ public class ClassContent implements IClassContent {
 	@SuppressWarnings("unchecked")
 	private void populateFields() {
 		ClassNode classNode = new ClassNode();
-		classReader.accept(classNode, ClassReader.EXPAND_FRAMES);
+		TraceClassVisitor tcv = new TraceClassVisitor(classNode, new PrintWriter(System.out));
+		classReader.accept(tcv, ClassReader.EXPAND_FRAMES);
 		this.classNode = classNode;
 		this.method = new ArrayList<String>();
 		this.field = new ArrayList<String>();
@@ -78,7 +86,18 @@ public class ClassContent implements IClassContent {
 	
 	//puts all the methods in a list after parsing
 	private void createMethodList(List<MethodNode> mNodes) {
+		ArrayList<String> codeDependencies = new ArrayList<String>();
 		for(MethodNode mn: mNodes) {
+			InsnList instructions = mn.instructions;
+			for (int x = 0; x < instructions.size(); x++) {
+				AbstractInsnNode insn = instructions.get(x);
+				if (insn.getType() == AbstractInsnNode.TYPE_INSN) {
+					TypeInsnNode typeNode = (TypeInsnNode) insn;
+					if (!codeDependencies.contains(typeNode.desc.replace('/', '.')))
+						codeDependencies.add(typeNode.desc.replace('/', '.'));
+				}
+			}
+			this.instructionDependencies = codeDependencies;
 			this.method.add(parseMethod(mn));
 		}
 	}
@@ -256,6 +275,16 @@ public class ClassContent implements IClassContent {
 	@Override
 	public String getNameWithExtension() {
 		return Type.getObjectType(classNode.name).getClassName() + extension;
+	}
+
+	@Override
+	public List<String> getInsnDep() {
+		return this.instructionDependencies;
+	}
+
+	@Override
+	public void addDependency(String d) {
+		this.dependencies.add(d);
 	}
 
 }

@@ -53,4 +53,8 @@ public interface IClassContent {
 	
 	public String getNameWithExtension();
 	
+	public List<String> getInsnDep();
+
+	public void addDependency(String d);
+	
 }

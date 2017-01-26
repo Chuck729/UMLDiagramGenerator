@@ -68,7 +68,23 @@ public class DesignParser implements IDesignParser {
 		
 		assFinder.find(classes, classNames, isRecursive);
 		dpFinder.find(classes, classNames, isRecursive);
-		
+		for (IClassContent c : classes) {
+			System.out.println(c.getName() + c.getDependency());
+		}
+		for (IClassContent c : classes) {
+			ArrayList<String> newDep = new ArrayList<String>();
+			for (String insnDep : c.getInsnDep()) {
+				if (!c.getDependency().contains(insnDep) && classNames.contains(insnDep))
+					newDep.add(insnDep);
+			}
+			for (String d : newDep) {
+				c.addDependency(d);
+			}
+		}
+		System.out.println();
+		for (IClassContent c : classes) {
+			System.out.println(c.getName() + c.getDependency());
+		}
 		findRecursive();
 		
 //		for(IClassContent c: classes) {
