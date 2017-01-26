@@ -47,6 +47,8 @@ public class UMLGeneratorApp {
 		// e.printStackTrace();
 		// }
 		// a.testA();
+		
+		// TODO anything in command line is used over properties (wipe out) 
 
 		String[] clargs;
 		String[] whiteList;
